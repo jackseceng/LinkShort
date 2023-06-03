@@ -1,0 +1,9 @@
+version: "4.17.0"
+services:
+  linkshort:
+    build:
+      context: .
+    container_name: linkshort
+    image: jackseceng/linkshort:alpha
+    ports:
+    - 80:80

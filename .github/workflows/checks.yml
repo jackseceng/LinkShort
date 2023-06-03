@@ -1,0 +1,45 @@
+name: Code Checks
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  Pylint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip -r src/requirements.txt
+        pip install pylint
+    - name: Analyse code
+      run: |
+        pylint $(git ls-files '*.py')
+  Hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Link Dockerfile
+        uses: hadolint/hadolint-action@master
+        with:
+          dockerfile: "Dockerfile"
+  Semgrep:
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
+    if: (github.actor != 'dependabot[bot]')
+    steps:
+      - uses: actions/checkout@v3
+      - run: semgrep ci
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
