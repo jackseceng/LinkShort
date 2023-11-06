@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: linkshort-app
-        image: jackseceng/linkshort:alpha
+        image: jackseceng/linkshort
         imagePullPolicy: Always
         ports:
         - containerPort: 80

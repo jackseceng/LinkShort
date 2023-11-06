@@ -1,9 +1,10 @@
-version: "4.17.0"
+version: "4.24.0"
 services:
   linkshort:
-    build:
-      context: .
+    build: .
     container_name: linkshort
-    image: jackseceng/linkshort:alpha
+    image: jackseceng/linkshort
     ports:
-    - 80:80
+    # - 80:80 # For production
+    - 80:5000 # For debugging
+    - 5432:5432 # For database
