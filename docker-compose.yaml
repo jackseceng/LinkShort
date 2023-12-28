@@ -1,10 +1,50 @@
-version: "4.24.0"
+version: '3'
+
 services:
-  linkshort:
-    build: .
-    container_name: linkshort
-    image: jackseceng/linkshort
-    ports:
-    # - 80:80 # For production
-    - 80:5000 # For debugging
-    - 5432:5432 # For database
+    redis-manager:
+        image: redis:3
+        command: redis-server
+
+    redis-worker-1:
+        image: redis:3
+        command: redis-server --slaveof redis-manager 6379
+        links:
+          - redis-manager
+
+    redis-worker-2:
+        image: redis:3
+        command: redis-server --slaveof redis-manager 6379
+        links:
+          - redis-manager
+
+    sentinel-1:
+        build: sentinel
+        environment:
+          - SENTINEL_DOWN_AFTER=5000
+          - SENTINEL_FAILOVER=500
+          - SENTINEL_QUORUM=2
+        depends_on:
+          - redis-manager
+          - redis-worker-1
+          - redis-worker-2
+
+    sentinel-2:
+        build: sentinel
+        environment:
+          - SENTINEL_DOWN_AFTER=5000
+          - SENTINEL_FAILOVER=500
+          - SENTINEL_QUORUM=2
+        depends_on:
+          - redis-manager
+          - redis-worker-1
+          - redis-worker-2
+    sentinel-3:
+        build: sentinel
+        environment:
+          - SENTINEL_DOWN_AFTER=5000
+          - SENTINEL_FAILOVER=500
+          - SENTINEL_QUORUM=2
+        depends_on:
+          - redis-manager
+          - redis-worker-1
+          - redis-worker-2
