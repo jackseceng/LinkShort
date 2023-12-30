@@ -34,3 +34,5 @@ services:
     build: .
     networks:
       - ls-net
+
+# docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
