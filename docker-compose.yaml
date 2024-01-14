@@ -9,11 +9,12 @@ services:
     image: 'bitnami/redis:latest'
     networks:
       - ls-net
+    hostname: redis-master
     ports:
       - '6379'
     environment:
       - REDIS_REPLICATION_MODE=master
-      - REDIS_PASSWORD=my_master_password
+      - REDIS_PASSWORD=master-password
 
   redis-replica:
     image: 'bitnami/redis:latest'
@@ -27,8 +28,8 @@ services:
       - REDIS_REPLICATION_MODE=slave
       - REDIS_MASTER_HOST=redis-master
       - REDIS_MASTER_PORT_NUMBER=6379
-      - REDIS_MASTER_PASSWORD=my_master_password
-      - REDIS_PASSWORD=my_replica_password
+      - REDIS_MASTER_PASSWORD=master-password
+      - REDIS_PASSWORD=replica-password
 
   app:
     build: .
@@ -36,3 +37,23 @@ services:
       - ls-net
 
 # docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
+
+
+# Test REDIS connection from app container:
+# Attach shell to linkshort-app container, then enter commands as follows:
+# $ redis-cli -c -u redis://icredis:<pw-for-master-node>@redis-master:6379 --no-auth-warning
+# redis-master:6379> set foo bar
+# OK
+# redis-master:6379> get foo
+# "bar"
+# redis-master:6379> exit
+#
+# Verify data on master node:
+# Attach shell to linkshort-redis-master-1 container, then enter commands as follows:
+# $ redis-cli
+# 127.0.0.1:6379> auth <pw-for-master-node>
+# OK
+# 127.0.0.1:6379> get foo
+# "bar"
+# 127.0.0.1:6379> exit
+# $
