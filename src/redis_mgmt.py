@@ -1,5 +1,6 @@
 import time
 import redis
+import logging
 
 
 # Create redis connection object
@@ -9,29 +10,21 @@ r = redis.Redis(host="redis-master", port=6379, username="default", password="ma
 def insert_link(path, link, max_retries=3):
     for attempt in range(max_retries):
         try:
-            # Check if the key already exists
-            if r.exists(path):
-                # Cancel operation if it already exists
-                print(f"Key '{path}' already exists. Skipping set operation.")
-                break
-            else:
-                # Set a key-value pair
-                r.set(path, link)
-                print(f"Value inserted for key: '{path}': {link}")
-                break
+            # Set a key-value pair
+            r.set(path, link)
+            r.close()
+            return True
 
         except Exception as e:
-            print(f"Error: {e}")
+            error = (f"Error: {e}")
+            logging.warning(error)
             # Retry logic
             if attempt < max_retries - 1:
-                print("Retrying in 1 seconds...")
                 time.sleep(1)
             else:
-                print("Max retries reached. Operation failed.")
-
-        finally:
-            # Close the Redis connection
-            r.close()
+                logging.warning("Retry limit reached")
+                r.close()
+                return False
 
 
 def get_link(path, max_retries=3):
@@ -39,17 +32,43 @@ def get_link(path, max_retries=3):
         try:
             # Get the value for the key
             retrieved_value = r.get(path)
-            print(f"Retrieved value for key '{path}': {retrieved_value}")
+            r.close()
             return retrieved_value
 
         except Exception as e:
-            print(f"Error: {e}")
+            error = (f"Error: {e}")
+            logging.warning(error)
             # Retry logic
             if attempt < max_retries - 1:
-                print("Retrying in 1 seconds...")
                 time.sleep(1)
             else:
-                print("Max retries reached. Operation failed.")
+                logging.warning("Retry limit reached")
+                r.close()
+                return False
+
+        finally:
+            # Close the Redis connection
+            r.close()
+
+
+def check_link(path, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            # Check if the key exists
+            if r.exists(path):
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            error = (f"Error: {e}")
+            logging.warning(error)
+            # Retry logic
+            if attempt < max_retries - 1:
+                time.sleep(1)
+            else:
+                logging.warning("Retry limit reached")
+                return False
 
         finally:
             # Close the Redis connection
