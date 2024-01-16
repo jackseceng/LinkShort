@@ -1,8 +1,7 @@
 """Modules: Database handler, timestamp library, flask dependencies and local modules"""
-
-from flask import Flask, render_template, request, redirect, make_response, logging
-
 import logging
+
+from flask import Flask, render_template, request, redirect, make_response
 
 import url_mgmt as urls
 
@@ -58,7 +57,7 @@ def input_url():
             # Print new URL and path to console
             resp = make_response(
                 render_template(
-                    "index.html", shorten_message="Shortened URL", extension=str(path)
+                    "link.html", extension=str(path)
                 )
             )
             return resp
@@ -97,4 +96,9 @@ def add_security_headers(resp):
 
 # Flask app entry point
 if __name__ == "__main__":
+    # DEBUG Config
     app.run(debug=True, host="0.0.0.0", port=5000)
+
+    # PROD Config
+    # from waitress import serve
+    # serve(app, host="0.0.0.0", port=80)

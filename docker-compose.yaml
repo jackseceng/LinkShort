@@ -36,13 +36,13 @@ services:
     networks:
       - ls-net
     ports:
-      - '5000:5000'
-      - '80:80'
+     - '5000:5000' # DEBUG Port
+     # - '80:80' # PROD Port
 
 # docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 
-
 # Test REDIS connection from app container:
+
 # Attach shell to linkshort-app container, then enter commands as follows:
 # $ redis-cli -c -u redis://icredis:<pw-for-master-node>@redis-master:6379 --no-auth-warning
 # redis-master:6379> set foo bar
@@ -50,8 +50,9 @@ services:
 # redis-master:6379> get foo
 # "bar"
 # redis-master:6379> exit
-#
+
 # Verify data on master node:
+
 # Attach shell to linkshort-redis-master-1 container, then enter commands as follows:
 # $ redis-cli
 # 127.0.0.1:6379> auth <pw-for-master-node>

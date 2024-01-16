@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Input Page</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -12,26 +12,27 @@
 			<label>Enter a URL</label>
 		  </div>
 		  <a href="">
-			<span></span>
-			<span></span>
-			<span></span>
-			<span></span>
-			<input type="submit" value="Shorten my link!" class="submit-link"/>
-		</a>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<input type="submit" value="Shorten my link!" class="submit-link"/>
+			</a>
 		</form>
 		<a>
 		  <h2>{{error_reason}}</h2>
-		  <center>
-			<a href="{{existing_url}}" value="{{existing_url}}" class="submit-link">{{existing_url}}</a> <!-- nosemgrep -->
-			<!--Implemented CSP header as per semgrep recommendation instead of direct mitigation here-->
-		</center>
+			<center>
+				<a href="{{existing_url}}" value="{{existing_url}}" class="submit-link">{{existing_url}}</a> <!-- nosemgrep -->
+				<!--Implemented CSP header as per semgrep recommendation instead of direct mitigation here-->
+			</center>
 		</a>
 		<a>
-		<h2>{{shorten_message}}</h2>
-        <center>
-          <a href="{{extension}}" value="{{extension}}" class="submit-link">{{extension}}</a> <!-- nosemgrep -->
-		  <!--Implemented CSP header as per semgrep recommendation instead of direct mitigation here-->
-      	</center>
+			<h2>{{shorten_message}}</h2>
+        	<center>
+          		<a href="{{extension}}" value="{{extension}}" class="submit-link">{{extension}}</a> <!-- nosemgrep -->
+		  		<!--Implemented CSP header as per semgrep recommendation instead of direct mitigation here-->
+      		</center>
 		</a>
     </div>
-	  </div>
+</body>
+</html>

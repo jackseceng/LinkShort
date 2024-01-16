@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Input Page</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<div class="login-box">
+		<a>
+			<h2>{{shorten_message}}</h2>
+        	<center>
+          		<a href="{{extension}}" value="{{extension}}" class="submit-link">domain.placeholder/{{extension}}</a> <!-- nosemgrep -->
+		 		<!--Implemented CSP header as per semgrep recommendation instead of direct mitigation here-->
+				<!--domain.placeholder put here until a proper domain is purchased and ready for use-->
+      		</center>
+		</a>
+			<h2>{{error_reason}}</h2>
+		</a>
+	</div>
+</body>
+</html>
