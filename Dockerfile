@@ -2,7 +2,6 @@ FROM python:3.12.0a1-slim
 COPY /src /home/app
 WORKDIR /home/app
 RUN apt-get update --fix-missing && \
-    apt-get -y install libpq-dev gcc && \
     groupadd --gid 1000 app && \
     useradd --gid 1000 --uid 1000 app && \
     mkdir -p /home/app/src && \
