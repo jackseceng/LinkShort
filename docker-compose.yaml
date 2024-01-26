@@ -14,7 +14,7 @@ services:
       - '6379'
     environment:
       - REDIS_REPLICATION_MODE=master
-      - REDIS_PASSWORD=master-password
+      - REDIS_PASSWORD=master-password # This will not be in production, this is for testing
 
   redis-replica:
     image: 'bitnami/redis:latest'
@@ -28,8 +28,8 @@ services:
       - REDIS_REPLICATION_MODE=slave
       - REDIS_MASTER_HOST=redis-master
       - REDIS_MASTER_PORT_NUMBER=6379
-      - REDIS_MASTER_PASSWORD=master-password
-      - REDIS_PASSWORD=replica-password
+      - REDIS_MASTER_PASSWORD=master-password # This will not be in production, this is for testing
+      - REDIS_PASSWORD=replica-password # This will not be in production, this is for testing
 
   app:
     build: .
@@ -38,8 +38,6 @@ services:
     ports:
      - '5000:5000' # DEV Port
      # - '80:80' # PROD Port
-
-# docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 
 # Test REDIS connection from app container:
 

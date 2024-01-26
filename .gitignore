@@ -2,3 +2,5 @@
 .dccache
 .vscode/settings.json
 .vscode/launch.json
+run/redis-master-pw
+run/redis-replica-pw

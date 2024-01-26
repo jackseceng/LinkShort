@@ -8,8 +8,8 @@ def generate_path(original_url):
     """Generate path path value"""
     hash_object = bcrypt.hashpw(original_url.encode(), bcrypt.gensalt(rounds=15))
     hash_string = sub(r'\W+', '', str(hash_object, encoding='utf-8'))
-    # Return first 7 characters of resulting generated path
-    return hash_string[:7]
+    # Return last 7 characters of resulting generated path
+    return hash_string[-7:]
 
 
 def check_url_whitespace(url_input):
