@@ -36,7 +36,7 @@ services:
     networks:
       - ls-net
     ports:
-     - '5000:5000' # DEBUG Port
+     - '5000:5000' # DEV Port
      # - '80:80' # PROD Port
 
 # docker-compose up --detach --scale redis-master=1 --scale redis-replica=3

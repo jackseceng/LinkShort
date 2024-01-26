@@ -3,3 +3,4 @@ flask==2.2.2
 waitress
 redis
 bcrypt
+bleach
