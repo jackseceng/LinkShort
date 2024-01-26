@@ -1,7 +1,7 @@
 """Main web application logic module"""
 import logging
 import bleach
-from flask import Flask, render_template, request, redirect, make_response
+from flask import Flask, render_template, request, make_response
 import url_mgmt as urls
 import redis_mgmt as db
 
@@ -67,7 +67,7 @@ def redirect_url(arg):
     # Get the original URL from the database, clean it, and redirect to it
     link = db.get_link(path)
     if link is not False:
-        resp = make_response(redirect(link, code=302))
+        resp = make_response(render_template("redirect.html", link=link))
         return resp
     resp = make_response(render_template("404.html", code=404))
     return resp

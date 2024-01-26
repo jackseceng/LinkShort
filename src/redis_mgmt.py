@@ -5,12 +5,14 @@ import redis
 
 
 # Create redis connection object
-r = redis.Redis(
+r = redis.StrictRedis(
     host="redis-master",
     port=6379,
     username="default",
     password="master-password",
-    db=0
+    db=0,
+    charset="utf8",
+    decode_responses=True
 )
 
 

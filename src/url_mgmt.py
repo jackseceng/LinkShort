@@ -25,7 +25,7 @@ def check_url_whitespace(url_input):
 def check_url_security(url_input):
     """Perform checks to ensure input is in expected format"""
     logging.warning("URL Security check")
-    if url_input[:5] is 'https':
+    if url_input[:5] == "https":
         logging.warning("Security found")
         return True
     logging.warning("Security not found")
