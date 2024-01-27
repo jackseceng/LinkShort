@@ -21,7 +21,7 @@ REPLICA=<a-different-super-strong-password>
 ```
 
 ### Docker compose
-- From root directory of repo:
+- From root directory of repo, run this command:
 ```
 $ docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 ```
@@ -36,6 +36,11 @@ $ docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 ```
 
 - If succesful, app will be running at [http://localhost:5000](http://localhost:5000), with a redis master database with 3 replica nodes.
+
+- To shut down the service, run this command:
+```
+$ docker-compose down
+```
 
 ## Application Features:
 
