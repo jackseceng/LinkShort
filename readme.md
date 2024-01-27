@@ -13,6 +13,13 @@ I am using this to learn:
 
 ## Testing locally:
 
+- Create a file in the root directory, next to the `docker-compose.yaml` file, called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
+```
+USER=default
+MASTER=<a-super-strong-password>
+REPLICA=<a-different-super-strong-password>
+```
+
 ### Docker compose
 - From root directory of repo:
 ```

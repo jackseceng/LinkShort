@@ -1,6 +1,6 @@
 Werkzeug==2.2.2
 flask==2.2.2
-waitress
+gunicorn==20.1.0
 redis
 bcrypt
 bleach

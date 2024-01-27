@@ -14,7 +14,7 @@ services:
       - '6379'
     environment:
       - REDIS_REPLICATION_MODE=master
-      - REDIS_PASSWORD=master-password # This will not be in production, this is for testing
+      - REDIS_PASSWORD=${MASTER}
 
   redis-replica:
     image: 'bitnami/redis:latest'
@@ -28,8 +28,8 @@ services:
       - REDIS_REPLICATION_MODE=slave
       - REDIS_MASTER_HOST=redis-master
       - REDIS_MASTER_PORT_NUMBER=6379
-      - REDIS_MASTER_PASSWORD=master-password # This will not be in production, this is for testing
-      - REDIS_PASSWORD=replica-password # This will not be in production, this is for testing
+      - REDIS_MASTER_PASSWORD=${MASTER}
+      - REDIS_PASSWORD=${REPLICA} # This will not be in production, this is for testing
 
   app:
     build: .
@@ -37,19 +37,12 @@ services:
       - ls-net
     ports:
      - '5000:5000' # DEV Port
-     # - '80:80' # PROD Port
+    # - '80:80' # PROD Port
+    environment:
+      - REDIS_PASSWORD=${MASTER}
+      - REDIS_USERNAME=${USER}
 
-# Test REDIS connection from app container:
-
-# Attach shell to linkshort-app container, then enter commands as follows:
-# $ redis-cli -c -u redis://icredis:<pw-for-master-node>@redis-master:6379 --no-auth-warning
-# redis-master:6379> set foo bar
-# OK
-# redis-master:6379> get foo
-# "bar"
-# redis-master:6379> exit
-
-# Verify data on master node:
+# Test REDIS config:
 
 # Attach shell to linkshort-redis-master-1 container, then enter commands as follows:
 # $ redis-cli

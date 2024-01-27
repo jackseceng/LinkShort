@@ -12,7 +12,7 @@ USER app
 # Prod run command
 # EXPOSE 80
 # EXPOSE 6379
-# CMD [ "python3", "app.py" ]
+# CMD ["gunicorn"  , "-b", "0.0.0.0:80", "app:app"]
 
 # Dev run command
 EXPOSE 5000

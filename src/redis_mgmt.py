@@ -1,6 +1,7 @@
 """Redis query and connection management module"""
 import time
 import logging
+import os
 import redis
 
 
@@ -8,8 +9,8 @@ import redis
 r = redis.StrictRedis(
     host="redis-master",
     port=6379,
-    username="default",
-    password="master-password", 
+    username=os.environ['REDIS_USERNAME'],
+    password=os.environ['REDIS_PASSWORD'],
     db=0,
     charset="utf8",
     decode_responses=True

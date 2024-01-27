@@ -80,11 +80,6 @@ def add_security_headers(resp):
     return resp
 
 
-# Flask app entry point
+# # Flask app DEV main function
 if __name__ == "__main__":
-    # DEV Config
     app.run(debug=True, host="0.0.0.0", port=5000)
-
-    # PROD Config
-    # from waitress import serve
-    # serve(app, host="0.0.0.0", port=80)
