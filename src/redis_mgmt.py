@@ -35,7 +35,7 @@ def insert_link(path, link, max_retries=3):
             else:
                 logging.warning("Redis retry limit reached")
                 r.close()
-                return False
+    return False
 
 
 def get_link(path, max_retries=3):
@@ -56,7 +56,7 @@ def get_link(path, max_retries=3):
             else:
                 logging.warning("Retry limit reached")
                 r.close()
-                return False
+    return False
 
 
 def check_link(path, max_retries=3):
@@ -66,8 +66,6 @@ def check_link(path, max_retries=3):
             # Check if the key exists
             if r.exists(path):
                 return True
-            else:
-                return False
         except redis.exceptions.RedisError as e:
             # Log redis error to console
             error = f"Error: {e}"
@@ -78,4 +76,4 @@ def check_link(path, max_retries=3):
             else:
                 logging.warning("Retry limit reached")
                 r.close()
-                return False
+    return False
