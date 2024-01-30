@@ -1,2 +1,6 @@
 .DS_Store
 .dccache
+.vscode/settings.json
+.vscode/launch.json
+.env
+kompose.exe

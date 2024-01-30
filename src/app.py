@@ -1,116 +1,85 @@
-"""Modules: Database handler, timestamp library, flask dependencies and local modules"""
-import sqlite3
-
-from datetime import datetime
-
-from flask import Flask, render_template, request, redirect, make_response
-
+"""Main web application logic module"""
+import logging
+import bleach
+from flask import Flask, render_template, request, make_response
 import url_mgmt as urls
+import redis_mgmt as db
 
 app = Flask(__name__)
 
-connection = sqlite3.connect('links.sqlite', check_same_thread=False)
 
-cursor = connection.cursor()
-# Set up SQLite connection and cursor
-
-
-INSERT_QUERY = """INSERT INTO urls (urn,link,doc) VALUES( ?,?,? );"""  # Insert new URL entry
-
-PATH_QUERY = """SELECT link FROM urls where urn = ?;"""  # Select original link from DB
-
-COLLISION_QUERY = """SELECT EXISTS(SELECT 1 FROM urls WHERE urn = ?);"""
-# Select any urn's that match query
-
-URL_QUERY = """SELECT urn FROM urls where link = ?;"""
-# Select URN from DB row with link that matches query
-
-
-# SQLite queries
-
-
-@app.route('/', methods=['POST', 'GET'])
+@app.route("/", methods=["POST", "GET"])
 def input_url():
     """Main page process"""
     match request.method:
-        case 'GET':
-            resp = make_response(render_template('index.html')) # Return index page for GEt method
+        case "GET":
+            # Return homepage
+            resp = make_response(
+                render_template("index.html")
+            )
             return resp
-        case 'POST':
-            user_input = dict(request.form.to_dict())
-            # Retrieve user input from html form on index page
+
+        case "POST":
+            # Retrieve user input from html form on index page, and perform syntax checks
+            received_request = dict(request.form.to_dict())
+            user_input = bleach.clean(str(received_request["URL"]))
             error = ""
-            if urls.check_url(user_input['URL'], 1) is False:  # Check if input is a URL
-                error = 'URL has whitespace'
-                # Error for invalid input
-            if urls.check_url(user_input['URL'], 2) is False:  # Check if URL uses https
-                error = 'HTTPS links only'
-                # Error for non-https link
+            if urls.check_url_whitespace(user_input) is False:
+                error = "URL has whitespace"
+            if urls.check_url_security(user_input) is False:
+                error = "HTTPS links only"
             if len(error) != 0:
-                print(f"URL check failed, URL: {user_input['URL']} | Failure error: {error}")
-                resp = make_response(render_template('index.html', error_reason=error))
+                # If there is an error string, return homepage with error message
+                resp = make_response(render_template("index.html", error_reason=error))
                 return resp
             path = urls.generate_path(str(user_input))
-            # Generate URN for shortened URL
-            while cursor.execute(COLLISION_QUERY, (path,)) == 1:
-                # Check for collisions with existing URNs
-                path += 1  # Increment path value until there is no longer a collision
-            try:
-                cursor.execute(INSERT_QUERY, (path, user_input['URL'], str(datetime.now())))
-                # Insert new URN and matching original URL into DB
-                connection.commit()  # Commit the new entry
-            except sqlite3.IntegrityError:  # SQLite error handling
-                cursor.execute(URL_QUERY, [user_input['URL']])
-                link = str(cursor.fetchone()[0])
-                # Obtain existing URN and URL
-                resp = make_response(render_template('index.html',
-                                       error_reason="Already shortened",
-                                       existing_url="http://127.0.0.1/" + link))
+
+            # Check for existing path, then generate new path if it does not already exist
+            while db.check_link(path) is True:
+                logging.warning("Collision detected")
+                path = urls.generate_path(str(user_input))
+            if db.insert_link(path, user_input) is False:
+                # 500 error returned for database failure
+                resp = make_response(render_template("500.html", code=500))
                 return resp
-                # Return existing URL and URN
-            except sqlite3.Error as error_msg:  # Catch all for any other SQLite error
-                print(f'SQLite error: {" ".join(error_msg.args)}')
-                print(f"SQLite error. Input: {user_input['URL']} | Generated URN: {path}")
-                # Print error information to console
-                resp = make_response(render_template('500.html', code=500))
-                return resp
-                # Return 500 code to front end, render error page
-            print(f"URL generated for: {user_input['URL']} | URL subdirectory: {path}")
-            # Print new URL and URN to console
-            resp = make_response(render_template('index.html',
-                                shorten_message="Shortened URL",
-                                extension="http://127.0.0.1/" + str(path)))
+
+            # Return link page with URL if successful
+            resp = make_response(
+                render_template(
+                    "link.html", extension=str(path)
+                )
+            )
             return resp
-            # Render link page with URL
+
         case _:
-            resp = make_response(render_template('500.html', code=500))
+            # Catch all to return 500 error for any unexpected cases
+            resp = make_response(render_template("500.html", code=500))
             return resp
-            # Catch all 500 error to handle unexpected errors, render error page to front end
 
 
-@app.route('/<arg>', methods=['GET'])  # Handle any GET requests for URNs
+@app.route("/<arg>", methods=["GET"])
 def redirect_url(arg):
     """Redirect logic for any GET requests to any URI on top of base URL"""
-    path = str(arg)
-    if urls.check_url(path, 3) is False:  # Run check to see if URN is valid
-        resp = make_response(render_template('404.html', code=404))
+
+    # Clean arg, return 404 for inncorrect extension length
+    path = bleach.clean(str(arg[:7]))
+
+    # Get the original URL from the database, clean it, and redirect to it
+    link = db.get_link(path)
+    if link is not False:
+        resp = make_response(render_template("redirect.html", link=link))
         return resp
-        # Return 404 not found if URL is invalid
-    cursor.execute(PATH_QUERY, (path,))
-    # Execute query to obtain original URL that matches provided URN
-    try:
-        link = str(cursor.fetchone()[0])  # Fetch the original URL
-        resp = make_response(redirect(link, code=302))
-        return resp
-        # Return 302 response to client, with original URL as redirect
-    except TypeError:
-        resp = make_response(render_template('404.html', code=404))
-        return resp
-        # Catch all 404 error handler for unknown URNs
+    resp = make_response(render_template("404.html", code=404))
+    return resp
 
 
 @app.after_request
 def add_security_headers(resp):
-    """Add any headers to all responses generated"""
-    resp.headers['Content-Security-Policy']='default-src \'self\''
+    """Add CSP headers to all responses generated"""
+    resp.headers["Content-Security-Policy"] = "default-src 'self'"
     return resp
+
+
+# # Flask app DEV main function
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5000)

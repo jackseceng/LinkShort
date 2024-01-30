@@ -1,34 +1,32 @@
-"""Modules: MD5 hashing function, regex sub function"""
-from hashlib import sha256
+"""Hashing and input checking module"""
+import logging
 from re import sub
+import bcrypt
 
 
-def generate_path(og_url):
-    """Generate path URN value"""
-    hash_object = sha256(og_url.encode()).hexdigest()  # Hash original URL into MD5
-    path_id = sub('[^0-9]', '', hash_object)  # Extract all numeric characters from hashsum
-    return int(path_id[:7])  # Return first 7 characters of resulting generated path
+def generate_path(original_url):
+    """Generate path path value"""
+    hash_object = bcrypt.hashpw(original_url.encode(), bcrypt.gensalt(rounds=15))
+    hash_string = sub(r'\W+', '', str(hash_object, encoding='utf-8'))
+    # Return last 7 characters of resulting generated path
+    return hash_string[-7:]
 
 
-def check_url(url_input, check_type):
+def check_url_whitespace(url_input):
     """Perform checks to ensure input is in expected format"""
-    match check_type:
-        case 1:
-            # whitespace check
-            for i in url_input:
-                if i.isspace():
-                    return False
-        case 2:
-            # protocol check
-            return url_input[:8] == 'https://'  # Check that URL begins with https
-        case 3:
-            # string check
-            if len(url_input) > 7:  # Check that URN provided has 7 characters or fewer
-                return False  # False if length check fails
-            for i in url_input:
-                if not i.isnumeric():
-                    return False  # False if numeric check fails
-            return True  # Return true if all checks pass
-        case _:
+    logging.warning("URL Whitespace check")
+    for i in url_input:
+        if i.isspace():
+            logging.warning("Whitespace found")
             return False
-            # Catch all case for any URNs that do not explicitly pass all checks, return false
+        logging.warning("Whitespace not found")
+        return True
+
+def check_url_security(url_input):
+    """Perform checks to ensure input is in expected format"""
+    logging.warning("URL Security check")
+    if url_input[:5] == "https":
+        logging.warning("Security found")
+        return True
+    logging.warning("Security not found")
+    return False

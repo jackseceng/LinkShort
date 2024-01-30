@@ -1,9 +1,54 @@
-version: "4.17.0"
+version: '3'
+
+networks:
+  ls-net:
+    driver: bridge
+
 services:
-  linkshort:
-    build:
-      context: .
-    container_name: linkshort
-    image: jackseceng/linkshort:alpha
+  redis-master:
+    image: 'bitnami/redis:latest'
+    networks:
+      - ls-net
+    hostname: redis-master
     ports:
-    - 80:80
+      - '6379'
+    environment:
+      - REDIS_REPLICATION_MODE=master
+      - REDIS_PASSWORD=${MASTER}
+
+  redis-replica:
+    image: 'bitnami/redis:latest'
+    networks:
+      - ls-net
+    ports:
+      - '6379'
+    depends_on:
+      - redis-master
+    environment:
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis-master
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_PASSWORD=${MASTER}
+      - REDIS_PASSWORD=${REPLICA} # This will not be in production, this is for testing
+
+  app:
+    build: .
+    networks:
+      - ls-net
+    ports:
+     - '5000:5000' # DEV Port
+    # - '80:80' # PROD Port
+    environment:
+      - REDIS_PASSWORD=${MASTER}
+      - REDIS_USERNAME=${USER}
+
+# Test REDIS config:
+
+# Attach shell to linkshort-redis-master-1 container, then enter commands as follows:
+# $ redis-cli
+# 127.0.0.1:6379> auth <pw-for-master-node>
+# OK
+# 127.0.0.1:6379> get foo
+# "bar"
+# 127.0.0.1:6379> exit
+# $

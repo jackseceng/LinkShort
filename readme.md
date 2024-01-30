@@ -13,80 +13,44 @@ I am using this to learn:
 
 ## Testing locally:
 
-### Build docker image locally
-From root directory of repo:
+- Create a file in the root directory, next to the `docker-compose.yaml` file, called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
 ```
-docker-compose build linkshort
-```
-> [+] Building (10/10) FINISHED
-```
-docker-compose up linkshort
+USER=default
+MASTER=<a-super-strong-password>
+REPLICA=<a-different-super-strong-password>
 ```
 
-> [+] Running 2/2
->
-> Network linkshort_default Created
->
-> Container linkshort       Created
->
-> Attaching to linkshort
->
->linkshort  |  [1] [INFO] Starting gunicorn 20.1.0
->
->linkshort  |  [1] [INFO] Listening at: http://0.0.0.0:80 (1)
->
->linkshort  |  [1] [INFO] Using worker: sync
->
->linkshort  |  [7] [INFO] Booting worker with pid: 7
-
-### Create a kubernetes cluster with [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
-From root directory of repo:
+### Docker compose
+- From root directory of repo, run this command:
 ```
-kubectl deploy -f ./kubernetes/deployments/deployment.yaml
+$ docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 ```
-> deployment.apps/linkshort-deploy configured
 ```
-kubectl deploy -f ./kubernetes/services/service.yaml
-```
-> service/linkshort-service created
-
-```
-kubectl get deploy
+[+] Running (6/6)
+ ✔ Container linkshort-app-1
+ ✔ Container linkshort-redis-replica-2
+ ✔ Container linkshort-redis-replica-3
+ ✔ Container linkshort-redis-replica-1
+ ✔ Container linkshort-redis-master-1
+ ✔ Network linkshort_ls-net
 ```
 
-| NAME             | READY | UP-TO-DATE | AVAILABLE | AGE   |
-|------------------|-------|------------|-----------|-------|
-| linkshort-deploy | 2/2   | 2          | 2         | *age* |
+- If succesful, app will be running at [http://localhost:5000](http://localhost:5000), with a redis master database with 3 replica nodes.
 
+- To shut down the service, run this command:
 ```
-kubectl get pods  
+$ docker-compose down
 ```
-
-| NAME             | READY | STATUS     | RESTARTS  | AGE   |
-|------------------|-------|------------|-----------|-------|
-| linkshort-deploy | 1/1   | Running    | 0         | *age* |
-| linkshort-deploy | 1/1   | Running    | 0         | *age* |
-
-```
-kubectl get svc   
-```
-
-|NAME               | TYPE         | CLUSTER-IP   | EXTERNAL-IP | PORT(S)      | AGE   |
-|-------------------|--------------|--------------|-------------|--------------|-------|
-| kubernetes        | ClusterIP    | *cluster_ip* | none        | 443/TCP      | *age* |
-| linkshort-service | LoadBalancer | *lb_ip*      | localhost   | 80:30623/TCP | *age* |
-
-
-If succesful, app will be running at [http://127.0.0.1](http://127.0.0.1) on port `80`
 
 ## Application Features:
 
 - [x] Simple URL shortening capabilities for URLs
+- [x] Sanitises input from user for both URLs and extensions on requests
 - [x] Checks user input for URLs that begin with *https* only
 - [ ] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
 - [x] Nice looking front end CSS and HTML
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
-- [x] Containerised with docker
+- [x] Containerised with docker compose using 
 - [ ] Kubernetes deployment configuration with database in stateful sets
 - [ ] Demonstration application set up and deployed on cloud provider
 
