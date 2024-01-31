@@ -21,7 +21,7 @@ REPLICA=<a-different-super-strong-password>
 ```
 
 ### Docker compose
-- From root directory of repo, run this command:
+- From root directory of repository, run this command:
 ```bash
 docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 ```
@@ -46,9 +46,9 @@ docker-compose down
 
 - [x] Simple URL shortening capabilities for URLs
 - [x] Sanitises input from user for both URLs and extensions on requests
-- [x] Checks user input for URLs that begin with *https* only
+- [x] Checks user input for URLs that begin with *HTTPS* only
 - [ ] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
-- [x] Nice looking front end CSS and HTML
+- [x] Nice looking frontend with CSS and HTML
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
 - [x] Containerised with docker compose using
 - [ ] Kubernetes deployment configuration with database in stateful sets
@@ -69,4 +69,4 @@ docker-compose down
 ## Developed by Jack
 ![Alt Text](https://raw.githubusercontent.com/jacksec/jacksec.github.io/master/assets/img/logo.png)
 
-[My Website](https://jacksec.engineer)
+[My site](https://jacksec.engineer)
