@@ -58,9 +58,8 @@ docker-compose down
 
 ## DevSecOps Automation
 
-- [x] [Pylint](https://pylint.org/) Python linting
-- [x] [Semgrep](https://semgrep.dev/) Code security linting
-- [x] [Hadolint](https://github.com/hadolint/hadolint) Dockerfile linting
+- [x] [Super Linter](https://github.com/super-linter/super-linter) Code linting for all languages on PRs
+- [x] [Snyk](https://snyk.io) Automated security scanning and vulnerability patching
 - [ ] [Renovate](https://www.mend.io/free-developer-tools/renovate/) Automated dependency upgrades
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Commit standardisation
 
