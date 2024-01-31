@@ -1,4 +1,4 @@
-FROM python:3.12.0a1-slim
+FROM python:3.13.0a2-slim
 COPY /src /home/app
 WORKDIR /home/app
 RUN apt-get update --fix-missing && \
