@@ -1,6 +1,7 @@
 html {
   height: 100%;
 }
+
 body {
   margin:0;
   padding:0;
@@ -29,7 +30,7 @@ body {
 }
 
 .login-box .existing-link {
-  margin: 0 0 0;
+  margin: 0;
   padding: 0;
   color: #03e9f4;
   text-align: center;
@@ -123,6 +124,7 @@ body {
   0% {
     left: -100%;
   }
+  
   50%,100% {
     left: 100%;
   }
@@ -142,6 +144,7 @@ body {
   0% {
     top: -100%;
   }
+  
   50%,100% {
     top: 100%;
   }
@@ -161,6 +164,7 @@ body {
   0% {
     right: -100%;
   }
+  
   50%,100% {
     right: 100%;
   }
@@ -180,6 +184,7 @@ body {
   0% {
     bottom: -100%;
   }
+  
   50%,100% {
     bottom: 100%;
   }
