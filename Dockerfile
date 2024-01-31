@@ -19,4 +19,4 @@ USER app
 # Dev run command
 EXPOSE 5000
 EXPOSE 6379
-HEALTHCHECK CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "-p 5000" ]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "-p 5000" ]
