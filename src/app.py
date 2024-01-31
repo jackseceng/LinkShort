@@ -14,13 +14,12 @@ def input_url():
     match request.method:
         case "GET":
             # Return homepage
-            resp = make_response(
-                render_template("index.html")
-            )
+            resp = make_response(render_template("index.html"))
             return resp
 
         case "POST":
-            # Retrieve user input from html form on index page, and perform syntax checks
+            # Retrieve user input from html form on index page
+            # Perform syntax checks
             received_request = dict(request.form.to_dict())
             user_input = bleach.clean(str(received_request["URL"]))
             error = ""
@@ -29,12 +28,14 @@ def input_url():
             if urls.check_url_security(user_input) is False:
                 error = "HTTPS links only"
             if len(error) != 0:
-                # If there is an error string, return homepage with error message
+                # If there is an error string,
+                # Return homepage with error message
                 resp = make_response(render_template("index.html", error_reason=error))
                 return resp
             path = urls.generate_path(str(user_input))
 
-            # Check for existing path, then generate new path if it does not already exist
+            # Check for existing path
+            # Generate new path if it does not already exist
             while db.check_link(path) is True:
                 logging.warning("Collision detected")
                 path = urls.generate_path(str(user_input))
@@ -44,11 +45,7 @@ def input_url():
                 return resp
 
             # Return link page with URL if successful
-            resp = make_response(
-                render_template(
-                    "link.html", extension=str(path)
-                )
-            )
+            resp = make_response(render_template("link.html", extension=str(path)))
             return resp
 
         case _:
