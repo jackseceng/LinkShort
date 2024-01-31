@@ -1,4 +1,5 @@
 """Main web application logic module"""
+
 import logging
 import bleach
 from flask import Flask, render_template, request, make_response
