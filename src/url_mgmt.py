@@ -22,6 +22,7 @@ def check_url_whitespace(url_input):
         logging.warning("Whitespace not found")
         return True
 
+
 def check_url_security(url_input):
     """Perform checks to ensure input is in expected format"""
     logging.warning("URL Security check")
