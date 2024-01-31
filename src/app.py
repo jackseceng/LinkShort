@@ -3,9 +3,8 @@
 import logging
 
 import bleach
-
-import url_mgmt as urls
 import redis_mgmt as db
+import url_mgmt as urls
 from flask import Flask, render_template, request, make_response
 
 app = Flask(__name__)
