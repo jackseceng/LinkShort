@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<title>LinkShort: Your Shortened Link</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>LinkShort: Your Shortened Link</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-	<div class="login-box">
-		<h2>Your short URL:</h2>
-		<a>
-        	<center>
-          		<a href="http://localhost:5000/{{extension}}" class="submit-link">short/{{extension}}</a> <!-- nosemgrep -->
-				<!--localhost:5000 used for dev, will replace with active domain in prod-->
-		 		<!--Implemented CSP header as per semgrep recommendation instead of direct mitigation here-->
-      		</center>
-		</a>
-			<p>
-				<a>
-        			<center>
-          				<a href="" class="submit-link">Shorten another link</a> <!-- nosemgrep -->
-		 				<!--Implemented CSP header as per semgrep recommendation instead of direct mitigation here-->
-      				</center>
-				</a>
-			</p>
-		</div>
-	</body>
+    <div class="login-box">
+        <h2>Your short URL:</h2>
+        <a>
+            <center>
+                <a href="http://localhost:5000/{{extension}}" class="submit-link">short/{{extension}}</a>
+                <!--localhost:5000 used for dev, will replace with active domain in prod-->
+                <!--Implemented CSP header as per semgrep recommendation instead of direct mitigation here-->
+            </center>
+        </a>
+        <p>
+            <a>
+                <center>
+                    <a href="" class="submit-link">Shorten another link</a> <!-- nosemgrep -->
+                    <!--Implemented CSP header as per semgrep recommendation instead of direct mitigation here-->
+                </center>
+            </a>
+        </p>
+    </div>
+</body>
+
 </html>
