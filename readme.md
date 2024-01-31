@@ -8,13 +8,13 @@ This is the Python code and Docker/Kubernetes configuration for a link shortenin
 
 I am using this to learn:
 - Docker & Kubernetes
-- Python web app development 
+- Python web app development
 - DevSecOps automation
 
-## Testing locally:
+## Testing locally
 
 - Create a file in the root directory, next to the `docker-compose.yaml` file, called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
-```
+```txt
 USER=default
 MASTER=<a-super-strong-password>
 REPLICA=<a-different-super-strong-password>
@@ -22,10 +22,10 @@ REPLICA=<a-different-super-strong-password>
 
 ### Docker compose
 - From root directory of repo, run this command:
+```bash
+docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 ```
-$ docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
-```
-```
+```bash
 [+] Running (6/6)
  ✔ Container linkshort-app-1
  ✔ Container linkshort-redis-replica-2
@@ -38,11 +38,11 @@ $ docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 - If succesful, app will be running at [http://localhost:5000](http://localhost:5000), with a redis master database with 3 replica nodes.
 
 - To shut down the service, run this command:
-```
-$ docker-compose down
+```bash
+docker-compose down
 ```
 
-## Application Features:
+## Application Features
 
 - [x] Simple URL shortening capabilities for URLs
 - [x] Sanitises input from user for both URLs and extensions on requests
@@ -50,13 +50,13 @@ $ docker-compose down
 - [ ] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
 - [x] Nice looking front end CSS and HTML
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
-- [x] Containerised with docker compose using 
+- [x] Containerised with docker compose using
 - [ ] Kubernetes deployment configuration with database in stateful sets
 - [ ] Demonstration application set up and deployed on cloud provider
 
-#### (Current features have a checkmark, planned ones do not)
+### (Current features have a checkmark, planned ones do not)
 
-## DevSecOps Automation:
+## DevSecOps Automation
 
 - [x] [Pylint](https://pylint.org/) Python linting
 - [x] [Semgrep](https://semgrep.dev/) Code security linting
@@ -64,9 +64,9 @@ $ docker-compose down
 - [ ] [Renovate](https://www.mend.io/free-developer-tools/renovate/) Automated dependency upgrades
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Commit standardisation
 
-#### (Current automations have a checkmark, planned ones do not)
+### (Current automations have a checkmark, planned ones do not)
 
-## Developed by Jack:
+## Developed by Jack
 ![Alt Text](https://raw.githubusercontent.com/jacksec/jacksec.github.io/master/assets/img/logo.png)
 
-https://jacksec.engineer
+[My Website](https://jacksec.engineer)
