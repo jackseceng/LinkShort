@@ -1,4 +1,5 @@
 """Hashing and input checking module"""
+
 import logging
 from re import sub
 
