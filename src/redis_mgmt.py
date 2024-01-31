@@ -6,7 +6,6 @@ import time
 
 import redis
 
-
 # Create redis connection object
 r = redis.StrictRedis(
     host="redis-master",
