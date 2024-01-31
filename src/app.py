@@ -1,10 +1,12 @@
 """Main web application logic module"""
 
 import logging
+
 import bleach
-from flask import Flask, render_template, request, make_response
+
 import url_mgmt as urls
 import redis_mgmt as db
+from flask import Flask, render_template, request, make_response
 
 app = Flask(__name__)
 
