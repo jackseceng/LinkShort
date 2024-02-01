@@ -1,0 +1,19 @@
+---
+name: Commit
+
+on:
+  pull_request:
+    branches:
+        - main
+
+jobs:
+  Check-for-Conventional:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ohpensource/ensure-conventional-commits-gh-action@v1.1.6
+        name: Ensure conventional commits
+        with:
+          settings-file: .github/conventional-commits-settings.json
