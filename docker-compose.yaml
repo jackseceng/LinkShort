@@ -15,7 +15,8 @@ services:
       - '6379'
     environment:
       - REDIS_REPLICATION_MODE=master
-      - REDIS_PASSWORD=${MASTER}
+      - REDIS_USERNAME=${REDISUSER}
+      - REDIS_PASSWORD=${REDISMASTER}
 
   redis-replica:
     image: 'bitnami/redis:latest'
@@ -29,8 +30,9 @@ services:
       - REDIS_REPLICATION_MODE=slave
       - REDIS_MASTER_HOST=redis-master
       - REDIS_MASTER_PORT_NUMBER=6379
-      - REDIS_MASTER_PASSWORD=${MASTER}
-      - REDIS_PASSWORD=${REPLICA}
+      - REDIS_USERNAME=${REDISUSER}
+      - REDIS_MASTER_PASSWORD=${REDISMASTER}
+      - REDIS_PASSWORD=${REDISREPLICA}
 
   app:
     build: .
@@ -40,8 +42,8 @@ services:
       - '5000:5000' # DEV Port
     # - '80:80' # PROD Port
     environment:
-      - REDIS_PASSWORD=${MASTER}
-      - REDIS_USERNAME=${USER}
+      - REDIS_PASSWORD=${REDISMASTER}
+      - REDIS_USERNAME=${REDISUSER}
 
 # Test REDIS config:
 
