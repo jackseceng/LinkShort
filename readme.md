@@ -13,7 +13,7 @@ I am using this to learn:
 
 ## Testing locally
 
-- Create a file in the root directory, next to the `docker-compose.yaml` file, called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
+- Create a file in the root directory called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
 ```txt
 REDISUSER=default
 REDISMASTER=<a-super-strong-password>
@@ -53,9 +53,9 @@ docker-compose down
 - [x] Sanitises input from user for both URLs and extensions on requests
 - [x] Checks user input for URLs that begin with *HTTPS* only
 - [ ] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
-- [x] Nice looking frontend with CSS and HTML
+- [x] Frontend with good looking CSS and HTML animations and colours
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
-- [x] Containerised with docker compose using
+- [x] Containerised with docker compose using secrets management for credentials
 - [ ] Kubernetes deployment configuration with database in stateful sets
 - [ ] Demonstration application set up and deployed on cloud provider
 
@@ -66,7 +66,8 @@ docker-compose down
 - [x] [Super Linter](https://github.com/super-linter/super-linter) Code linting for all languages on PRs
 - [x] [Snyk](https://snyk.io) Automated security scanning and vulnerability patching
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/) Automated dependency upgrades
-- [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Commit standardisation
+- [ ] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
+- [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
 
 ### (Current automations have a checkmark, planned ones do not)
 
