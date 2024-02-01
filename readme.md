@@ -4,7 +4,7 @@ This is the Python code and Docker/Kubernetes configuration for a link shortenin
 
 **This is not a functional application yet:**
 
-> I will make a full release on this repo when it is in a secure, working state
+> I will make a full release on this repo when it is in a secure, production ready state
 
 I am using this to learn:
 - Docker & Kubernetes
@@ -15,10 +15,16 @@ I am using this to learn:
 
 - Create a file in the root directory, next to the `docker-compose.yaml` file, called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
 ```txt
-USER=default
-MASTER=<a-super-strong-password>
-REPLICA=<a-different-super-strong-password>
+REDISUSER=default
+REDISMASTER=<a-super-strong-password>
+REDISREPLICA=<a-different-super-strong-password>
 ```
+
+**! WARNING !** 
+
+> Please make sure your local environment variables in your terminal do not share names with the ones in this `.env` file.
+
+> If you change the names of the variables in this file, make sure to change their references in the `docker-compose.yaml` file as well.
 
 ### Docker compose
 - From root directory of repository, run this command:
