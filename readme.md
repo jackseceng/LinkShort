@@ -20,11 +20,10 @@ REDISMASTER=<a-super-strong-password>
 REDISREPLICA=<a-different-super-strong-password>
 ```
 
-**! WARNING !** 
+**! WARNING !**
 
 > Please make sure your local environment variables in your terminal do not share names with the ones in this `.env` file.
-
-> If you change the names of the variables in this file, make sure to change their references in the `docker-compose.yaml` file as well.
+- If you change the names of the variables in this file, make sure to change their references in the `docker-compose.yaml` file as well.
 
 ### Docker compose
 - From root directory of repository, run this command:
