@@ -66,7 +66,6 @@ docker-compose down
 - [x] [Super Linter](https://github.com/super-linter/super-linter) Code linting for all languages on PRs
 - [x] [Snyk](https://snyk.io) Automated security scanning and vulnerability patching
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/) Automated dependency upgrades
-- [ ] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
 
 ### (Current automations have a checkmark, planned ones do not)
