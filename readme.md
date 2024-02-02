@@ -2,9 +2,7 @@
 
 This is the Python code and Docker/Kubernetes configuration for a link shortening web app
 
-**This is not a functional application yet:**
-
-> I will make a full release on this repo when it is in a secure, production ready state
+**This is not a functional application yet,  I will make a full release on this repo when it is in a secure, production ready state**
 
 I am using this to learn:
 - Docker & Kubernetes
@@ -22,11 +20,11 @@ REDISREPLICA=<a-different-super-strong-password>
 
 **! WARNING !**
 
-> Please make sure your local environment variables in your terminal do not share names with the ones in this `.env` file.
-- If you change the names of the variables in this file, make sure to change their references in the `docker-compose.yaml` file as well.
+Please make sure your local environment variables in your terminal do not share names with the ones in this `.env` file.
+> If you change the names of the variables in this file, make sure to change their references in the `docker-compose.yaml` file as well.
 
 ### Docker compose
-- From root directory of repository, run this command:
+From root directory of repository, run this command:
 ```bash
 docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 ```
@@ -40,9 +38,9 @@ docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
  ✔ Network linkshort_ls-net
 ```
 
-- If succesful, app will be running at [http://localhost:5000](http://localhost:5000), with a redis master database with 3 replica nodes.
+If succesful, app will be running at [http://localhost:5000](http://localhost:5000), with a redis master database with 3 replica nodes.
 
-- To shut down the service, run this command:
+To shut down the service, run this command:
 ```bash
 docker-compose down
 ```
@@ -66,6 +64,7 @@ docker-compose down
 - [x] [Super Linter](https://github.com/super-linter/super-linter) Code linting for all languages on PRs
 - [x] [Snyk](https://snyk.io) Automated security scanning and vulnerability patching
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/) Automated dependency upgrades
+- [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
 
 ### (Current automations have a checkmark, planned ones do not)
