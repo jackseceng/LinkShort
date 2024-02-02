@@ -27,7 +27,7 @@ If applicable, add screenshots to help explain your problem.
 - Browser [e.g. chrome, safari]
 - Version [e.g. 22]
 
-**Smartphone (please complete the following information):**
+**Mobile Device (please complete the following information):**
 - Device: [e.g. iPhone/Pixel]
 - OS: [e.g. iOS8.1/Android12]
 - Browser [e.g. safari, chrome]
