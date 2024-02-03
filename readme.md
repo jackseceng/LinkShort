@@ -2,7 +2,7 @@
 
 This is the Python code and Docker/Kubernetes configuration for a link shortening web app
 
-**This is not a functional application yet,  I will make a full release on this repo when it is in a secure, production ready state**
+**This is not a functional application yet,  I will make a full release when it is in a secure, production ready state**
 
 I am using this to learn:
 - Docker & Kubernetes
@@ -24,7 +24,7 @@ Please make sure your local environment variables in your terminal do not share 
 > If you change the names of the variables in this file, make sure to change their references in the `docker-compose.yaml` file as well.
 
 ### Docker compose
-From root directory of repository, run this command:
+From root directory of the repository, run this command:
 ```bash
 docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 ```
