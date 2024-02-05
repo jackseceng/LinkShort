@@ -1,6 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+  "semanticCommitScope": "deps",
+  "automergeType": "pr",
+  "prCreation": "immediate",
+  "packageRules": [
+    {
+      "matchConfidence": ["high", "very high"]
+    }
   ]
 }
