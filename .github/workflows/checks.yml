@@ -6,6 +6,8 @@ on:
     branches:
       - main
 
+permissions: read-all
+
 jobs:
   build:
     name: Lint
@@ -26,8 +28,20 @@ jobs:
           fetch-depth: 0
 
       - name: Run Linter
-        uses: super-linter/super-linter@latest
+        uses: super-linter/super-linter@v6.1.1
         env:
-          DEFAULT_BRANCH: main
+          DEFAULT_BRANCH: origin/main
           # To report GitHub Actions status checks
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_CSS: true
+          VALIDATE_CHECKOV: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_GITLEAKS: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_HTML: true
+          VALIDATE_PYTHON_BLACK: true
+          VALIDATE_YAML: true
+          # To find and set more language specific linters
+          # Fing VALIDATE_ALL_CODEBASE on this page:
+          # https://github.com/super-linter/super-linter
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
