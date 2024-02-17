@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Linter
-        uses: super-linter/super-linter@latest
+        uses: super-linter/super-linter@v5
         env:
           DEFAULT_BRANCH: main
           # To report GitHub Actions status checks
