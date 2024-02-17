@@ -9,7 +9,8 @@ on:
 permissions: read-all
 
 jobs:
-  Lint:
+  build:
+    name: Lint
     runs-on: ubuntu-latest
 
     permissions:
@@ -19,11 +20,23 @@ jobs:
       statuses: write
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # super-linter needs the full git history to get the
+          # list of files that changed across commits
+          fetch-depth: 0
 
-      - name: Python Black
-        uses: psf/black@stable
-
-      - name: Checkov
-        uses: bridgecrewio/checkov-action@v12
+      - name: Run Linter
+        uses: super-linter/super-linter@v6
+        env:
+          DEFAULT_BRANCH: origin/main
+          # To report GitHub Actions status checks
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_CSS: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_HTML: true
+          VALIDATE_PYTHON_BLACK: true
+          VALIDATE_YAML: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
