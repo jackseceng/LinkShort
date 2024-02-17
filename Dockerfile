@@ -2,7 +2,7 @@ FROM python:3.13.0a3-slim
 COPY /src /home/app
 WORKDIR /home/app
 RUN apt-get update --fix-missing && \
-    apt-get install -y curl && \
+    apt-get install --no-install-recommends -y curl=7.88.1-10+deb12u5 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     groupadd --gid 1000 app && \
