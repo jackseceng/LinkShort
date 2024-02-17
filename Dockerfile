@@ -20,3 +20,4 @@ USER app
 EXPOSE 5000
 EXPOSE 6379
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "-p 5000" ]
+HEALTHCHECK CMD curl --fail http://localhost:5000 || exit 1
