@@ -3,10 +3,10 @@
 import logging
 
 import bleach
-from flask import Flask, make_response, render_template, request # isort:skip
-
 import redis_mgmt as db
 import url_mgmt as urls
+
+from flask import Flask, make_response, render_template, request # isort:skip
 
 app = Flask(__name__)
 
