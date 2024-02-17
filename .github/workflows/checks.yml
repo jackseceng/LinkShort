@@ -19,5 +19,11 @@ jobs:
       statuses: write
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: psf/black@stable
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Python Black
+        uses: psf/black@stable
+
+      - name: Checkov
+        uses: bridgecrewio/checkov-action@v12
