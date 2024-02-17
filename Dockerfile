@@ -2,6 +2,7 @@ FROM python:3.13.0a3-slim
 COPY /src /home/app
 WORKDIR /home/app
 RUN apt-get update --fix-missing && \
+    apt-get install --no-install-recommends -y curl=7.88.1-10+deb12u5 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     groupadd --gid 1000 app && \
@@ -20,4 +21,4 @@ USER app
 EXPOSE 5000
 EXPOSE 6379
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "-p 5000" ]
-HEALTHCHECK CMD curl --fail http://localhost:5000 || exit 1
+HEALTHCHECK --interval=1m CMD curl --fail http://localhost:5000 || exit 1
