@@ -15,7 +15,7 @@ USER app
 # Prod run command
 # EXPOSE 80
 # EXPOSE 6379
-# CMD ["gunicorn"  , "-b", "0.0.0.0:80", "app:app"]
+# CMD ["gunicorn"  , "-b", "0.0.0.0:80", "app:app"] 
 
 # Dev run command
 EXPOSE 5000
