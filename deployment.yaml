@@ -1,37 +1,33 @@
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: linkshort-service
+  name: linkshort-app-service
 spec:
   selector:
-    app: linkshort
+    app: linkshort-app
   ports:
     - protocol: "TCP"
       port: 6000
       targetPort: 5000
   type: LoadBalancer
-
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: linkshort-deployment
-  labels:
-    app: linkshort
+  name: linkshort-app
 spec:
-  replicas: 5
   selector:
     matchLabels:
-      app: linkshort
+      app: linkshort-app
+  replicas: 5
   template:
     metadata:
       labels:
-        app: linkshort
+        app: linkshort-app
     spec:
       containers:  
-      - name: linkshort
-        image: linkshort-app
-        imagePullPolicy: Never
+      - name: linkshort-app
+        image: docker.io/jackseceng/linkshort
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 5000
