@@ -6,6 +6,11 @@ from flask import Flask, make_response, render_template, request
 import redis_mgmt as db
 import url_mgmt as urls
 
+# Checkout out these libs:
+# https://github.com/gruns/furl
+# https://docs.python.org/3/library/urllib.parse.html
+# https://pypi.org/project/tldextract/
+
 app = Flask(__name__)
 
 
