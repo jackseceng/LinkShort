@@ -25,9 +25,14 @@ spec:
       labels:
         app: linkshort-app
     spec:
-      containers:  
+      containers:
       - name: linkshort-app
         image: docker.io/jackseceng/linkshort:beta
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 5000
+        env:
+        - name: REDIS_PASSWORD
+          value: b3stp@$$w0rd
+        - name: REDIS_USERNAME
+          value: default
