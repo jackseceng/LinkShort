@@ -36,3 +36,11 @@ spec:
           value: b3stp@$$w0rd
         - name: REDIS_USERNAME
           value: default
+
+# kubectl create ns linkshort
+# kubectl apply -n linkshort -f .\src\deployment.yaml
+# kubectl get po -n linkshort 
+# kubectl get svc -n linkshort
+# minikube service -n linkshort linkshort-app-service
+
+# https://www.youtube.com/watch?v=JmCn7k0PlV4 - DevOpsGuy 8s redis
