@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: linkshort-app-service
+  name: linkshort-service
+  namespace: linkshort
 spec:
   selector:
-    app: linkshort-app
+    app: linkshort
   ports:
     - protocol: "TCP"
       port: 6000
@@ -14,23 +15,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: linkshort-app
+  name: linkshort
 spec:
   selector:
     matchLabels:
-      app: linkshort-app
+      app: linkshort
   replicas: 5
   template:
     metadata:
       labels:
-        app: linkshort-app
+        app: linkshort
     spec:
       containers:
-      - name: linkshort-app
+      - name: linkshort
         image: docker.io/jackseceng/linkshort:beta
         imagePullPolicy: IfNotPresent
         ports:
-          - containerPort: 5000
+        - containerPort: 5000
         env:
         - name: REDIS_PASSWORD
           value: b3stp@$$w0rd
@@ -42,5 +43,8 @@ spec:
 # kubectl get po -n linkshort 
 # kubectl get svc -n linkshort
 # minikube service -n linkshort linkshort-app-service
+
+# To delete:
+# kubectl delete deployment linkshort -n linkshort
 
 # https://www.youtube.com/watch?v=JmCn7k0PlV4 - DevOpsGuy 8s redis
