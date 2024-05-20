@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: redis
-        image: redis  # or just image: redis
+        image: redis
         resources:
           requests:
             cpu: 100m
@@ -40,7 +40,7 @@ spec:
 
 
 # kubectl create ns linkshort
-# kubectl apply -n linkshort -f .\src\deployment.yaml
+# kubectl apply -n linkshort -f .\src\storage-deployment.yaml
 # kubectl get po -n linkshort 
 # kubectl get svc -n linkshort
 # minikube service -n linkshort linkshort-app-service
