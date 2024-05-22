@@ -43,9 +43,10 @@ spec:
 # kubectl apply -n linkshort -f .\src\storage-deployment.yaml
 # kubectl get po -n linkshort 
 # kubectl get svc -n linkshort
-# minikube service -n linkshort linkshort-app-service
+# minikube service -n linkshort redis-service
 
 # To delete:
-# kubectl delete deployment linkshort -n linkshort
+# kubectl delete deployment redis -n linkshort
+# kubectl delete service redis-service -n linkshort
 
 # https://www.youtube.com/watch?v=JmCn7k0PlV4 - DevOpsGuy 8s redis

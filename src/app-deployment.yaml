@@ -42,7 +42,8 @@ spec:
 # kubectl apply -n linkshort -f .\src\app-deployment.yaml
 # kubectl get po -n linkshort 
 # kubectl get svc -n linkshort
-# minikube service -n linkshort linkshort-app-service
+# minikube service -n linkshort linkshort-service
 
 # To delete:
 # kubectl delete deployment linkshort -n linkshort
+# kubectl delete service linkshort-service -n linkshort
