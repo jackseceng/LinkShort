@@ -1,17 +1,17 @@
 """Redis query and connection management module"""
 
 import logging
-import os
+# import os
 import time
 
 import redis
 
 # Create redis connection object
 r = redis.StrictRedis(
-    host="redis-master",
+    host="redis-service",
     port=6379,
-    username=os.environ["REDIS_USERNAME"],
-    password=os.environ["REDIS_PASSWORD"],
+    # username=os.environ["REDIS_USERNAME"],
+    # password=os.environ["REDIS_PASSWORD"],
     db=0,
     charset="utf8",
     decode_responses=True,

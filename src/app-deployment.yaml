@@ -29,7 +29,7 @@ spec:
       containers:
       - name: linkshort
         image: docker.io/jackseceng/linkshort:beta
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
         env:
