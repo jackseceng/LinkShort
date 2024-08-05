@@ -38,15 +38,21 @@ spec:
         ports:
         - containerPort: 6379
 
+## Use minikube locally: 
+# minikube start
 
+## Create and apply configuration:
 # kubectl create ns linkshort
 # kubectl apply -n linkshort -f .\src\storage-deployment.yaml
+
+## Check for pod and service:
 # kubectl get po -n linkshort 
 # kubectl get svc -n linkshort
+
+## Connect to service (Optional):
 # minikube service -n linkshort redis-service
 
-# To delete:
+## Delete configuration:
 # kubectl delete deployment redis -n linkshort
 # kubectl delete service redis-service -n linkshort
-
-# https://www.youtube.com/watch?v=JmCn7k0PlV4 - DevOpsGuy 8s redis
+# kubectl delete ns linkshort

@@ -13,12 +13,12 @@ RUN apt-get update --fix-missing && \
 USER app
 
 # Prod run command
-# EXPOSE 80
-# EXPOSE 6379
-# CMD ["gunicorn"  , "-b", "0.0.0.0:80", "app:app"]
+EXPOSE 80
+EXPOSE 6379
+CMD ["gunicorn"  , "-b", "0.0.0.0:80", "app:app"]
 
 # Dev run command
-EXPOSE 5000
-EXPOSE 6379
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "-p 5000" ]
-HEALTHCHECK --interval=1m CMD curl --fail http://localhost:5000 || exit 1
+# EXPOSE 5000
+# EXPOSE 6379
+# CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "-p 5000" ]
+# HEALTHCHECK --interval=1m CMD curl --fail http://localhost:5000 || exit 1
