@@ -2,6 +2,6 @@
 .dccache
 .vscode/settings.json
 .vscode/launch.json
-.venv/*
+.venv/
 .env
 kompose.exe
