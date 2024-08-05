@@ -1,6 +1,7 @@
 """Redis query and connection management module"""
 
 import logging
+
 # import os
 import time
 
