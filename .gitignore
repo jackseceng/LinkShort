@@ -6,4 +6,3 @@
 .env
 kompose.exe
 pyvenv.cfg
-Lib/
