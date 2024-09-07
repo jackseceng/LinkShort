@@ -31,12 +31,14 @@ spec:
         image: docker.io/jackseceng/linkshort:beta
         imagePullPolicy: Always
         ports:
-        - containerPort: 5000
+        - containerPort: 80
         env:
         - name: REDIS_PASSWORD
-          value: b3stp@$$w0rd # Obviously not for prd
+          value: <your-pw> # Change this
         - name: REDIS_USERNAME
-          value: default # Obviously not for prd
+          value: <your-uname> # Change this
+---
+apiVersion: v1 
 
 ## Use minikube locally: 
 # minikube start
