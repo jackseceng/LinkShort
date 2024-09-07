@@ -21,14 +21,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           # super-linter needs the full git history to get the
           # list of files that changed across commits
           fetch-depth: 0
 
       - name: Run Linter
-        uses: super-linter/super-linter@v6.5.1
+        uses: super-linter/super-linter/slim@a8150b40c89574adb5f68bf9502b890a236a06b3
         env:
           DEFAULT_BRANCH: origin/main
           # To report GitHub Actions status checks

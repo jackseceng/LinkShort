@@ -1,0 +1,7 @@
+Werkzeug==3.0.3
+flask==3.0.3
+gunicorn==22.0.0
+redis
+bcrypt
+bleach
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability

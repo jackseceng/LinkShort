@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: linkshort-service
+  namespace: linkshort
+spec:
+  selector:
+    app: linkshort
+  ports:
+    - protocol: "TCP"
+      port: 6000
+      targetPort: 5000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linkshort
+spec:
+  selector:
+    matchLabels:
+      app: linkshort
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: linkshort
+    spec:
+      containers:
+      - name: linkshort
+        image: docker.io/jackseceng/linkshort:beta
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: REDIS_PASSWORD
+          value: <your-pw> # Change this
+        - name: REDIS_USERNAME
+          value: <your-uname> # Change this
+---
+apiVersion: v1 
+
+## Use minikube locally: 
+# minikube start
+
+## Create and apply configuration:
+# kubectl create ns linkshort
+# kubectl apply -n linkshort -f .\src\app-deployment.yaml
+
+## Check for pod and service:
+# kubectl get po -n linkshort 
+# kubectl get svc -n linkshort
+
+## Connect to service (Optional):
+# minikube service -n linkshort linkshort-service
+
+## Delete configuration:
+# kubectl delete deployment linkshort -n linkshort
+# kubectl delete service linkshort-service -n linkshort
+# kubectl delete ns linkshort

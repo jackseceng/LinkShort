@@ -2,5 +2,7 @@
 .dccache
 .vscode/settings.json
 .vscode/launch.json
+.venv/
 .env
 kompose.exe
+pyvenv.cfg
