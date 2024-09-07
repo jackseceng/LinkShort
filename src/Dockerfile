@@ -1,24 +1,19 @@
-FROM python:3.13.0b1-slim
-COPY /src /home/app
-WORKDIR /home/app
-RUN apt-get update --fix-missing && \
-    apt-get install --no-install-recommends -y curl=7.88.1-10+deb12u5 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    groupadd --gid 1000 app && \
-    useradd --gid 1000 --uid 1000 app && \
-    mkdir -p /home/app/src && \
-    pip3 install --no-cache-dir --upgrade pip -r requirements.txt && \
-    chown -R app:app /home/app
-USER app
+FROM python:3.12.4
 
-# Prod run command
+RUN apt-get update && apt-get install --no-install-recommends -y nginx=1.22.1-9 iputils-ping redis-tools\
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY ./requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+COPY ./app .
+COPY .env .
+COPY start.sh /app/
+COPY nginx.conf /etc/nginx
+RUN chmod +x ./start.sh
+
+CMD ["./start.sh"]
 EXPOSE 80
-EXPOSE 6379
-CMD ["gunicorn"  , "-b", "0.0.0.0:80", "app:app"]
-
-# Dev run command
-# EXPOSE 5000
-# EXPOSE 6379
-# CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "-p 5000" ]
-# HEALTHCHECK --interval=1m CMD curl --fail http://localhost:5000 || exit 1

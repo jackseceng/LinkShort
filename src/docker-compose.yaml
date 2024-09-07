@@ -39,21 +39,9 @@ services:
     networks:
       - ls-net
     ports:
-      - '5000:5000' # DEV Port
-    # - '80:80' # PROD Port
+      - '6379' # REDIS Port
+      - '8080:8080' # DEV Port
+      - '80:80' # PROD Port
     environment:
       - REDIS_PASSWORD=${REDISMASTER}
       - REDIS_USERNAME=${REDISUSER}
-
-# Test REDIS config:
-
-# Attach shell to:
-# linkshort-redis-master-1 container, 
-# then enter these commands:
-# $ redis-cli
-# 127.0.0.1:6379> auth <pw-for-master-node>
-# OK
-# 127.0.0.1:6379> get foo
-# "bar"
-# 127.0.0.1:6379> exit
-# $
