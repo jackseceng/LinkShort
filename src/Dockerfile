@@ -1,4 +1,4 @@
-FROM python:3.12.4
+FROM python:3.12.5
 
 RUN apt-get update && apt-get install --no-install-recommends -y nginx=1.22.1-9 \
     && apt-get clean \
