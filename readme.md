@@ -11,7 +11,7 @@ I am using this to learn:
 
 ## Testing locally
 
-- Create a file in the src directory called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
+- Create a file in the `ls-container` directory called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
 ```txt
 REDISUSER=default
 REDISMASTER=<a-super-strong-password>
@@ -24,18 +24,18 @@ Please make sure your local environment variables in your terminal do not share 
 > If you change the names of the variables in this file, make sure to change their references in the `docker-compose.yaml` file as well.
 
 ### Docker compose
-From the src directory of the repository, run this command:
+From the `ls-container` directory of the repository, run this command:
 ```bash
 docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
 ```
 ```bash
 [+] Running (6/6)
- ✔ Container linkshort-app-1
- ✔ Container linkshort-redis-replica-2
- ✔ Container linkshort-redis-replica-3
- ✔ Container linkshort-redis-replica-1
- ✔ Container linkshort-redis-master-1
- ✔ Network linkshort_ls-net
+ ✔ Network ls-container_ls-net
+ ✔ Container ls-container-app-1
+ ✔ Container ls-container-redis-master-1 
+ ✔ Container ls-container-redis-replica-3
+ ✔ Container ls-container-redis-replica-1 
+ ✔ Container ls-container-redis-replica-2   
 ```
 
 If succesful, app will be running at [http://localhost](http://localhost), with a redis master database with 3 replica nodes.
