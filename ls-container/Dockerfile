@@ -1,6 +1,6 @@
-FROM python:3.12.5
+FROM python:3.12.5-slim-bookworm
 
-RUN apt-get update && apt-get install --no-install-recommends -y nginx=1.22.1-9 \
+RUN apt-get update && apt-get install --no-install-recommends -y nginx=1.22.1-9 gcc=4:12.2.0-3 libc6-dev=2.36-9+deb12u8 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
