@@ -16,7 +16,7 @@
 # For more examples, including how to limit scans to only high-severity issues
 # and fail PR checks, see https://github.com/snyk/actions/
 
-name: Snyk Code
+name: Snyk IaC
 
 on:
   push:
@@ -39,14 +39,14 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Snyk
         # Snyk can be used to break the build when it detects security issues.
-        # In this case we want to upload the SAST issues to GitHub Code Scanning
+        # In this case we want to upload the IaC issues to GitHub Code Scanning
         uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
-        # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
+        # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
       - name: Test
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk code test --sarif-file-output=snyk.sarif --org=jackseceng
+        run: snyk iac test --sarif-file-output=snyk.sarif --org=jackseceng
 
         # Push the Snyk Code results into GitHub Code Scanning tab
       - name: Upload results

@@ -6,3 +6,4 @@
 .env
 kompose.exe
 pyvenv.cfg
+.python-version
