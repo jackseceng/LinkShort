@@ -57,6 +57,8 @@ jobs:
 
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Snyk Dependency test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk test --file=ls-container/requirements.txt --command=python3
         
         # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
