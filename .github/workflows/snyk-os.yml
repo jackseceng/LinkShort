@@ -28,7 +28,7 @@ permissions:
   contents: read
 
 jobs:
-  oopen-source:
+  open-source:
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
@@ -60,4 +60,4 @@ jobs:
       - name: Upload results
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: snyk.sarif
+          sarif_file: snyk-code.sarif
