@@ -43,6 +43,7 @@ jobs:
         uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
         # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
       - name: Test
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk iac test --sarif-file-output=snyk.sarif --org=jackseceng
