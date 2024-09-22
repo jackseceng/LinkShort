@@ -47,29 +47,32 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk code test --sarif --sarif-file-output=snyk-code.sarif --org=jackseceng
 
-        # Runs the Snyk python action to install dependencies and scan them
-      - name: Snyk Python Dependencies test
-        uses: snyk/actions/python@master
-        continue-on-error: true # To make sure that SARIF upload gets called
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        # Get python dependencies
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          args: --sarif-file-output=snyk.sarif --all-projects
+          python-version: '3.x'
+      - name: Install dependencies
+        run: python -m pip install -r ls-container/requirements.txt
 
+        # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
+      - name: Snyk Dependency test
+        run: snyk test --file=ls-container/requirements.txt --command=python3
+        
         # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
         # Use || true to not fail the pipeline.
-      - name: Snyk IaC test and report
+      - name: Snyk IaC test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk iac test --report # || true
 
         # Build the docker image for testing
-      - name: Build a Docker image
+      - name: Build Docker image
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: docker build -t linkshort ls-container
         # Runs Snyk Container (Container and SCA) analysis and uploads result to Snyk.
-      - name: Snyk Container monitor
+      - name: Snyk Container test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk container monitor jackseceng/LinkShort --file=ls-container/Dockerfile
