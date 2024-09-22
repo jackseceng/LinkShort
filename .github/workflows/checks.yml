@@ -1,5 +1,5 @@
 ---
-name: Code
+name: Linter
 
 on:
   pull_request:
@@ -9,8 +9,8 @@ on:
 permissions: read-all
 
 jobs:
-  build:
-    name: Lint
+  lint:
+    name: Scan
     runs-on: ubuntu-latest
 
     permissions:
@@ -20,14 +20,14 @@ jobs:
       statuses: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@6d193bf28034eafb982f37bd894289fe649468fc
         with:
           # super-linter needs the full git history to get the
           # list of files that changed across commits
           fetch-depth: 0
 
-      - name: Run Linter
+      - name: Lint Codebase
         uses: super-linter/super-linter/slim@a8150b40c89574adb5f68bf9502b890a236a06b3
         env:
           DEFAULT_BRANCH: origin/main
