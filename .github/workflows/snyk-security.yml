@@ -45,7 +45,7 @@ jobs:
       - name: Snyk Code test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk code test --sarif --sarif-file-output=snyk-code.sarif --org=jackseceng
+        run: snyk code test #--sarif-file-output=snyk-code.sarif --org=jackseceng
 
         # Get python dependencies
       - name: Set up Python
@@ -53,20 +53,20 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install dependencies
-        run: python -m pip install -r ls-container/requirements.txt
+        run: python -m pip install -r ls-container/requirements.txt 
 
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
-      - name: Snyk Dependency test
+      - name: Snyk Open Source test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk test --file=ls-container/requirements.txt --command=python3
+        run: snyk test --file=ls-container/requirements.txt --command=python3 --sarif-file-output=snyk-os.sarif --org=jackseceng
         
         # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
         # Use || true to not fail the pipeline.
       - name: Snyk IaC test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk iac test --report # || true
+        run: snyk iac test #--sarif-file-output=snyk-iac.sarif --org=jackseceng
 
         # Build the docker image for testing
       - name: Build Docker image
@@ -83,4 +83,5 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: snyk-code.sarif
+          sarif_file: snyk-os.sarif
+        
