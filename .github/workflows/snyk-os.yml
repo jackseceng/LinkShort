@@ -16,7 +16,7 @@
 # For more examples, including how to limit scans to only high-severity issues
 # and fail PR checks, see https://github.com/snyk/actions/
 
-name: Snyk
+name: Snyk Open Source
 
 on:
   push:
@@ -28,7 +28,7 @@ permissions:
   contents: read
 
 jobs:
-  open-source:
+  scan:
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
@@ -51,7 +51,6 @@ jobs:
 
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Test
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk test --file=ls-container/requirements.txt --command=python3 --sarif-file-output=snyk.sarif --org=jackseceng
