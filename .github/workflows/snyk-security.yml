@@ -76,7 +76,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
-          run touch ls-contianer/.env
+          touch ls-contianer/.env
           docker build -t linkshort ls-container
         # Runs Snyk Container (Container and SCA) analysis and uploads result to Snyk.
       - name: Snyk Container test
