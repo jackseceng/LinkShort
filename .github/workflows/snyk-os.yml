@@ -16,7 +16,7 @@
 # For more examples, including how to limit scans to only high-severity issues
 # and fail PR checks, see https://github.com/snyk/actions/
 
-name: Snyk Security
+name: Snyk
 
 on:
   push:
@@ -60,4 +60,4 @@ jobs:
       - name: Upload results
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: snyk-code.sarif
+          sarif_file: snyk.sarif
