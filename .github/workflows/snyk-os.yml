@@ -40,7 +40,7 @@ jobs:
       - name: Setup Snyk
         # Snyk can be used to break the build when it detects security issues.
         # In this case we want to upload the Open Source issues to GitHub Code Scanning
-        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+        uses: snyk/actions/setup@cdb760004ba9ea4d525f2e043745dfe85bb9077e
         # Get python dependencies
       - name: Set up Python
         uses: actions/setup-python@v5
