@@ -23,7 +23,7 @@ def input_url():
             # Retrieve user input from html form on index page
             # Perform syntax checks
             received_request = dict(request.form.to_dict())
-            user_input = bleach.clean(str(received_request["URL"]))
+            user_input = bleach.clean(str(received_request["link"]))
             error = ""
             if urls.check_url_whitespace(user_input) is False:
                 error = "URL has whitespace"
