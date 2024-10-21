@@ -9,11 +9,11 @@ body {
   background: linear-gradient(#141e30, #243b55);
 }
 
-.login-box {
+.main-box {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
+  width: 1000px;
   padding: 40px;
   transform: translate(-50%, -50%);
   background: rgba(0 0 0 / 50%);
@@ -22,25 +22,25 @@ body {
   border-radius: 10px;
 }
 
-.login-box h2 {
+.main-box h2 {
   margin: 40 0 0;
   padding: 0;
   color: #03e9f4;
   text-align: center;
 }
 
-.login-box .existing-link {
+.main-box .existing-link {
   margin: 0;
   padding: 0;
   color: #03e9f4;
   text-align: center;
 }
 
-.login-box .user-box {
+.main-box .user-box {
   position: relative;
 }
 
-.login-box .user-box input {
+.main-box .user-box input {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -51,7 +51,7 @@ body {
   background: transparent;
 }
 
-.login-box .user-box label {
+.main-box .user-box label {
   position: absolute;
   top:0;
   left: 0;
@@ -62,15 +62,15 @@ body {
   transition: .5s;
 }
 
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
+.main-box .user-box input:focus ~ label,
+.main-box .user-box input:valid ~ label {
   top: -20px;
   left: 0;
   color: #03e9f4;
   font-size: 12px;
 }
 
-.login-box form a {
+.main-box form a {
   position: relative;
   display: inline-block;
   padding: 10px 108px;
@@ -84,7 +84,7 @@ body {
   letter-spacing: 4px
 }
 
-.submit-link {
+.clickable {
   background-color: transparent;
   border: 0;
   color: #3c3c3c;
@@ -96,7 +96,19 @@ body {
   padding: 0;
 }
 
-.login-box a:hover {
+.clickable-big {
+  background-color: transparent;
+  border: 0;
+  color: #3c3c3c;
+  font-size: 26px;
+  cursor: pointer;
+  display: inline;
+  margin: 0;
+  outline: none;
+  padding: 0;
+}
+
+.main-box a:hover {
   background: #03e9f4;
   color: #3c3c3c;
   border-radius: 5px;
@@ -106,12 +118,12 @@ body {
               0 0 100px #03e9f4;
 }
 
-.login-box a span {
+.main-box a span {
   position: absolute;
   display: block;
 }
 
-.login-box a span:nth-child(1) {
+.main-box a span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
@@ -130,7 +142,7 @@ body {
   }
 }
 
-.login-box a span:nth-child(2) {
+.main-box a span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 2px;
@@ -150,7 +162,7 @@ body {
   }
 }
 
-.login-box a span:nth-child(3) {
+.main-box a span:nth-child(3) {
   bottom: 0;
   right: -100%;
   width: 100%;
@@ -170,7 +182,7 @@ body {
   }
 }
 
-.login-box a span:nth-child(4) {
+.main-box a span:nth-child(4) {
   bottom: -100%;
   left: 0;
   width: 2px;
@@ -190,11 +202,20 @@ body {
   }
 }
 
-.login-box h3 {
+.main-box h3 {
   margin: 40 0 0;
   padding: 0;
-  color: #393737;
+  color: #03e9f4;
   text-align: center;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
 }
 
 .loader {
