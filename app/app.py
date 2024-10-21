@@ -8,6 +8,7 @@ import url_mgmt as urls
 
 app = Flask(__name__)
 
+INTERNAL_REFRESH = 120
 
 @app.route("/", methods=["POST", "GET"])
 def input_url():
@@ -78,6 +79,6 @@ def add_security_headers(resp):
     return resp
 
 
-# Flask app DEV main function
+# Flask main function
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=80)
+    app.run(debug=False)
