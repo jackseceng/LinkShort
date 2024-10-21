@@ -54,7 +54,7 @@ jobs:
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk test --file=ls-container/requirements.txt --command=python3 --sarif-file-output=snyk.sarif --org=jackseceng
+        run: snyk test --file=./requirements.txt --command=python3 --sarif-file-output=snyk.sarif --org=jackseceng
       
         # Push the Snyk Code results into GitHub Code Scanning tab
       - name: Upload results
