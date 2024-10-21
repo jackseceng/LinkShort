@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Not Found</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="main-box">
+        <h2>404: Link not found</h2>
+        <h3>Shortened links are deleted after being accessed.</h3>
+        <center>
+            <a href="https://jacksec.engineer/mail" class="submit-link">Contact Me About an Issue</a>
+            <a> | </a>
+            <a href="https://{{tld}}" class="clickable">Share another link</a>
+        </center>
+    </div>
+</body>
+</html>
