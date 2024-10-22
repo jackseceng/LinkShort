@@ -67,7 +67,7 @@ def redirect_url(arg):
     path = bleach.clean(str(arg[:7]))
 
     # Get the original URL from the database, clean it, and redirect to it
-    if db.get_link(path) is True:
+    if db.check_link(path) is True:
         link = db.get_link(path)
         resp = make_response(render_template("redirect.html", link=link))
         return resp
