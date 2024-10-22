@@ -42,3 +42,4 @@ services:
     environment:
       - REDIS_PASSWORD=${REDISMASTER}
       - REDIS_USERNAME=${REDISUSER}
+      - TLD=localhost

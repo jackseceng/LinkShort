@@ -3,12 +3,13 @@
 import logging
 import bleach
 from flask import Flask, make_response, render_template, request
+from os import environ
 import redis_mgmt as db
 import url_mgmt as urls
 
 app = Flask(__name__)
 
-tld = "localhost"
+tld = environ["TLD"]
 
 INTERNAL_REFRESH = 120
 
@@ -66,11 +67,11 @@ def redirect_url(arg):
     path = bleach.clean(str(arg[:7]))
 
     # Get the original URL from the database, clean it, and redirect to it
-    link = db.get_link(path)
-    if link is not False:
+    if db.get_link(path) is True:
+        link = db.get_link(path)
         resp = make_response(render_template("redirect.html", link=link))
         return resp
-    resp = make_response(render_template("404.html", code=404))
+    resp = make_response(render_template("404.html", tld=tld, code=404))
     return resp
 
 
