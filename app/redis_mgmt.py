@@ -2,7 +2,7 @@
 
 import logging
 
-import os
+from os import environ
 import time
 
 import redis
@@ -11,8 +11,8 @@ import redis
 r = redis.StrictRedis(
     host="redis-master",
     port=6379,
-    username=os.environ["REDIS_USERNAME"],
-    password=os.environ["REDIS_PASSWORD"],
+    username=environ["REDIS_USERNAME"],
+    password=environ["REDIS_PASSWORD"],
     db=0,
     charset="utf8",
     decode_responses=True,

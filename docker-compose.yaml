@@ -1,6 +1,4 @@
 ---
-version: '3'
-
 networks:
   ls-net:
     driver: bridge
@@ -40,8 +38,8 @@ services:
       - ls-net
     ports:
       - '6379' # REDIS Port
-      - '8080:8080' # DEV Port
-      - '80:80' # PROD Port
+      - '80:8080' # WEB Port
     environment:
       - REDIS_PASSWORD=${REDISMASTER}
       - REDIS_USERNAME=${REDISUSER}
+      - TLD=localhost
