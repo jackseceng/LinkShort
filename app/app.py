@@ -3,10 +3,15 @@
 import logging
 import bleach
 from flask import Flask, make_response, render_template, request
+from os import environ
 import redis_mgmt as db
 import url_mgmt as urls
 
 app = Flask(__name__)
+
+tld = environ["TLD"]
+
+INTERNAL_REFRESH = 120
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -22,7 +27,7 @@ def input_url():
             # Retrieve user input from html form on index page
             # Perform syntax checks
             received_request = dict(request.form.to_dict())
-            user_input = bleach.clean(str(received_request["URL"]))
+            user_input = bleach.clean(str(received_request["link"]))
             error = ""
             if urls.check_url_whitespace(user_input) is False:
                 error = "URL has whitespace"
@@ -46,7 +51,9 @@ def input_url():
                 return resp
 
             # Return link page with URL if successful
-            resp = make_response(render_template("link.html", extension=str(path)))
+            resp = make_response(
+                render_template("link.html", tld=tld, extension=str(path))
+            )
             return resp
 
         case _:
@@ -63,11 +70,11 @@ def redirect_url(arg):
     path = bleach.clean(str(arg[:7]))
 
     # Get the original URL from the database, clean it, and redirect to it
-    link = db.get_link(path)
-    if link is not False:
+    if db.check_link(path) is True:
+        link = db.get_link(path)
         resp = make_response(render_template("redirect.html", link=link))
         return resp
-    resp = make_response(render_template("404.html", code=404))
+    resp = make_response(render_template("404.html", tld=tld, code=404))
     return resp
 
 
@@ -78,6 +85,6 @@ def add_security_headers(resp):
     return resp
 
 
-# Flask app DEV main function
+# Flask main function
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=80)
+    app.run(debug=False)
