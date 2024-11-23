@@ -13,6 +13,7 @@ tld = environ["TLD"]
 
 INTERNAL_REFRESH = 120
 
+
 @app.route("/", methods=["POST", "GET"])
 def input_url():
     """Main page process"""
@@ -50,7 +51,9 @@ def input_url():
                 return resp
 
             # Return link page with URL if successful
-            resp = make_response(render_template("link.html", tld=tld, extension=str(path)))
+            resp = make_response(
+                render_template("link.html", tld=tld, extension=str(path))
+            )
             return resp
 
         case _:
