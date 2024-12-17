@@ -1,6 +1,6 @@
 # LinkShort - Containerised URL shortener
 
-This is the Python code and Docker/Kubernetes configuration for a link shortening web app
+This is the Python code and Docker configuration for a link shortening web app
 
 **This is not a functional application yet,  I will make a full release when it is in a secure, production ready state**
 
@@ -11,11 +11,12 @@ I am using this to learn:
 
 ## Testing locally
 
+- [Sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called 'links' in it.
+
 - Create a file in the root directory of this repo called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
 ```txt
-REDISUSER=default
-REDISMASTER=<a-super-strong-password>
-REDISREPLICA=<a-different-super-strong-password>
+ENDPOINT="<your-turso-url>"
+TOKEN="<your-turso-token>"
 ```
 
 **! WARNING !**
@@ -26,19 +27,15 @@ Please make sure your local environment variables in your terminal do not share 
 ### Docker compose
 From the root directory of this repository, run:
 ```bash
-docker-compose up --detach --scale redis-master=1 --scale redis-replica=3
+docker-compose up --detach
 ```
 ```bash
-[+] Running (6/6)
+[+] Running (2/2)
  ✔ Network ls-container_ls-net
  ✔ Container ls-container-app-1
- ✔ Container ls-container-redis-master-1 
- ✔ Container ls-container-redis-replica-3
- ✔ Container ls-container-redis-replica-1 
- ✔ Container ls-container-redis-replica-2   
 ```
 
-If succesful, app will be running at [http://localhost](http://localhost), with a redis master database with 3 replica nodes.
+If succesful, app will be running at [http://localhost](http://localhost), it will connect to your Turso database over the internet.
 
 To shut down the service, run this command:
 ```bash
