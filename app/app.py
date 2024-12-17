@@ -4,7 +4,7 @@ import logging
 import bleach
 from flask import Flask, make_response, render_template, request
 from os import environ
-import redis_mgmt as db
+import turso_mgmt as db
 import url_mgmt as urls
 
 app = Flask(__name__)

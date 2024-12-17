@@ -1,8 +1,11 @@
 Flask==3.0.3
-redis
+sqlalchemy
 bcrypt
 bleach
 Markdown==3.7
 uWSGI==2.0.26
 setuptools>=70.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
 zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
+sqlalchemy-libsql 
+python-dotenv
+aiohttp==3.10.11 # Pinned to avoid a vulnerability

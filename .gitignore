@@ -7,3 +7,4 @@
 kompose.exe
 pyvenv.cfg
 .python-version
+app/__pycache__/*
