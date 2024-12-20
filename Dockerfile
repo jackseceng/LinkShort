@@ -1,16 +1,24 @@
-FROM python:3.14.0a3-alpine3.20
-
-RUN apt-get update && apt-get install --no-install-recommends -y nginx=1.22.1-9 gcc=4:12.2.0-3 libc6-dev=2.36-9+deb12u9 curl=7.88.1-10+deb12u8 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Create a non-root user and group
-RUN groupadd -r appuser && useradd -r -g appuser -s /sbin/nologin -d /app appuser
+FROM python:3.13.1-alpine3.21
 
 WORKDIR /app
 
 COPY ./requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+RUN set -e; \
+        apk update && apk add --no-cache \
+            openrc \
+            nginx \
+            gcc \
+            curl \
+            sqlite \
+            gcc \
+            libc-dev \
+            linux-headers \
+    ; \
+    pip install --no-cache-dir -r /tmp/requirements.txt;
+
+# Create a non-root user and group
+RUN addgroup -S appuser && adduser -S -G appuser appuser
 
 COPY ./app .
 COPY .env .
@@ -33,6 +41,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
 
 # Switch to non-root user
 USER appuser
-
 CMD ["./start.sh"]
 EXPOSE 80

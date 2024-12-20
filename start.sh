@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 if [ -f "/secretVol/secrets" ]; then
     echo "Loading secrets from /secretVol/secrets"
@@ -8,6 +8,6 @@ else
     echo "No secrets file found"
 fi
 
-service nginx start
+rc-service nginx start
 
 uwsgi --ini uwsgi.ini
