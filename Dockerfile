@@ -34,5 +34,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
 # Switch to non-root user
 USER appuser
 
-CMD ["./start.sh"]
+ENTRYPOINT ["./start.sh"]
 EXPOSE 80
