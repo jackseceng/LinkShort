@@ -27,7 +27,7 @@ Please make sure your local environment variables in your terminal do not share 
 ### Docker compose
 From the root directory of this repository, run:
 ```bash
-docker-compose up --detach
+docker-compose up -d --build
 ```
 ```bash
 [+] Running (2/2)
@@ -36,6 +36,8 @@ docker-compose up --detach
 ```
 
 If succesful, app will be running at [http://localhost](http://localhost), it will connect to your Turso database over the internet.
+
+You can re-run this command whenever you make changes to rebuild the container.
 
 To shut down the service, run this command:
 ```bash
