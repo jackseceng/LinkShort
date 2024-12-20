@@ -7,32 +7,37 @@
 </head>
 
 <body>
+    <div id="notification" class="notification"></div>
     <div class="main-box">
         <form method="GET" action="" id="submission-form">
             <div class="user-box">
-                <input name="link" id="link" required="" value="http://{{tld}}/{{extension}}">
-                <label> Your Shortened Link:</label>
+                <input name="link" id="link" required="" value="https://{{tld}}/{{extension}}">
+                <label> One Time Link:</label>
             </div>
             <center>
-                <a href="http://{{tld}}/">
+                <a>
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
-                    <input type="button" value="Share Another URL" class="clickable" />
+                    <input id="copy-btn" type="button" value="Copy Link to Clipboard" class="clickable" />
                 </a>
             </center>
         </form>
         <p>
             <a>
                 <center>
+                    <a href="https://{{tld}}" class="clickable">Share another link</a>
+                    <p>
                     <a href="https://github.com/jackseceng/LinkShort/tree/main" class="clickable">Source Code</a>
                     <a> | </a>
                     <a href="https://jacksec.engineer/mail" class="clickable">Contatct Me</a>
+                </p>
                 </center>
             </a>
         </p>
     </div>
+    <script src="{{ url_for('static', filename='copy.js') }}"></script>
 </body>
 
 </html>
