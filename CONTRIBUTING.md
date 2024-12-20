@@ -3,7 +3,8 @@
 ## Project Objectives
 
 - This is a Python Flask app that shortens URLs and re-directs users that go to the shortened URLs.
-- It uses Docker/Kubernetes to host the databases and web services that serve web clients.
+- It uses Docker to host the web services that serve web clients.
+- It uses [Turso](https://turso.tech) for it's database.
 - The repository itself is intended to test the capabiltiies of DevSecOps automation tooling.
 - If there are any exploitable vulnerabilities that have a patch available, they will be applied.
 - Usage and/or contribution to this project must be done under the terms in the `LICENSE` file.
