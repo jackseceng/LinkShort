@@ -16,20 +16,18 @@ def generate_path(original_url):
 
 def check_url_whitespace(url_input):
     """Perform checks to ensure input is in expected format"""
-    logging.warning("URL Whitespace check")
     for i in url_input:
         if i.isspace():
-            logging.warning("Whitespace found")
+            logging.error("Whitespace found")
             return False
-        logging.warning("Whitespace not found")
+        logging.info("Whitespace not found")
         return True
 
 
 def check_url_security(url_input):
     """Perform checks to ensure input is in expected format"""
-    logging.warning("URL Security check")
     if url_input[:5] == "https":
-        logging.warning("Security found")
+        logging.info("Security found")
         return True
     logging.warning("Security not found")
     return False
