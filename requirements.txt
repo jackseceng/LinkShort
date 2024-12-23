@@ -1,10 +1,7 @@
 Flask==3.1.0
 bcrypt==4.2.1
 bleach==6.2.0
-Markdown==3.7
 Gunicorn==23.0.0
-setuptools>=70.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
-zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
 sqlalchemy-libsql==0.1.0
 python-dotenv==1.0.1
 aiohttp==3.11.11 # Pinned to avoid a vulnerability

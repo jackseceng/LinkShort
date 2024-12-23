@@ -4,12 +4,7 @@ COPY ./requirements.txt /tmp/requirements.txt
 
 RUN set -e; \
         apk update && apk add --no-cache \
-            openrc=0.55.1-r2 \
-            gcc=14.2.0-r4 \
             curl=8.11.1-r0 \
-            sqlite=3.47.1-r0 \
-            libc-dev=1.2.5-r8 \
-            linux-headers=6.6-r1 \
     ; \
     pip install --no-cache-dir -r /tmp/requirements.txt;
 
