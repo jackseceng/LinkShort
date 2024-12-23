@@ -1,4 +1,5 @@
 """Configuration module for Gunicorn"""
+
 import os
 
 
