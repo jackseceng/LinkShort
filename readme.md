@@ -53,17 +53,19 @@ docker-compose down
 - [x] Frontend with good looking CSS and HTML animations and colours
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
 - [x] Containerised with docker compose using secrets management for credentials
-- [ ] Kubernetes deployment configuration with database in stateful sets
-- [ ] Demonstration application set up and deployed on cloud provider
+- [ ] Demonstration application set up and deployed on hosting provider
 
 ### (Current features have a checkmark, planned ones do not)
 
 ## DevSecOps Automation
 
-- [x] [Super Linter](https://github.com/super-linter/super-linter) Code linting for all languages on PRs
-- [x] [Snyk](https://snyk.io) Automated security scanning and vulnerability patching
+- [x] [Super Linter](https://github.com/super-linter/super-linter) Code linting for all languages
+- [x] [CodeQL](https://codeql.github.com/) Code security bug scanning
+- [x] [Snyk](https://snyk.io) Dependency vulnerability scanning and patching
+- [x] [Trivy](https://github.com/aquasecurity/trivy) Docker image vulnerability scanning
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/) Automated dependency upgrades
 - [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
+- [ ] [Docker Push](https://github.com/docker/build-push-action) Push new docker images via a [merge queue](https://github.blog/news-insights/product-news/github-merge-queue-is-generally-available/)
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
 
 ### (Current automations have a checkmark, planned ones do not)
