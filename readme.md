@@ -6,8 +6,8 @@ This is the Python code and Docker configuration for a link shortening web app
 
 I am using this to learn:
 - Docker & Web App Hosting
-- Python web app development
-- DevSecOps automation
+- Python Development
+- DevSecOps Automation
 
 ## Testing locally
 
