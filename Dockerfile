@@ -12,7 +12,6 @@ RUN set -e; \
 RUN addgroup -S appuser && adduser -S -G appuser appuser
 
 COPY . /app
-COPY .env /app/src
 
 WORKDIR /app/src
 
