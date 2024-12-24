@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@vcbb722410c2e876e24abbe8de2cc27693e501dcb
+        uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
       - name: Build Image
         run: docker build -t docker.io/jackseceng/linkshort:${{ github.sha }} .
       - name: Test for Vulnerabilities
