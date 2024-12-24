@@ -1,0 +1,29 @@
+---
+name: Trivy
+
+on:
+  pull_request:
+    branches:
+        - main
+
+permissions:
+  read-all
+
+jobs:
+  scan:
+    name: Scan
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
+      - name: Build Image
+        run: docker build -t docker.io/jackseceng/linkshort:${{ github.sha }} .
+      - name: Test for Vulnerabilities
+        uses: aquasecurity/trivy-action@18f2510ee396bbf400402947b394f2dd8c87dbb0
+        with:
+          image-ref: 'docker.io/jackseceng/linkshort:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'

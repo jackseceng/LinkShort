@@ -13,7 +13,7 @@ I am using this to learn:
 
 - [Sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called 'links' in it.
 
-- Create a file in the root directory of this repo called `.env`, with the following contents, customising the values between **<>** with your own substitutions:
+- Create a file in the `/src` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
 ```txt
 ENDPOINT="<your-turso-url>"
 TOKEN="<your-turso-token>"
