@@ -65,7 +65,7 @@ docker-compose down
 - [x] [Trivy](https://github.com/aquasecurity/trivy) Docker image vulnerability scanning
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/) Automated dependency upgrades
 - [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
-- [ ] [Docker Push](https://github.com/docker/build-push-action) Push new docker images via a [merge queue](https://github.blog/news-insights/product-news/github-merge-queue-is-generally-available/)
+- [ ] [Docker Push](https://github.com/docker/build-push-action) Docker image publication via a [merge queue](https://github.blog/news-insights/product-news/github-merge-queue-is-generally-available/)
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
 
 ### (Current automations have a checkmark, planned ones do not)
