@@ -5,7 +5,7 @@ This is the Python code and Docker configuration for a link shortening web app
 **This is not a functional application yet,  I will make a full release when it is in a secure, production ready state**
 
 I am using this to learn:
-- Docker & Kubernetes
+- Docker & Web App Hosting
 - Python web app development
 - DevSecOps automation
 
@@ -54,8 +54,6 @@ docker-compose down
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
 - [x] Containerised with docker compose using secrets management for credentials
 - [ ] Demonstration application set up and deployed on hosting provider
-
-### (Current features have a checkmark, planned ones do not)
 
 ## DevSecOps Automation
 
