@@ -32,8 +32,8 @@ docker-compose up -d --build
 ```
 ```bash
 [+] Running (2/2)
- ✔ Network ls-container_ls-net
- ✔ Container ls-container-app-1
+ ✔ Network linkshort_ls-net   Created
+ ✔ Container linkshort-app-1  Started
 ```
 
 If succesful, app will be running at [http://localhost](http://localhost), it will connect to your Turso database over the internet.
