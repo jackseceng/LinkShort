@@ -17,6 +17,7 @@ I am using this to learn:
 ```txt
 ENDPOINT="<your-turso-url>"
 TOKEN="<your-turso-token>"
+TLD=localhost
 ```
 
 **! WARNING !**
