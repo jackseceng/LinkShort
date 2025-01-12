@@ -259,16 +259,16 @@ h1 {
   z-index: 111;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .credits a {
   opacity: 0.6;
   color: #fff;
   font-size: 11px;
   text-decoration: none;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
 }
 
 .credits a:hover {
