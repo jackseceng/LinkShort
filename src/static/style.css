@@ -266,6 +266,11 @@ h1 {
   text-decoration: none;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .credits a:hover {
   opacity: 1;
 }
@@ -302,9 +307,4 @@ h1 {
 
 .notification.show {
   opacity: 1;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
 }
