@@ -127,13 +127,13 @@ h1 {
 
 .block-cube.block-input input:focus ~ .bg-right .bg-inner, .block-cube.block-input input:focus ~ .bg-top .bg-inner, .block-cube.block-input input:focus ~ .bg-inner .bg-inner {
   top: 100%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 50%);
 }
 
 .block-cube.block-input .bg-top,
 .block-cube.block-input .bg-right,
 .block-cube.block-input .bg {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 50%);
   transition: background 0.2s ease-in-out;
 }
 
@@ -147,7 +147,7 @@ h1 {
 .block-cube.block-input:focus .bg, .block-cube.block-input:hover .bg-top,
 .block-cube.block-input:hover .bg-right,
 .block-cube.block-input:hover .bg {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 80%);
 }
 
 .block-cube.block-cube-hover:focus .bg .bg-inner, .block-cube.block-cube-hover:hover .bg .bg-inner {
@@ -225,13 +225,13 @@ h1 {
 
 .block-cube-2.block-input input:focus ~ .bg-right .bg-inner, .block-cube-2.block-input input:focus ~ .bg-top .bg-inner, .block-cube-2.block-input input:focus ~ .bg-inner .bg-inner {
   top: 100%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 50%);
 }
 
 .block-cube-2.block-input .bg-top,
 .block-cube-2.block-input .bg-right,
 .block-cube-2.block-input .bg {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 50%);
   transition: background 0.2s ease-in-out;
 }
 
@@ -245,7 +245,7 @@ h1 {
 .block-cube-2.block-input:focus .bg, .block-cube-2.block-input:hover .bg-top,
 .block-cube-2.block-input:hover .bg-right,
 .block-cube-2.block-input:hover .bg {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 80%);
 }
 
 .block-cube-2.block-cube-hover:focus .bg .bg-inner, .block-cube-2.block-cube-hover:hover .bg .bg-inner {
