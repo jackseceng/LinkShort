@@ -36,6 +36,16 @@ h1 {
   font-size: 16px;
 }
 
+.block-cube.block-input input {
+  position: relative;
+  z-index: 2;
+}
+
+.block-cube-2.block-input input {
+  position: relative;
+  z-index: 2;
+}
+
 .form .control input:hover, .form .control input:focus {
   outline: none;
   border: 0;
@@ -75,10 +85,13 @@ h1 {
 .block-cube .bg-inner {
   background: #212121;
   position: absolute;
-  left: 2px;
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
+  inset: 2px;
+}
+
+.block-cube-2 .bg-inner {
+  background: #212121;
+  position: absolute;
+  inset: 2px;
 }
 
 .block-cube .bg-top .bg-inner {
@@ -87,10 +100,7 @@ h1 {
 
 .block-cube .bg {
   position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: #020024;
   background: linear-gradient(90deg, #020024 0%, #340979 37%, #00d4ff 94%);
 }
@@ -119,44 +129,6 @@ h1 {
   z-index: 2;
 }
 
-.block-cube.block-input input {
-  position: relative;
-  z-index: 2;
-}
-
-.block-cube.block-input input:focus ~ .bg-right .bg-inner, .block-cube.block-input input:focus ~ .bg-top .bg-inner, .block-cube.block-input input:focus ~ .bg-inner .bg-inner {
-  top: 100%;
-  background: rgba(255, 255, 255, 50%);
-}
-
-.block-cube.block-input .bg-top,
-.block-cube.block-input .bg-right,
-.block-cube.block-input .bg {
-  background: rgba(255, 255, 255, 50%);
-  transition: background 0.2s ease-in-out;
-}
-
-.block-cube.block-input .bg-right .bg-inner,
-.block-cube.block-input .bg-top .bg-inner {
-  transition: all 0.2s ease-in-out;
-}
-
-.block-cube.block-input:focus .bg-top,
-.block-cube.block-input:focus .bg-right,
-.block-cube.block-input:focus .bg, .block-cube.block-input:hover .bg-top,
-.block-cube.block-input:hover .bg-right,
-.block-cube.block-input:hover .bg {
-  background: rgba(255, 255, 255, 80%);
-}
-
-.block-cube.block-cube-hover:focus .bg .bg-inner, .block-cube.block-cube-hover:hover .bg .bg-inner {
-  top: 100%;
-}
-
-.block-cube-2 {
-  position: relative;
-}
-
 .block-cube-2 .bg-top {
   position: absolute;
   height: 10px;
@@ -173,12 +145,41 @@ h1 {
   bottom: 0;
 }
 
+.block-cube-2 .bg-right .bg-inner {
+  left: 0;
+}
+
+.block-cube-2 .bg .bg-inner {
+  transition: all 0.2s ease-in-out;
+}
+
+.block-cube.block-input .bg-top .bg-inner {
+  transition: all 0.2s ease-in-out;
+}
+
+.block-cube-2.block-input .bg-top .bg-inner {
+  transition: all 0.2s ease-in-out;
+}
+
+.block-cube.block-input .bg-right .bg-inner,
+.block-cube-2.block-input .bg-right .bg-inner,
+.block-cube.block-cube-hover:hover .bg .bg-inner {
+  top: 100%;
+}
+
+.block-cube-2.block-cube-hover:focus .bg .bg-inner, .block-cube-2.block-cube-hover:hover .bg .bg-inner {
+  top: 100%;
+}
+
+.block-cube.block-cube-hover:focus .bg .bg-inner,
+.block-cube.block-input input:focus ~ .bg-right .bg-inner, .block-cube.block-input input:focus ~ .bg-top .bg-inner, .block-cube.block-input input:focus ~ .bg-inner .bg-inner {
+  top: 100%;
+  background: rgb(255 255 255 / 50%);
+}
+
 .block-cube-2 .bg {
   position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: #011b05;
   background: linear-gradient(90deg, #011b05 0%, #053814 37%, #06a02d 94%);
 }
@@ -194,21 +195,30 @@ h1 {
   transform: skew(0, -45deg);
 }
 
-.block-cube-2 .bg-right .bg-inner {
-  left: 0;
+.block-cube.block-input .bg-top,
+.block-cube.block-input .bg-right,
+.block-cube.block-input .bg {
+  background: rgb(255 255 255 / 50%);
+  transition: background 0.2s ease-in-out;
 }
 
-.block-cube-2 .bg .bg-inner {
-  transition: all 0.2s ease-in-out;
+.block-cube-2.block-input .bg {
+  background: rgb(255 255 255 / 50%);
+  transition: background 0.2s ease-in-out;
 }
 
-.block-cube-2 .bg-inner {
-  background: #212121;
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
+.block-cube-2.block-input .bg-top,
+.block-cube.block-input:focus .bg-top,
+.block-cube-2.block-input .bg-right,
+.block-cube.block-input:focus .bg-right,
+.block-cube.block-input:focus .bg, .block-cube.block-input:hover .bg-top,
+.block-cube.block-input:hover .bg-right,
+.block-cube.block-input:hover .bg {
+  background: rgb(255 255 255 / 80%);
+}
+
+.block-cube-2 {
+  position: relative;
 }
 
 .block-cube-2 .text {
@@ -216,26 +226,9 @@ h1 {
   z-index: 2;
 }
 
-.block-cube-2.block-input input {
-  position: relative;
-  z-index: 2;
-}
-
 .block-cube-2.block-input input:focus ~ .bg-right .bg-inner, .block-cube-2.block-input input:focus ~ .bg-top .bg-inner, .block-cube-2.block-input input:focus ~ .bg-inner .bg-inner {
   top: 100%;
-  background: rgba(255, 255, 255, 50%);
-}
-
-.block-cube-2.block-input .bg-top,
-.block-cube-2.block-input .bg-right,
-.block-cube-2.block-input .bg {
-  background: rgba(255, 255, 255, 50%);
-  transition: background 0.2s ease-in-out;
-}
-
-.block-cube-2.block-input .bg-right .bg-inner,
-.block-cube-2.block-input .bg-top .bg-inner {
-  transition: all 0.2s ease-in-out;
+  background: rgb(255 255 255 / 50%);
 }
 
 .block-cube-2.block-input:focus .bg-top,
@@ -243,11 +236,7 @@ h1 {
 .block-cube-2.block-input:focus .bg, .block-cube-2.block-input:hover .bg-top,
 .block-cube-2.block-input:hover .bg-right,
 .block-cube-2.block-input:hover .bg {
-  background: rgba(255, 255, 255, 80%);
-}
-
-.block-cube-2.block-cube-hover:focus .bg .bg-inner, .block-cube-2.block-cube-hover:hover .bg .bg-inner {
-  top: 100%;
+  background: rgb(255 255 255 / 80%);
 }
 
 .credits {
