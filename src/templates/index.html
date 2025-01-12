@@ -2,37 +2,62 @@
 <html lang="en">
 
 <head>
-    <title>LinkShort - Share Links Securely</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>LinkShort - Share Links Securely</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" type="image/png" href="static/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="static/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="static/favicon.svg" />
+  <link rel="shortcut icon" href="static/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png" />
+  <link rel="manifest" href="static/site.webmanifest" />
 </head>
 
 <body>
-    <div class="main-box">
-        <form method="POST" action="" id="submission-form">
-            <div class="user-box">
-                <input type="URL" name="link" id="link" required="">
-                <label>Paste your link here...</label>
-            </div>
-            <center>
-                <a>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <input type="submit" value="Get one time link" class="clickable" />
-                </a>
-            </center>
-        </form>
-        <p>
-            <a>
-                <center>
-                    <a href="https://github.com/jackseceng/LinkShort/tree/main" class="clickable">Source Code</a>
-                    <a> | </a>
-                    <a href="https://jacksec.engineer/mail" class="clickable">Contact Me</a>
-                </center>
-            </a>
-        </p>
+  <form method="POST" autocomplete='off' class='form'>
+    <div class='control'>
+      <center>
+        <h1>
+          Shorten a link
+        </h1>
+      </center>
     </div>
+    <div class='control block-cube block-input'>
+      <input name='link' id="link" placeholder='Paste your long link here' type='URL' required="">
+      <div class='bg-top'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg-right'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg'>
+        <div class='bg-inner'></div>
+      </div>
+    </div>
+    <button class='btn block-cube block-cube-hover' type='submit'>
+      <div class='bg-top'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg-right'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='text'>
+        Get a short link
+      </div>
+    </button>
+    <div class='credits'>
+      <a href='https://github.com/jackseceng/LinkShort/tree/main' target='_blank'>
+        Source code
+      </a>
+      |
+      <a href='https://jacksec.engineer' target='_blank'>
+        Made by Jack
+      </a>
+    </div>
+  </form>
 </body>
 
 </html>
+<!--Based on this codepen: https://codepen.io/marko-zub/pen/mzPeOV-->

@@ -18,6 +18,7 @@ class Base(DeclarativeBase):
 
 
 class Entry(Base):
+    """Base database entry class"""
     __tablename__ = "links"
     path: Mapped[str] = mapped_column(primary_key=True)
     link: Mapped[str] = mapped_column(String)
@@ -41,6 +42,7 @@ engine = create_engine(
 
 
 def get_link(path):
+    """Get entries that match provided path, return output string or bool False if fail"""
     try:
         session = Session(engine)
         # Get items
@@ -54,6 +56,7 @@ def get_link(path):
 
 
 def insert_link(path, link):
+    """Insert an entry under the specified path, return bool outcome"""
     try:
         with Session(engine) as session:
             print(path, link)
@@ -68,6 +71,7 @@ def insert_link(path, link):
 
 
 def check_link(path):
+    """Return if an entry exists under specified path"""
     try:
         session = Session(engine)
         # Return if entry exists

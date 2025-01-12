@@ -1,244 +1,279 @@
-html {
-    height: 100%;
-  }
-  
-  body {
-    margin:0;
-    padding:0;
-    font-family: verdana, sans-serif;
-    background: linear-gradient(#141e30, #243b55);
-  }
-  
-  .main-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 1000px;
-    padding: 40px;
-    transform: translate(-50%, -50%);
-    background: rgba(0 0 0 / 50%);
-    box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0 0 0 / 60%);
-    border-radius: 10px;
-  }
-  
-  .main-box h2 {
-    margin: 40 0 0;
-    padding: 0;
-    color: #03e9f4;
-    text-align: center;
-  }
-  
-  .main-box .existing-link {
-    margin: 0;
-    padding: 0;
-    color: #03e9f4;
-    text-align: center;
-  }
-  
-  .main-box .user-box {
-    position: relative;
-  }
-  
-  .main-box .user-box input {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-  }
-  
-  .main-box .user-box label {
-    position: absolute;
-    top:0;
-    left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #3c3c3c;
-    pointer-events: none;
-    transition: .5s;
-  }
-  
-  .main-box .user-box input:focus ~ label,
-  .main-box .user-box input:valid ~ label {
-    top: -20px;
-    left: 0;
-    color: #03e9f4;
-    font-size: 12px;
-  }
-  
-  .main-box form a {
-    position: relative;
-    display: inline-block;
-    padding: 10px 108px;
-    color: #03e9f4;
-    font-size: 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    transition: .5s;
-    margin-top: 40px;
-    letter-spacing: 4px
-  }
-  
-  .clickable {
-    background-color: transparent;
-    border: 0;
-    color: #3c3c3c;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline;
-    margin: 0;
-    outline: none;
-    padding: 0;
-  }
-  
-  .clickable-big {
-    background-color: transparent;
-    border: 0;
-    color: #3c3c3c;
-    font-size: 26px;
-    cursor: pointer;
-    display: inline;
-    margin: 0;
-    outline: none;
-    padding: 0;
-  }
-  
-  .main-box a:hover {
-    background: #03e9f4;
-    color: #3c3c3c;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #03e9f4,
-                0 0 25px #03e9f4,
-                0 0 50px #03e9f4,
-                0 0 100px #03e9f4;
-  }
-  
-  .main-box a span {
-    position: absolute;
-    display: block;
-  }
-  
-  .main-box a span:nth-child(1) {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #03e9f4);
-    animation: btn-anim1 1s linear infinite;
-  }
-  
-  @keyframes btn-anim1 {
-    0% {
-      left: -100%;
-    }
-    
-    50%,100% {
-      left: 100%;
-    }
-  }
-  
-  .main-box a span:nth-child(2) {
-    top: -100%;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(180deg, transparent, #03e9f4);
-    animation: btn-anim2 1s linear infinite;
-    animation-delay: .25s
-  }
-  
-  @keyframes btn-anim2 {
-    0% {
-      top: -100%;
-    }
-    
-    50%,100% {
-      top: 100%;
-    }
-  }
-  
-  .main-box a span:nth-child(3) {
-    bottom: 0;
-    right: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(270deg, transparent, #03e9f4);
-    animation: btn-anim3 1s linear infinite;
-    animation-delay: .5s
-  }
-  
-  @keyframes btn-anim3 {
-    0% {
-      right: -100%;
-    }
-    
-    50%,100% {
-      right: 100%;
-    }
-  }
-  
-  .main-box a span:nth-child(4) {
-    bottom: -100%;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(360deg, transparent, #03e9f4);
-    animation: btn-anim4 1s linear infinite;
-    animation-delay: .75s
-  }
-  
-  @keyframes btn-anim4 {
-    0% {
-      bottom: -100%;
-    }
-    
-    50%,100% {
-      bottom: 100%;
-    }
-  }
-  
-  .main-box h3 {
-    margin: 40 0 0;
-    padding: 0;
-    color: #03e9f4;
-    text-align: center;
-  }
-  
-  .loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
 
-  .notification {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(3 233 244 / 90%);
-    color: #3c3c3c;
-    padding: 15px 30px;
-    border-radius: 5px;
-    z-index: 2000;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    box-shadow: 0 0 10px rgba(0 0 0 / 20%);
-  }
-  
-  .notification.show {
-    opacity: 1;
-  }
+body {
+  background-color: #212121;
+  color: #fff;
+  font-family: monospace, serif;
+  letter-spacing: 0.05em;
+}
+
+h1 {
+  font-size: 23px;
+}
+
+.form {
+  width: 300px;
+  padding: 64px 15px 24px;
+  margin: 0 auto;
+}
+.form .control {
+  margin: 0 0 24px;
+}
+.form .control input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-family: monospace, serif;
+  letter-spacing: 0.05em;
+  font-size: 16px;
+}
+.form .control input:hover, .form .control input:focus {
+  outline: none;
+  border: 0;
+}
+.form .btn {
+  width: 100%;
+  display: block;
+  padding: 14px 16px;
+  background: transparent;
+  outline: none;
+  border: 0;
+  color: #fff;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.block-cube {
+  position: relative;
+}
+.block-cube .bg-top {
+  position: absolute;
+  height: 10px;
+  background: #020024;
+  background: linear-gradient(90deg, #020024 0%, #340979 37%, #00d4ff 94%);
+  bottom: 100%;
+  left: 5px;
+  right: -5px;
+  transform: skew(-45deg, 0);
+  margin: 0;
+}
+.block-cube .bg-top .bg-inner {
+  bottom: 0;
+}
+.block-cube .bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #020024;
+  background: linear-gradient(90deg, #020024 0%, #340979 37%, #00d4ff 94%);
+}
+.block-cube .bg-right {
+  position: absolute;
+  background: #020024;
+  background: #00d4ff;
+  top: -5px;
+  z-index: 0;
+  bottom: 5px;
+  width: 10px;
+  left: 100%;
+  transform: skew(0, -45deg);
+}
+.block-cube .bg-right .bg-inner {
+  left: 0;
+}
+.block-cube .bg .bg-inner {
+  transition: all 0.2s ease-in-out;
+}
+.block-cube .bg-inner {
+  background: #212121;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+}
+.block-cube .text {
+  position: relative;
+  z-index: 2;
+}
+.block-cube.block-input input {
+  position: relative;
+  z-index: 2;
+}
+.block-cube.block-input input:focus ~ .bg-right .bg-inner, .block-cube.block-input input:focus ~ .bg-top .bg-inner, .block-cube.block-input input:focus ~ .bg-inner .bg-inner {
+  top: 100%;
+  background: rgba(255, 255, 255, 0.5);
+}
+.block-cube.block-input .bg-top,
+.block-cube.block-input .bg-right,
+.block-cube.block-input .bg {
+  background: rgba(255, 255, 255, 0.5);
+  transition: background 0.2s ease-in-out;
+}
+.block-cube.block-input .bg-right .bg-inner,
+.block-cube.block-input .bg-top .bg-inner {
+  transition: all 0.2s ease-in-out;
+}
+.block-cube.block-input:focus .bg-top,
+.block-cube.block-input:focus .bg-right,
+.block-cube.block-input:focus .bg, .block-cube.block-input:hover .bg-top,
+.block-cube.block-input:hover .bg-right,
+.block-cube.block-input:hover .bg {
+  background: rgba(255, 255, 255, 0.8);
+}
+.block-cube.block-cube-hover:focus .bg .bg-inner, .block-cube.block-cube-hover:hover .bg .bg-inner {
+  top: 100%;
+}
+
+.block-cube-2 {
+  position: relative;
+}
+
+.block-cube-2 .bg-top {
+  position: absolute;
+  height: 10px;
+  background: #011b05;
+  background: linear-gradient(90deg, #011b05 0%, #053814 37%, #06a02d 94%);
+  bottom: 100%;
+  left: 5px;
+  right: -5px;
+  transform: skew(-45deg, 0);
+  margin: 0;
+}
+.block-cube-2 .bg-top .bg-inner {
+  bottom: 0;
+}
+.block-cube-2 .bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #011b05;
+  background: linear-gradient(90deg, #011b05 0%, #053814 37%, #06a02d 94%);
+}
+.block-cube-2 .bg-right {
+  position: absolute;
+  background: #011b05;
+  background: #06a02d;
+  top: -5px;
+  z-index: 0;
+  bottom: 5px;
+  width: 10px;
+  left: 100%;
+  transform: skew(0, -45deg);
+}
+.block-cube-2 .bg-right .bg-inner {
+  left: 0;
+}
+.block-cube-2 .bg .bg-inner {
+  transition: all 0.2s ease-in-out;
+}
+.block-cube-2 .bg-inner {
+  background: #212121;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+}
+.block-cube-2 .text {
+  position: relative;
+  z-index: 2;
+}
+.block-cube-2.block-input input {
+  position: relative;
+  z-index: 2;
+}
+.block-cube-2.block-input input:focus ~ .bg-right .bg-inner, .block-cube-2.block-input input:focus ~ .bg-top .bg-inner, .block-cube-2.block-input input:focus ~ .bg-inner .bg-inner {
+  top: 100%;
+  background: rgba(255, 255, 255, 0.5);
+}
+.block-cube-2.block-input .bg-top,
+.block-cube-2.block-input .bg-right,
+.block-cube-2.block-input .bg {
+  background: rgba(255, 255, 255, 0.5);
+  transition: background 0.2s ease-in-out;
+}
+.block-cube-2.block-input .bg-right .bg-inner,
+.block-cube-2.block-input .bg-top .bg-inner {
+  transition: all 0.2s ease-in-out;
+}
+.block-cube-2.block-input:focus .bg-top,
+.block-cube-2.block-input:focus .bg-right,
+.block-cube-2.block-input:focus .bg, .block-cube-2.block-input:hover .bg-top,
+.block-cube-2.block-input:hover .bg-right,
+.block-cube-2.block-input:hover .bg {
+  background: rgba(255, 255, 255, 0.8);
+}
+.block-cube-2.block-cube-hover:focus .bg .bg-inner, .block-cube-2.block-cube-hover:hover .bg .bg-inner {
+  top: 100%;
+}
+
+.credits {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 15px 15px;
+  width: 100%;
+  z-index: 111;
+}
+.credits a {
+  opacity: 0.6;
+  color: #fff;
+  font-size: 11px;
+  text-decoration: none;
+}
+.credits a:hover {
+  opacity: 1;
+}
+
+.loader {
+  border: 16px solid #212121;
+  border-radius: 50%;
+  border-top: 16px solid #340979;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color:#212121;
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 5px;
+  z-index: 2000;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  box-shadow: 0 0 10px #fff;
+}
+
+.notification.show {
+  opacity: 1;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
