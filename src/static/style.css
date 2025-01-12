@@ -97,12 +97,12 @@ h1 {
   transform: skew(0, -45deg);
 }
 
-.block-cube .bg-right .bg-inner {
-  left: 0;
-}
-
 .block-cube .bg .bg-inner {
   transition: all 0.2s ease-in-out;
+}
+
+.block-cube .bg-right .bg-inner {
+  left: 0;
 }
 
 .block-cube .bg-inner {

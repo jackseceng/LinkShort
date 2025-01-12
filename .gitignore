@@ -1,10 +1,4 @@
-.DS_Store
-.dccache
-.vscode/settings.json
-.vscode/launch.json
-.venv/
+.vscode/*
+.venv/*
 .env
-kompose.exe
-pyvenv.cfg
 .python-version
-app/__pycache__/*
