@@ -72,6 +72,15 @@ h1 {
   margin: 0;
 }
 
+.block-cube .bg-inner {
+  background: #212121;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+}
+
 .block-cube .bg-top .bg-inner {
   bottom: 0;
 }
@@ -103,15 +112,6 @@ h1 {
 
 .block-cube .bg-right .bg-inner {
   left: 0;
-}
-
-.block-cube .bg-inner {
-  background: #212121;
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
 }
 
 .block-cube .text {
