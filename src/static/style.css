@@ -88,7 +88,6 @@ h1 {
 
 .block-cube .bg-right {
   position: absolute;
-  background: #020024;
   background: #00d4ff;
   top: -5px;
   z-index: 0;
@@ -186,7 +185,6 @@ h1 {
 
 .block-cube-2 .bg-right {
   position: absolute;
-  background: #011b05;
   background: #06a02d;
   top: -5px;
   z-index: 0;
