@@ -19,6 +19,7 @@ class Base(DeclarativeBase):
 
 class Entry(Base):
     """Base database entry class"""
+
     __tablename__ = "links"
     path: Mapped[str] = mapped_column(primary_key=True)
     link: Mapped[str] = mapped_column(String)

@@ -3,7 +3,7 @@
 
 <head>
   <title>LinkShort - Share Links Securely</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for("static", filename="style.css") }}">
   <link rel="icon" type="image/png" href="static/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/png" href="static/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="static/favicon.svg" />
@@ -13,46 +13,46 @@
 </head>
 
 <body>
-  <form method="POST" autocomplete='off' class='form'>
-    <div class='control'>
+  <form method="POST" autocomplete="off" class="form">
+    <div class="control">
       <center>
         <h1>
           Shorten a link
         </h1>
       </center>
     </div>
-    <div class='control block-cube block-input'>
-      <input name='link' id="link" placeholder='Paste your long link here' type='URL' required="">
-      <div class='bg-top'>
-        <div class='bg-inner'></div>
+    <div class="control block-cube block-input">
+      <input name="link" id="link" placeholder="Paste your long link here" type="URL" required="">
+      <div class="bg-top">
+        <div class="bg-inner"></div>
       </div>
-      <div class='bg-right'>
-        <div class='bg-inner'></div>
+      <div class="bg-right">
+        <div class="bg-inner"></div>
       </div>
-      <div class='bg'>
-        <div class='bg-inner'></div>
+      <div class="bg">
+        <div class="bg-inner"></div>
       </div>
     </div>
-    <button class='btn block-cube block-cube-hover' type='submit'>
-      <div class='bg-top'>
-        <div class='bg-inner'></div>
+    <button class="btn block-cube block-cube-hover" type="submit">
+      <div class="bg-top">
+        <div class="bg-inner"></div>
       </div>
-      <div class='bg-right'>
-        <div class='bg-inner'></div>
+      <div class="bg-right">
+        <div class="bg-inner"></div>
       </div>
-      <div class='bg'>
-        <div class='bg-inner'></div>
+      <div class="bg">
+        <div class="bg-inner"></div>
       </div>
-      <div class='text'>
+      <div class="text">
         Get a short link
       </div>
     </button>
-    <div class='credits'>
-      <a href='https://github.com/jackseceng/LinkShort/tree/main' target='_blank'>
+    <div class="credits">
+      <a href="https://github.com/jackseceng/LinkShort/tree/main" target="_blank">
         Source code
       </a>
       |
-      <a href='https://jacksec.engineer' target='_blank'>
+      <a href="https://jacksec.engineer" target="_blank">
         Made by Jack
       </a>
     </div>
