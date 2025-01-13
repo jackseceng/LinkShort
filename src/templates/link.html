@@ -14,6 +14,7 @@
 
 <body>
     <div id="notification" class="notification"></div>
+    <div id="error_reason" value="{{ error_message }}"></div>
     <form method="GET" action="" autocomplete="off" class="form">
         <div class="control">
             <center>
@@ -49,20 +50,9 @@
             </div>
         </button>
         <p>
-            <button class="btn block-cube-2 block-cube-hover">
-                <div class="bg-top">
-                    <div class="bg-inner"></div>
-                </div>
-                <div class="bg-right">
-                    <div class="bg-inner"></div>
-                </div>
-                <div class="bg">
-                    <div class="bg-inner"></div>
-                </div>
-                <div>
-                    <a href="https://{{tld}}" target="_blank"><span class="text">Share another link</span></a>
-                </div>
-            </button>
+            <center>
+                <a href="https://{{tld}}" target="_blank"><span class="text">Share another link></span></a>
+            </center>
         </p>
         <div class="credits">
             <a href="https://github.com/jackseceng/LinkShort/tree/main" target="_blank">
@@ -74,8 +64,8 @@
             </a>
         </div>
     </form>
-    <script src="{{ url_for('static', filename='copy.js') }}"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 
 </html>
-<!--Based on this codepen: https://codepen.io/marko-zub/pen/mzPeOV-->
+<!-- Based on this codepen: https://codepen.io/marko-zub/pen/mzPeOV -->

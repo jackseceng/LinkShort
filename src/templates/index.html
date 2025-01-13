@@ -13,6 +13,9 @@
 </head>
 
 <body>
+  <div id="notification" class="notification"></div>
+  <div id="error_reason" value="{{ error_message }}"></div>
+  <div id="copy-btn" value="None"></div>
   <form method="POST" autocomplete="off" class="form">
     <div class="control">
       <center>
@@ -22,7 +25,7 @@
       </center>
     </div>
     <div class="control block-cube block-input">
-      <input name="link" id="link" placeholder="Paste your long link here" type="URL" required="">
+      <input name="link" id="link" placeholder="Paste a link here..." type="URL" required="">
       <div class="bg-top">
         <div class="bg-inner"></div>
       </div>
@@ -44,7 +47,7 @@
         <div class="bg-inner"></div>
       </div>
       <div class="text">
-        Get a short link
+        Shorten it!
       </div>
     </button>
     <div class="credits">
@@ -57,7 +60,8 @@
       </a>
     </div>
   </form>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 
 </html>
-<!--Based on this codepen: https://codepen.io/marko-zub/pen/mzPeOV-->
+<!-- Based on this codepen: https://codepen.io/marko-zub/pen/mzPeOV -->

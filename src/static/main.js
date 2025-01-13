@@ -1,4 +1,11 @@
 const copyValue = document.getElementById("copy-btn");
+const errorValue = document.getElementById("error_reason").getAttribute("value");
+
+if (errorValue === "whitespace") {
+  showNotification("URLs can't contain whitespace");
+} else if (errorValue === "insecure") {
+  showNotification("HTTPS links only");
+}
 
 copyValue.addEventListener("click", () => {
   var copy_textbox = document.getElementById("link");
