@@ -1,5 +1,5 @@
 const copyValue = document.getElementById("copy-btn");
-const errorValue = document.getElementById("error_reason").getAttribute("value");
+const errorValue = document.getElementById("errorReason").getAttribute("value");
 
 if (errorValue === "whitespace") {
   showNotification("URLs can't contain whitespace");
