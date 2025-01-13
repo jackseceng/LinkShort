@@ -36,7 +36,7 @@ def input_url():
             if len(error) != 0:
                 # If there is an error string,
                 # Return homepage with error message
-                resp = make_response(render_template("index.html", error_message=error))
+                resp = make_response(render_template("index.html", errorMessage=error))
                 return resp
             path = urls.generate_path(str(user_input))
 
@@ -47,18 +47,18 @@ def input_url():
                 path = urls.generate_path(str(user_input))
             if db.insert_link(path, user_input) is False:
                 # 500 error returned for database failure
-                resp = make_response(render_template("500.html", code=500, error_message="None"))
+                resp = make_response(render_template("500.html", code=500, errorMessage="None"))
                 return resp
 
             # Return link page with URL if successful
             resp = make_response(
-                render_template("link.html", tld=tld, extension=str(path), error_message="None")
+                render_template("link.html", tld=tld, extension=str(path), errorMessage="None")
             )
             return resp
 
         case _:
             # Catch all to return 500 error for any unexpected cases
-            resp = make_response(render_template("500.html", code=500, error_message="None"))
+            resp = make_response(render_template("500.html", code=500, errorMessage="None"))
             return resp
 
 
