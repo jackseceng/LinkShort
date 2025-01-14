@@ -10,11 +10,11 @@
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}" />
   <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}" />
+  <meta id="errorReason" value="{{ errorMessage }}"></meta>
 </head>
 
 <body>
   <div id="notification" class="notification"></div>
-  <meta id="errorReason"-value="{{ errorMessage }}"></meta>
   <div id="copy-btn" value="None"></div>
   <form method="POST" autocomplete="off" class="form">
     <div class="control">
