@@ -2,3 +2,7 @@
 .venv/*
 .env
 .python-version
+node_modules/*
+stylelint.config.js
+package.json
+package-lock.json
