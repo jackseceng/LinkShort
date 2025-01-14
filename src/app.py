@@ -47,7 +47,9 @@ def input_url():
                 path = urls.generate_path(str(user_input))
             if db.insert_link(path, user_input) is False:
                 # 500 error returned for database failure
-                resp = make_response(render_template("500.html", code=500, errormessage="None"))
+                resp = make_response(
+                    render_template("500.html", code=500, errormessage="None")
+                    )
                 return resp
 
             # Return link page with URL if successful
