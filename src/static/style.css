@@ -1,6 +1,4 @@
-*,
-::after,
-::before {
+*, ::after, ::before {
   box-sizing: border-box;
 }
 
@@ -36,16 +34,6 @@ h1 {
   font-size: 16px;
 }
 
-.block-cube.block-input input {
-  position: relative;
-  z-index: 2;
-}
-
-.block-cube-2.block-input input {
-  position: relative;
-  z-index: 2;
-}
-
 .form .control input:hover, .form .control input:focus {
   outline: none;
   border: 0;
@@ -63,7 +51,6 @@ h1 {
   font-weight: bold;
   font-family: monospace;
   font-size: 16px;
-  cursor: pointer;
 }
 
 .block-cube {
@@ -80,18 +67,6 @@ h1 {
   right: -5px;
   transform: skew(-45deg, 0);
   margin: 0;
-}
-
-.block-cube .bg-inner {
-  background: #212121;
-  position: absolute;
-  inset: 2px;
-}
-
-.block-cube-2 .bg-inner {
-  background: #212121;
-  position: absolute;
-  inset: 2px;
 }
 
 .block-cube .bg-top .bg-inner {
@@ -116,83 +91,41 @@ h1 {
   transform: skew(0, -45deg);
 }
 
+.block-cube .bg-right .bg-inner {
+  left: 0;
+}
+
 .block-cube .bg .bg-inner {
   transition: all 0.2s ease-in-out;
 }
 
-.block-cube .bg-right .bg-inner {
-  left: 0;
+/* stylelint-disable */
+.block-cube .bg-inner {
+  background: #212121;
+  position: absolute;
+  inset: 2px;
 }
+/* stylelint-enable */
 
 .block-cube .text {
   position: relative;
   z-index: 2;
 }
 
-.block-cube-2 .bg-top {
-  position: absolute;
-  height: 10px;
-  background: #011b05;
-  background: linear-gradient(90deg, #011b05 0%, #053814 37%, #06a02d 94%);
-  bottom: 100%;
-  left: 5px;
-  right: -5px;
-  transform: skew(-45deg, 0);
-  margin: 0;
+/* stylelint-disable */
+.block-cube.block-input input {
+  position: relative;
+  z-index: 2;
 }
+/* stylelint-enable */
 
-.block-cube-2 .bg-top .bg-inner {
-  bottom: 0;
-}
-
-.block-cube-2 .bg-right .bg-inner {
-  left: 0;
-}
-
-.block-cube-2 .bg .bg-inner {
-  transition: all 0.2s ease-in-out;
-}
-
-.block-cube.block-input .bg-top .bg-inner {
-  transition: all 0.2s ease-in-out;
-}
-
-.block-cube-2.block-input .bg-top .bg-inner {
-  transition: all 0.2s ease-in-out;
-}
-
-.block-cube.block-input .bg-right .bg-inner,
-.block-cube-2.block-input .bg-right .bg-inner,
 .block-cube.block-cube-hover:hover .bg .bg-inner {
   top: 100%;
 }
 
-.block-cube-2.block-cube-hover:focus .bg .bg-inner, .block-cube-2.block-cube-hover:hover .bg .bg-inner {
-  top: 100%;
-}
-
-.block-cube.block-cube-hover:focus .bg .bg-inner,
-.block-cube.block-input input:focus ~ .bg-right .bg-inner, .block-cube.block-input input:focus ~ .bg-top .bg-inner, .block-cube.block-input input:focus ~ .bg-inner .bg-inner {
+.block-cube.block-cube-hover:focus .bg .bg-inner, .block-cube.block-input input:focus ~ .bg-right .bg-inner, .block-cube.block-input input:focus ~ .bg-top .bg-inner, .block-cube.block-input input:focus ~ .bg-inner .bg-inner {
   top: 100%;
   background: rgb(255 255 255 / 50%);
-}
-
-.block-cube-2 .bg {
-  position: absolute;
-  inset: 0;
-  background: #011b05;
-  background: linear-gradient(90deg, #011b05 0%, #053814 37%, #06a02d 94%);
-}
-
-.block-cube-2 .bg-right {
-  position: absolute;
-  background: #06a02d;
-  top: -5px;
-  z-index: 0;
-  bottom: 5px;
-  width: 10px;
-  left: 100%;
-  transform: skew(0, -45deg);
 }
 
 .block-cube.block-input .bg-top,
@@ -202,40 +135,18 @@ h1 {
   transition: background 0.2s ease-in-out;
 }
 
-.block-cube-2.block-input .bg {
-  background: rgb(255 255 255 / 50%);
-  transition: background 0.2s ease-in-out;
+/* stylelint-disable */
+.block-cube.block-input .bg-right .bg-inner,
+.block-cube.block-input .bg-top .bg-inner {
+  transition: all 0.2s ease-in-out;
 }
+/* stylelint-enable */
 
-.block-cube-2.block-input .bg-top,
 .block-cube.block-input:focus .bg-top,
-.block-cube-2.block-input .bg-right,
 .block-cube.block-input:focus .bg-right,
 .block-cube.block-input:focus .bg, .block-cube.block-input:hover .bg-top,
 .block-cube.block-input:hover .bg-right,
 .block-cube.block-input:hover .bg {
-  background: rgb(255 255 255 / 80%);
-}
-
-.block-cube-2 {
-  position: relative;
-}
-
-.block-cube-2 .text {
-  position: relative;
-  z-index: 2;
-}
-
-.block-cube-2.block-input input:focus ~ .bg-right .bg-inner, .block-cube-2.block-input input:focus ~ .bg-top .bg-inner, .block-cube-2.block-input input:focus ~ .bg-inner .bg-inner {
-  top: 100%;
-  background: rgb(255 255 255 / 50%);
-}
-
-.block-cube-2.block-input:focus .bg-top,
-.block-cube-2.block-input:focus .bg-right,
-.block-cube-2.block-input:focus .bg, .block-cube-2.block-input:hover .bg-top,
-.block-cube-2.block-input:hover .bg-right,
-.block-cube-2.block-input:hover .bg {
   background: rgb(255 255 255 / 80%);
 }
 
@@ -249,8 +160,19 @@ h1 {
 }
 
 a {
-  text-decoration: none;
+  background: linear-gradient(currentcolor 0 0) 
+    bottom left/
+    var(--underline-width, 0%) 0.1em
+    no-repeat;
   color: #fff;
+  display: inline-block;
+  padding: 0 .5em 0.2em;
+  text-decoration: none;
+  transition: background-size 0.2s;
+}
+
+a:hover {
+  --underline-width: 100%;
 }
 
 .credits a {
@@ -291,7 +213,7 @@ a {
   text-align: center;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-  box-shadow: 0 0 10px #fff;
+  box-shadow: 0 0 10px #e0f000;
 }
 
 .notification.show {

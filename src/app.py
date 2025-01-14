@@ -30,13 +30,13 @@ def input_url():
             user_input = bleach.clean(str(received_request["link"]))
             error = ""
             if urls.check_url_whitespace(user_input) is False:
-                error = "URL has whitespace"
+                error = "whitespace"
             if urls.check_url_security(user_input) is False:
-                error = "HTTPS links only"
+                error = "insecure"
             if len(error) != 0:
                 # If there is an error string,
                 # Return homepage with error message
-                resp = make_response(render_template("index.html", error_reason=error))
+                resp = make_response(render_template("index.html", errormessage=error))
                 return resp
             path = urls.generate_path(str(user_input))
 
@@ -47,18 +47,24 @@ def input_url():
                 path = urls.generate_path(str(user_input))
             if db.insert_link(path, user_input) is False:
                 # 500 error returned for database failure
-                resp = make_response(render_template("500.html", code=500))
+                resp = make_response(
+                    render_template("500.html", code=500, errormessage="None")
+                )
                 return resp
 
             # Return link page with URL if successful
             resp = make_response(
-                render_template("link.html", tld=tld, extension=str(path))
+                render_template(
+                    "link.html", tld=tld, extension=str(path), errormessage="None"
+                )
             )
             return resp
 
         case _:
             # Catch all to return 500 error for any unexpected cases
-            resp = make_response(render_template("500.html", code=500))
+            resp = make_response(
+                render_template("500.html", code=500, errormessage="None")
+            )
             return resp
 
 
