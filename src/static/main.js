@@ -1,4 +1,4 @@
-const copyValue = document.getElementById("copy-btn");
+const copyValue = document.getElementById("copybtn");
 const errorValue = document.getElementById("errorreason").getAttribute("value");
 
 if (errorValue === "whitespace") {
