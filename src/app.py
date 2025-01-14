@@ -49,18 +49,22 @@ def input_url():
                 # 500 error returned for database failure
                 resp = make_response(
                     render_template("500.html", code=500, errormessage="None")
-                    )
+                )
                 return resp
 
             # Return link page with URL if successful
             resp = make_response(
-                render_template("link.html", tld=tld, extension=str(path), errormessage="None")
+                render_template(
+                    "link.html", tld=tld, extension=str(path), errormessage="None"
+                )
             )
             return resp
 
         case _:
             # Catch all to return 500 error for any unexpected cases
-            resp = make_response(render_template("500.html", code=500, errormessage="None"))
+            resp = make_response(
+                render_template("500.html", code=500, errormessage="None")
+            )
             return resp
 
 
