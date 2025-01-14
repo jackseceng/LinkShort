@@ -1,3 +1,27 @@
+/* For small screens (phones) */
+@media screen and (width <= 480px) {
+  .form {
+      width: 95%;
+      padding: 32px 10px 12px;
+  }
+  
+  .form .control input,
+  .form .btn {
+      padding: 10px 12px;
+  }
+  
+  .credits {
+      padding: 10px;
+  }
+}
+
+/* For medium screens (tablets) */
+@media screen and (width >= 481px) and (width <= 768px) {
+  .form {
+      width: 80%;
+  }
+}
+
 *, ::after, ::before {
   box-sizing: border-box;
 }
@@ -10,12 +34,14 @@ body {
 }
 
 h1 {
-  font-size: 23px;
+  font-size: 1.5rem;
+  padding: 15px;
 }
 
 .form {
-  width: 300px;
-  padding: 64px 15px 24px;
+  width: 90%;
+  max-width: 400px;
+  padding: 5% 15px 24px;
   margin: 0 auto;
 }
 
@@ -31,7 +57,7 @@ h1 {
   color: #fff;
   font-family: monospace, serif;
   letter-spacing: 0.05em;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .form .control input:hover, .form .control input:focus {
@@ -50,7 +76,7 @@ h1 {
   letter-spacing: 0.1em;
   font-weight: bold;
   font-family: monospace;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .block-cube {
@@ -188,10 +214,13 @@ a:hover {
 
 .loader {
   border: 16px solid #212121;
+  border-width: 3vmin;
   border-radius: 50%;
   border-top: 16px solid #340979;
-  width: 120px;
+  width: 15vmin;
   height: 120px;
+  max-width: 120px;
+  max-height: 120px;
   animation: spin 2s linear infinite;
 }
 
@@ -202,18 +231,21 @@ a:hover {
 
 .notification {
   position: fixed;
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
   background-color:#212121;
   color: #fff;
-  padding: 15px 30px;
+  padding: 5px;
   border-radius: 5px;
   z-index: 2000;
   text-align: center;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-  box-shadow: 0 0 10px #e0f000;
+  box-shadow: 0 0 10px #f00800;
 }
 
 .notification.show {
