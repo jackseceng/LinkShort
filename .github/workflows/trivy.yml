@@ -5,6 +5,7 @@ on:
   pull_request:
     branches:
         - main
+    paths: ['src/**', Dockerfile, requirements.txt]
 
 permissions:
   read-all
