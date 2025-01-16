@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint Codebase
-        uses: super-linter/super-linter/slim@b5a246e96b912dcfe71eb19b4aa62e453a02ebea
+        uses: super-linter/super-linter/slim@ae844193ed3e200e74ca4b0a523b7d61956720cb
         env:
           DEFAULT_BRANCH: origin/main
           # To report GitHub Actions status checks
