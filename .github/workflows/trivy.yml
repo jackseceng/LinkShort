@@ -5,6 +5,7 @@ on:
   pull_request:
     branches:
         - main
+    paths: ['.github/workflows/trivy.yml', 'src/**', Dockerfile, requirements.txt]
 
 permissions:
   read-all
