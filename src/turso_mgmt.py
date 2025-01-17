@@ -33,8 +33,8 @@ class Entry(Base):
 load_dotenv()
 
 # Get environment variables
-TURSO_DATABASE_URL = environ["ENDPOINT"]
-TURSO_AUTH_TOKEN = environ["TOKEN"]
+TURSO_DATABASE_URL = environ["T_ENDPOINT"]
+TURSO_AUTH_TOKEN = environ["T_TOKEN"]
 
 # construct SQLAlchemy URL
 dbUrl = f"sqlite+{TURSO_DATABASE_URL}/?authToken={TURSO_AUTH_TOKEN}&secure=true"
