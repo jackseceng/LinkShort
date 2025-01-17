@@ -29,5 +29,5 @@ def check_url_security(url_input):
     if url_input[:5] == "https":
         logging.info("Security found")
         return True
-    logging.warning("Security not found")
+    logging.error("Security not found")
     return False

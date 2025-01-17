@@ -1,5 +1,7 @@
 """Turso query and connection management module"""
 
+import logging
+
 from os import environ
 from dotenv import load_dotenv
 
@@ -31,8 +33,8 @@ class Entry(Base):
 load_dotenv()
 
 # Get environment variables
-TURSO_DATABASE_URL = environ["ENDPOINT"]
-TURSO_AUTH_TOKEN = environ["TOKEN"]
+TURSO_DATABASE_URL = environ["T_ENDPOINT"]
+TURSO_AUTH_TOKEN = environ["T_TOKEN"]
 
 # construct SQLAlchemy URL
 dbUrl = f"sqlite+{TURSO_DATABASE_URL}/?authToken={TURSO_AUTH_TOKEN}&secure=true"
@@ -52,7 +54,7 @@ def get_link(path):
             output = item.link
         return output
     except SQLAlchemyError as e:
-        print(f"Error on get_link: {e}")
+        logging.error("Error on get_link: %s", e)
         return False
 
 
@@ -67,7 +69,7 @@ def insert_link(path, link):
             session.commit()
             return True
     except SQLAlchemyError as e:
-        print(f"Error on insert_link: {e}")
+        logging.error("Error on insert_link:  %s", e)
         return False
 
 
@@ -78,5 +80,5 @@ def check_link(path):
         # Return if entry exists
         return bool(session.query(Entry).filter_by(path=path).first())
     except SQLAlchemyError as e:
-        print(f"Error on check_link: {e}")
+        logging.error("Error on check_link:  %s", e)
         return False

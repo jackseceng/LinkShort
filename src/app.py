@@ -43,7 +43,7 @@ def input_url():
             # Check for existing path
             # Generate new path if it does not already exist
             while db.check_link(path) is True:
-                logging.warning("Collision detected")
+                logging.info("Collision detected")
                 path = urls.generate_path(str(user_input))
             if db.insert_link(path, user_input) is False:
                 # 500 error returned for database failure
@@ -80,6 +80,7 @@ def redirect_url(arg):
         link = db.get_link(path)
         resp = make_response(render_template("redirect.html", link=link))
         return resp
+    logging.warning("404: No entry found")
     resp = make_response(render_template("404.html", tld=tld, code=404))
     return resp
 
