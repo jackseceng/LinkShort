@@ -214,40 +214,34 @@ a:hover {
 
 
 /* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
 .loader {
-  --s: 25px;
-  --g :5px;  
+  --s: 20px;
   
-  width: calc(3*(1.353*var(--s) + var(--g)));
+  --_d: calc(0.353*var(--s));
+  width: calc(var(--s) + var(--_d));
+  aspect-ratio: 1;
   display: grid;
-  justify-items: end;
-  aspect-ratio: 3;
-  overflow: hidden;
-  --_m: linear-gradient(90deg,#0000,#000 15px calc(100% - 15px),#0000);
-  -webkit-mask: var(--_m);
-          mask: var(--_m);
 }
-.loader:before { 
+.loader:before,
+.loader:after {
   content: "";
-  width: calc(4*100%/3);
+  grid-area: 1/1;
+  clip-path: polygon(var(--_d) 0,100% 0,100% calc(100% - var(--_d)),calc(100% - var(--_d)) 100%,0 100%,0 var(--_d));
   background:
-  conic-gradient(from -90deg at var(--s) calc(0.353*var(--s)),
-      #fff 135deg,#666 0 270deg,#aaa 0);
-  --_m:
-    linear-gradient(to bottom right,
-       #0000 calc(0.25*var(--s)),#000 0 calc(100% - calc(0.25*var(--s)) - 1.414*var(--g)),#0000 0),
-    conic-gradient(from -90deg at right var(--g) bottom var(--g),#000 90deg,#0000 0);
-   -webkit-mask: var(--_m);
-           mask: var(--_m);
-  background-size:   calc(100%/4) 100%;
-  -webkit-mask-size: calc(100%/4) 100%;
-          mask-size: calc(100%/4) 100%;
-  -webkit-mask-composite: source-in;
-          mask-composite: intersect;
-  animation: l8 1s infinite linear;
+    conic-gradient(from -90deg at calc(100% - var(--_d)) var(--_d),
+     #fff 135deg,#666 0 270deg,#aaa 0);
+  animation: l6 2s infinite;
 }
-@keyframes l8 {
-  to {transform:translate(calc(100%/4))}
+.loader:after {
+  animation-delay:-1s;
+}
+@keyframes l6{
+  0%  {transform:translate(0,0)}
+  25% {transform:translate(30px,0)}
+  50% {transform:translate(30px,30px)}
+  75% {transform:translate(0,30px)}
+  100%{transform:translate(0,0)}
 }
 
 .notification {
