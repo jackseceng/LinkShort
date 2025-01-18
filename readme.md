@@ -15,8 +15,8 @@ I am using this to learn:
 
 - Create a file in the `/src` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
 ```txt
-T_ENDPOINT="<your-turso-url>"
-T_TOKEN="<your-turso-token>"
+ENDPOINT="<your-turso-url>"
+TOKEN="<your-turso-token>"
 TLD=localhost
 ```
 
