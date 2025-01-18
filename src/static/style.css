@@ -245,7 +245,7 @@ a:hover {
   text-align: center;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-  box-shadow: 0 0 10px #f00800;
+  box-shadow: 0 0 10px #00ff15;
 }
 
 .notification.show {
