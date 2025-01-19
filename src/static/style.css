@@ -212,21 +212,38 @@ a:hover {
   opacity: 1;
 }
 
+/* Loader from https://css-loaders.com/3d/ */
+
 .loader {
-  border: 16px solid #212121;
-  border-width: 3vmin;
-  border-radius: 50%;
-  border-top: 16px solid #340979;
-  width: 15vmin;
-  height: 120px;
-  max-width: 120px;
-  max-height: 120px;
-  animation: spin 2s linear infinite;
+  --s: 20px;
+  --d: calc(0.353*var(--s));
+
+  width: calc(var(--s) + var(--d));
+  aspect-ratio: 1;
+  display: grid;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.loader::before,
+.loader::after {
+  content: "";
+  grid-area: 1/1;
+  clip-path: polygon(var(--d) 0,100% 0,100% calc(100% - var(--d)),calc(100% - var(--d)) 100%,0 100%,0 var(--d));
+  background:
+    conic-gradient(from -90deg at calc(100% - var(--d)) var(--d),
+     #fff 135deg,#666 0 270deg,#aaa 0);
+  animation: l6 2s infinite;
+}
+
+.loader::after {
+  animation-delay:-1s;
+}
+
+@keyframes l6{
+  0%  {transform:translate(0,0)}
+  25% {transform:translate(30px,0)}
+  50% {transform:translate(30px,30px)}
+  75% {transform:translate(0,30px)}
+  100%{transform:translate(0,0)}
 }
 
 .notification {
@@ -245,9 +262,10 @@ a:hover {
   text-align: center;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-  box-shadow: 0 0 10px #f00800;
+  box-shadow: 0 0 10px #00ff15;
 }
 
 .notification.show {
   opacity: 1;
 }
+
