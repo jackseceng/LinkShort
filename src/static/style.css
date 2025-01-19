@@ -212,30 +212,32 @@ a:hover {
   opacity: 1;
 }
 
+/* Loader from https://css-loaders.com/3d/ */
 
-/* HTML: <div class="loader"></div> */
-/* From https://css-loaders.com/3d/ */
 .loader {
   --s: 20px;
-  
-  --_d: calc(0.353*var(--s));
-  width: calc(var(--s) + var(--_d));
+  --d: calc(0.353*var(--s));
+
+  width: calc(var(--s) + var(--d));
   aspect-ratio: 1;
   display: grid;
 }
-.loader:before,
-.loader:after {
+
+.loader::before,
+.loader::after {
   content: "";
   grid-area: 1/1;
-  clip-path: polygon(var(--_d) 0,100% 0,100% calc(100% - var(--_d)),calc(100% - var(--_d)) 100%,0 100%,0 var(--_d));
+  clip-path: polygon(var(--d) 0,100% 0,100% calc(100% - var(--d)),calc(100% - var(--d)) 100%,0 100%,0 var(--d));
   background:
-    conic-gradient(from -90deg at calc(100% - var(--_d)) var(--_d),
+    conic-gradient(from -90deg at calc(100% - var(--d)) var(--d),
      #fff 135deg,#666 0 270deg,#aaa 0);
   animation: l6 2s infinite;
 }
-.loader:after {
+
+.loader::after {
   animation-delay:-1s;
 }
+
 @keyframes l6{
   0%  {transform:translate(0,0)}
   25% {transform:translate(30px,0)}
