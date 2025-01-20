@@ -14,7 +14,7 @@ name: "CodeQL"
 on:
   push:
     branches: [ "main" ]
-    paths: ['.github/workflows/codeql.yml', '**.py']
+    paths: ['.github/workflows/codeql.yml', '**.js']
   pull_request:
     branches: [ "main" ]
 
