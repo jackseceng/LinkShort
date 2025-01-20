@@ -6,7 +6,8 @@ on:
     branches:
       - main
 
-permissions: read-all
+permissions: 
+  read-all
 
 jobs:
   lint:
