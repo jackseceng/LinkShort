@@ -1,13 +1,16 @@
-name: Docker Build & Push
+name: Docker
 
 on:
-  merge_group:
+  push:
+    branches:
+      - main
 
 permissions:
   read-all
 
 jobs:
   docker:
+    name: Build & Push
     runs-on: ubuntu-latest
     steps:
       -
