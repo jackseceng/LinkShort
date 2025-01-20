@@ -14,7 +14,7 @@ name: "CodeQL"
 on:
   push:
     branches: [ "main" ]
-    paths: ['.github/workflows/codeql.yml', '**.py', '**.js']
+    paths: ['.github/workflows/codeql.yml', '**.py']
   pull_request:
     branches: [ "main" ]
 
@@ -45,7 +45,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - language: python, javascript-typescript
+        - language: python
           build-mode: none
         # CodeQL supports the following values keywords for 'language': 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift'
         # Use `c-cpp` to analyze code written in C, C++ or both
