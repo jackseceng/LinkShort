@@ -52,20 +52,10 @@ jobs:
           architecture: 'x64'
       # You can test your matrix by printing the current Python version
 
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python@master
         env:
-          # This is where you will need to introduce the Snyk API token created with your Snyk account
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          
-      - name: Snyk Auth
-        env:
-          # This is where you will need to introduce the Snyk API token created with your Snyk account
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk auth --auth-type=token
-        # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
-        # Use || true to not fail the pipeline
-      - name: Snyk Code test
-        shell: bash
-        run: snyk code test --all-projects --sarif-file-output=snyk-code.sarif # || true
 
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Snyk Open Source monitor
