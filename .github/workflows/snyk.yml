@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   Analyze:
-    name: Analyze Container
+    name: Analyze (container)
     runs-on: ubuntu-latest
     permissions:
       # required for all workflows
