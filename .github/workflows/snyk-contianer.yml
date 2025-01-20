@@ -1,0 +1,36 @@
+name: "Snyk Container Scan"
+
+on:
+  push:
+    branches: ["main" ]
+    paths: ['Dockerfile', '.github/workflows/snyk-container.yml']
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  snyk:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@85e6279cec87321a52edac9c87bce653a07cf6c2
+    - name: Build Image
+      run: docker build -t jackseceng/linkshort .
+    - name: Scan Docker image for vulnerabilities
+      # Snyk can be used to break the build when it detects vulnerabilities.
+      # In this case we want to upload the issues to GitHub Code Scanning
+      continue-on-error: true
+      uses: snyk/actions/docker@ff5c02a0e3adc5c52e2c9e7558edf2b46d69ac1f
+      env:
+        # In order to use the Snyk Action you will need to have a Snyk API token.
+        # More details in https://github.com/snyk/actions#getting-your-snyk-token
+        # or you can signup for free at https://snyk.io/login
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        image: jackseceng/linkshort
+        args: --file=Dockerfile
+    - name: Upload result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@86b04fb0e47484f7282357688f21d5d0e32175fe
+      with:
+        sarif_file: snyk.sarif
