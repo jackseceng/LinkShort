@@ -42,6 +42,6 @@ jobs:
         image: jackseceng/linkshort
         args: --file=Dockerfile
     - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@0f1559aeaf806072ddd427d1b11e1c956e4851a0
+      uses: github/codeql-action/upload-sarif@d90e07f32eb48924444e8069d5f1fbaaad678989
       with:
         sarif_file: snyk.sarif
