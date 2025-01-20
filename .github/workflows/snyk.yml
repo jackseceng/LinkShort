@@ -12,7 +12,18 @@ permissions:
 
 jobs:
   Analyze:
+    name: Analyze Container Image
     runs-on: ubuntu-latest
+    permissions:
+      # required for all workflows
+      security-events: write
+
+      # required to fetch internal or private CodeQL packs
+      packages: read
+
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
     steps:
     - uses: actions/checkout@85e6279cec87321a52edac9c87bce653a07cf6c2
     - name: Build Image
