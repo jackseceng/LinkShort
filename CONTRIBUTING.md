@@ -17,11 +17,9 @@
 
 ## Making PRs
 
-> Before raising a PR, please run the following linters on your code:
+> Before raising a PR, please run the following tools on your code to verify that it will pass PR checks:
 - [Super Linter](https://github.com/super-linter/super-linter?tab=readme-ov-file#run-super-linter-outside-github-actions)
 - [Snyk CLI](https://docs.snyk.io/scan-using-snyk/working-with-snyk-in-your-environment/running-scans#run-tests-manually)
-> When creating a PR, please make sure your commit messages and title adhere to the [conventional commits standard](https://www.conventionalcommits.org/en/v1.0.0/#specification)
-- There is a PR check in place to assure this happens, your PR will not be approved unless the title adheres to this standard.
 
 ## Support Expectations
 

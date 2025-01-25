@@ -93,7 +93,7 @@ def redirect_url(arg):
 @app.after_request
 def add_security_headers(resp):
     """Add CSP headers to all responses generated"""
-    resp.headers["Content-Security-Policy"] = "default-src 'self'"
+    resp.headers["Content-Security-Policy"] = "default-src 'self' img-src 'self' data:;"
     return resp
 
 
