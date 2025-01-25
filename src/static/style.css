@@ -40,7 +40,7 @@ h1 {
 
 .form {
   width: 90%;
-  max-width: 400px;
+  max-width: 300px;
   padding: 5% 15px 24px;
   margin: 0 auto;
 }
@@ -249,7 +249,7 @@ a:hover {
 .notification {
   position: fixed;
   width: 90%;
-  max-width: 400px;
+  max-width: 300px;
   margin: 0 auto;
   top: 20px;
   left: 50%;
@@ -269,3 +269,14 @@ a:hover {
   opacity: 1;
 }
 
+#qrcode {
+  width:160px;
+  height:160px;
+  margin-top:40px;
+}
+
+.glow {
+  border-radius: 2px;
+  margin: 50px;
+  box-shadow: rgb(255 255 255) 0 0 10px 10px;
+}

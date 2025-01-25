@@ -10,8 +10,9 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}" />
     <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}" />
-    <meta id="errorreason" value="{{ errorMessage }}"/>
+    <meta id="errorreason" value="{{ errorMessage }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="{{ url_for('static', filename='qrcode.min.js') }}"></script>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
             </center>
         </div>
         <div class="control block-cube block-input">
-            <input name="link" id="link" required="" value="https://{{tld}}/{{extension}}">
+            <input id="link" type="text" value="https://{{tld}}/{{extension}}">
             <div class="bg-top">
                 <div class="bg-inner"></div>
             </div>
@@ -47,14 +48,31 @@
                 <div class="bg-inner"></div>
             </div>
             <div class="text">
-                Copy to clipboard
+                Copy link
             </div>
         </button>
-        <p>
-            <center>
+        <center>
+            <div id="qrcode" class="glow"></div>
+            <p>
+                <button id="saveQRCode" type="button" class="btn block-cube block-cube-hover">
+                    <div class="bg-top">
+                        <div class="bg-inner"></div>
+                    </div>
+                    <div class="bg-right">
+                        <div class="bg-inner"></div>
+                    </div>
+                    <div class="bg">
+                        <div class="bg-inner"></div>
+                    </div>
+                    <div class="text">
+                        Download QR Code
+                    </div>
+                </button>
+            </p>
+            <p>
                 <a href="https://{{tld}}" target="_blank"><span class="text">Share another link&gt;</span></a>
-            </center>
-        </p>
+            </p>
+        </center>
         <div class="credits">
             <a href="https://github.com/jackseceng/LinkShort/tree/main" target="_blank">
                 Source code
@@ -66,6 +84,7 @@
         </div>
     </form>
     <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="{{ url_for('static', filename='linkpage.js') }}"></script>
 </body>
 
 </html>
