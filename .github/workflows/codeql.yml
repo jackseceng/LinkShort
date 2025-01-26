@@ -1,9 +1,9 @@
-name: "CodeQL JavaScript Scan"
+name: "CodeQL Scan"
 
 on:
   push:
     branches: [ "main" ]
-    paths: ['.github/workflows/codeql-js.yml', '**.js']
+    paths: ['.github/workflows/codeql-py.yml', '.github/workflows/codeql-js.yml', '**.py', '**.js']
   pull_request:
     branches: [ "main" ]
 
@@ -24,6 +24,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+        - language: python
+          build-mode: none
         - language: javascript-typescript
           build-mode: none
     steps:
