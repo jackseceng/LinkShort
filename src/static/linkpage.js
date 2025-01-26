@@ -53,4 +53,4 @@ function saveQRCode() {
 }
 
 // Add click event listener to the save button
-document.getElementById('saveQRCode').addEventListener('click', saveQRCode);
+document.getElementById('saveqrcode').addEventListener('click', saveQRCode);
