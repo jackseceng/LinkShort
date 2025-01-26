@@ -40,11 +40,12 @@ jobs:
           VALIDATE_GITLEAKS: true
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_HTML: true
+          VALIDATE_HTML_PRETTIER: true
           VALIDATE_PYTHON_BLACK: true
+          VALIDATE_PYTHON_ISORT: true
           VALIDATE_YAML: true
           VALIDATE_JAVASCRIPT_STANDARD: true
-          VALIDATE_JSCPD: true
           # To find and set more language specific linters
-          # Fing VALIDATE_ALL_CODEBASE on this page:
+          # Find VALIDATE_ALL_CODEBASE on this page:
           # https://github.com/super-linter/super-linter
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
