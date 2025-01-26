@@ -51,7 +51,7 @@ docker-compose down
 - [x] Sanitises input from user for both URLs and extensions on requests
 - [x] Checks user input for URLs that begin with *HTTPS* only
 - [ ] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
-- [ ] Generates QR codes for users to download and share
+- [x] Generates QR codes for users to download and share
 - [x] Frontend with good looking CSS and HTML animations and colours
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
 - [x] Containerised with docker compose using secrets management for credentials
@@ -66,8 +66,6 @@ docker-compose down
 - [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
 - [x] [Docker Push](https://github.com/docker/build-push-action) Docker image publication on pushes to main branch
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
-
-### (Current automations have a checkmark, planned ones do not)
 
 ## Developed by Jack
 ![Alt Text](https://raw.githubusercontent.com/jacksec/jacksec.github.io/master/assets/img/logo.png)
