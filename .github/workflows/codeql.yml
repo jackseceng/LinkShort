@@ -1,5 +1,5 @@
 ---
-name: "CodeQL Scan"
+name: CodeQL
 
 on:
   push:

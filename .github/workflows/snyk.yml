@@ -1,5 +1,5 @@
 ---
-name: "Snyk Scan"
+name: Snyk
 
 on:
   push:
