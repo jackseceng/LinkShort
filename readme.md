@@ -67,8 +67,6 @@ docker-compose down
 - [x] [Docker Push](https://github.com/docker/build-push-action) Docker image publication on pushes to main branch
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
 
-### (Current automations have a checkmark, planned ones do not)
-
 ## Developed by Jack
 ![Alt Text](https://raw.githubusercontent.com/jacksec/jacksec.github.io/master/assets/img/logo.png)
 
