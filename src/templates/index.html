@@ -1,67 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <title>LinkShort - Secure Link Shortener</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='favicon-96x96.png') }}"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='favicon-96x96.png') }}"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{{ url_for('static', filename='favicon.svg') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ url_for('static', filename='apple-touch-icon.png') }}"
+    />
+    <link
+      rel="manifest"
+      href="{{ url_for('static', filename='site.webmanifest') }}"
+    />
+    <meta id="errorreason" value="{{ errormessage }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
 
-<head>
-  <title>LinkShort - Secure Link Shortener</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-96x96.png') }}" sizes="96x96" />
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-96x96.png') }}" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}" />
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}" />
-  <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}" />
-  <meta id="errorreason" value="{{ errormessage }}"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
-  <div id="notification" class="notification"></div>
-  <form method="POST" autocomplete="off" class="form">
-    <div class="control">
-      <center>
-        <h1>
-          Shorten a link
-        </h1>
-      </center>
-    </div>
-    <div class="control block-cube block-input">
-      <input name="link" id="link" placeholder="Paste a link here..." type="URL" required="">
-      <div class="bg-top">
-        <div class="bg-inner"></div>
+  <body>
+    <div id="notification" class="notification"></div>
+    <form method="POST" autocomplete="off" class="form">
+      <div class="control">
+        <center>
+          <h1>Shorten a link</h1>
+        </center>
       </div>
-      <div class="bg-right">
-        <div class="bg-inner"></div>
+      <div class="control block-cube block-input">
+        <input
+          name="link"
+          id="link"
+          placeholder="Paste a link here..."
+          type="URL"
+          required=""
+        />
+        <div class="bg-top">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg-right">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg">
+          <div class="bg-inner"></div>
+        </div>
       </div>
-      <div class="bg">
-        <div class="bg-inner"></div>
+      <button class="btn block-cube block-cube-hover" type="submit">
+        <div class="bg-top">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg-right">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="text">Shorten it!</div>
+      </button>
+      <div class="credits">
+        <a
+          href="https://github.com/jackseceng/LinkShort/tree/main"
+          target="_blank"
+        >
+          Source code
+        </a>
+        |
+        <a href="https://jacksec.engineer" target="_blank"> Made by Jack </a>
       </div>
-    </div>
-    <button class="btn block-cube block-cube-hover" type="submit">
-      <div class="bg-top">
-        <div class="bg-inner"></div>
-      </div>
-      <div class="bg-right">
-        <div class="bg-inner"></div>
-      </div>
-      <div class="bg">
-        <div class="bg-inner"></div>
-      </div>
-      <div class="text">
-        Shorten it!
-      </div>
-    </button>
-    <div class="credits">
-      <a href="https://github.com/jackseceng/LinkShort/tree/main" target="_blank">
-        Source code
-      </a>
-      |
-      <a href="https://jacksec.engineer" target="_blank">
-        Made by Jack
-      </a>
-    </div>
-  </form>
-  <script src="{{ url_for('static', filename='main.js') }}"></script>
-</body>
-
+    </form>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </body>
 </html>
 <!-- Based on this codepen: https://codepen.io/marko-zub/pen/mzPeOV -->

@@ -1,9 +1,10 @@
+---
 name: "CodeQL Scan"
 
 on:
   push:
     branches: [ "main" ]
-    paths: ['.github/workflows/codeql-py.yml', '.github/workflows/codeql-js.yml', '**.py', '**.js']
+    paths: ['.github/workflows/codeql.yml', '**.py', '**.js']
   pull_request:
     branches: [ "main" ]
 
