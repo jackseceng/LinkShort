@@ -1,18 +1,12 @@
 """Turso query and connection management module"""
 
 import logging
-
 from os import environ
-from dotenv import load_dotenv
 
-from sqlalchemy import String
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session
-from sqlalchemy import select
+from dotenv import load_dotenv
+from sqlalchemy import String, create_engine, select
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 
 
 class Base(DeclarativeBase):
