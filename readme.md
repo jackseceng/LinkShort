@@ -1,5 +1,4 @@
 [![CodeQL](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml)
-[![Snyk](https://github.com/jackseceng/LinkShort/actions/workflows/snyk.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/snyk.yml)
 [![Known Vulnerabilities](https://snyk.io/test/github/jackseceng/LinkShort/badge.svg)](https://snyk.io/test/github/jackseceng/LinkShort)
 [![Docker](https://github.com/jackseceng/LinkShort/actions/workflows/docker.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/docker.yml)
 
