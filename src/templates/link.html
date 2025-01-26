@@ -12,10 +12,10 @@
     <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}" />
     <meta id="errorreason" value="{{ errorMessage }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="{{ url_for('static', filename='qrcode.min.js') }}"></script>
 </head>
 
 <body>
+    <script src="{{ url_for('static', filename='qrcode.min.js') }}"></script>
     <div id="notification" class="notification"></div>
     <form method="GET" action="" autocomplete="off" class="form">
         <div class="control">
