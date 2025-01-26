@@ -1,6 +1,6 @@
-[![CodeQL Scan](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml)
-[![Snyk Scan](https://github.com/jackseceng/LinkShort/actions/workflows/snyk.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/snyk.yml)
-[![Docker Build](https://github.com/jackseceng/LinkShort/actions/workflows/docker.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/docker.yml)
+[![CodeQL](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml)
+[![Snyk](https://github.com/jackseceng/LinkShort/actions/workflows/snyk.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/snyk.yml)
+[![Docker](https://github.com/jackseceng/LinkShort/actions/workflows/docker.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/docker.yml)
 
 # LinkShort - Containerised URL shortener
 
