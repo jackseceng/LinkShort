@@ -1,3 +1,6 @@
+[![CodeQL Scan](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml)
+[![Snyk Scan](https://github.com/jackseceng/LinkShort/actions/workflows/snyk.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/snyk.yml)
+
 # LinkShort - Containerised URL shortener
 
 This is the Python code and Docker configuration for a link shortening web app
