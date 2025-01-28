@@ -32,10 +32,9 @@ jobs:
       id: scan
       with:
         image: "jackseceng/linkshort:latest"
-        fail-build: true
+        fail-build: false # Turn this on once intial findings are dealt with
         severity-cutoff: critical
         only-fixed: true
-        fail-build: false # Turn this on once intial findings are dealt with
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@17a820bf2e43b47be2c72b39cc905417bc1ab6d0 # v3.28.6
       with:
