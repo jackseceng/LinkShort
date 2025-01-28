@@ -69,7 +69,7 @@ docker-compose down
 - [x] [Super Linter](https://github.com/super-linter/super-linter) Code linting for all languages
 - [x] [CodeQL](https://codeql.github.com/) Security bug scanning for source code
 - [x] [Snyk](https://snyk.io) Vulnerability scanning for open source dependencies
-- [x] [Anchore Grype](https://github.com/anchore/grype/) Container vulnerability scanning
+- [x] [Grype](https://github.com/anchore/grype/) Container vulnerability scanning
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/) Automated dependency upgrades
 - [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
 - [x] [Docker Push](https://github.com/docker/build-push-action) Docker image publication on pushes to main branch
