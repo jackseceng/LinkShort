@@ -2,7 +2,7 @@
 
 ## Disclosure Policy
 
-If you find a bug please first check [the code scanning status page](https://github.com/jackseceng/LinkShort/security/code-scanning) for any duplicate findings.
+If you find a bug please first check [the code scanning status page](https://github.com/jackseceng/LinkShort/security/code-scanning) and [the issues page for open bugs](https://github.com/jackseceng/LinkShort/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug)
 
 - If your bug is already a reported issue, please give it a like and add any additional context you think is useful
 
