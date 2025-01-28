@@ -7,6 +7,9 @@ on:
     paths: ['Dockerfile', 'src/**', '.github/workflows/snyk.yml']
   pull_request:
     branches: ["main"]
+    types:
+      - ready_for_review
+
 
 permissions:
   contents: read
