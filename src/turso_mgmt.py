@@ -38,7 +38,7 @@ engine = create_engine(
     pool_pre_ping=True,
     hide_parameters=True,
     connect_args={"check_same_thread": False},
-    echo=True
+    echo=True,
 )
 
 
