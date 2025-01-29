@@ -11,14 +11,14 @@
 
 ## Testing locally
 
-> Follow the instructions in the `README` to test locally on your machine, please ensure that you can perform these steps before contributing to this project
+> Follow the instructions in the `readme` to test locally on your machine, please ensure that you can perform these steps before contributing to this project
 - Any issues with testing locally should be raised as a bug on GitHub Issues
 - Any fixes or workarounds for identified bugs should be raised on a relevant GitHub Issue
 
 ## Making PRs
 
 > Before raising a PR, please run the following tools on your code to verify that it will pass PR checks:
-- [Super Linter](https://github.com/super-linter/super-linter?tab=readme-ov-file#run-super-linter-outside-github-actions)
+- [Super Linter Checks](https://github.com/jackseceng/LinkShort/blob/f8a4cc63c7f99f289fa41b05b82673909738ea99/.github/workflows/lint.yml#L36C1-L47C45)
 - [Snyk CLI](https://docs.snyk.io/scan-using-snyk/working-with-snyk-in-your-environment/running-scans#run-tests-manually)
 
 ## Support Expectations

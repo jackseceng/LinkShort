@@ -1,11 +1,12 @@
 """Main web application logic module"""
 
 import logging
-import bleach
-from flask import Flask, make_response, render_template, request
 from os import environ
+
+import bleach
 import turso_mgmt as db
 import url_mgmt as urls
+from flask import Flask, make_response, render_template, request
 
 # Checkout out these libs:
 # https://github.com/gruns/furl
