@@ -6,7 +6,7 @@ If you find a bug please first check [the code scanning status page](https://git
 
 - If your bug is already a reported issue, please give it a like and add any additional context you think is useful
 
-- If your bug is not on the status page, please [create a bug report issue](https://github.com/jackseceng/LinkShort/issues/new?template=bug_report.md)
+- If your bug is not on the status page, please [report a vulnerability on the repository security page](https://github.com/jackseceng/LinkShort/security/advisories/new)
 
 ## Security-related tooling
 
