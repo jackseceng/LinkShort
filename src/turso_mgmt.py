@@ -34,7 +34,11 @@ TURSO_AUTH_TOKEN = environ["TOKEN"]
 dbUrl = f"sqlite+{TURSO_DATABASE_URL}/?authToken={TURSO_AUTH_TOKEN}&secure=true"
 
 engine = create_engine(
-    dbUrl, connect_args={"check_same_thread": False}, echo=False, hide_parameters=True
+    dbUrl,
+    pool_pre_ping=True,
+    hide_parameters=True,
+    connect_args={"check_same_thread": False},
+    echo=True,
 )
 
 
