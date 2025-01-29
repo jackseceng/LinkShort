@@ -8,6 +8,11 @@ import turso_mgmt as db
 import url_mgmt as urls
 from flask import Flask, make_response, render_template, request
 
+# Checkout out these libs:
+# https://github.com/gruns/furl
+# https://docs.python.org/3/library/urllib.parse.html
+# https://pypi.org/project/tldextract/
+
 app = Flask(__name__)
 
 tld = environ["TLD"]
