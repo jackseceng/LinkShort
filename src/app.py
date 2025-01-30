@@ -39,13 +39,13 @@ def input_url():
                 # Return homepage with error message
                 resp = make_response(render_template("index.html", errormessage=error))
                 return resp
-            path = urls.generate_path(str(user_input))
+            path = urls.generate_path()
 
             # Check for existing path
             # Generate new path if it does not already exist
             while db.check_link(path) is True:
                 logging.info("Collision detected")
-                path = urls.generate_path(str(user_input))
+                path = urls.generate_path()
             if db.insert_link(path, user_input) is False:
                 # 500 error returned for database failure
                 resp = make_response(

@@ -1,5 +1,4 @@
 Flask==3.1.0
-bcrypt==4.2.1
 bleach==6.2.0
 Gunicorn==23.0.0
 sqlalchemy-libsql==0.1.0
