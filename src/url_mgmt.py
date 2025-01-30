@@ -1,8 +1,8 @@
 """Hashing and input checking module"""
 
 import logging
-import string
 import secrets
+import string
 
 
 def generate_path():
