@@ -4,3 +4,4 @@ Gunicorn==23.0.0
 sqlalchemy-libsql==0.1.0
 python-dotenv==1.0.1
 aiohttp==3.11.11 # Pinned to avoid a vulnerability
+zipp>=3.19.1 # Pinned to avoid a vulnerability
