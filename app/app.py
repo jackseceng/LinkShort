@@ -89,7 +89,24 @@ def redirect_url(arg):
 @app.after_request
 def add_security_headers(resp):
     """Add CSP headers to all responses generated"""
-    resp.headers["Content-Security-Policy"] = "default-src 'self' img-src 'self' data:;"
+    # Following the OWASP cheat sheet
+    resp.headers.update(
+        {
+            "X-Frame-Options": "DENY",
+            "X-XSS-Protection": "0",
+            "X-Content-Type-Options": "nosniff",
+            "Referrer-Policy": "strict-origin-when-cross-origin",
+            "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+            "Content-Security-Policy": "default-src 'self' img-src 'self' data:;",
+            "Access-Control-Allow-Origin": f"https://{tld}",
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cross-Origin-Resource-Policy": "same-site",
+            "Permissions-Policy": "geolocation=(), camera=(), microphone=(), interest-cohort=()",
+            "X-CSRFToken": "Required",
+            "X-DNS-Prefetch-Control": "off",
+        }
+    )
     return resp
 
 
