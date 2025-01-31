@@ -79,7 +79,7 @@ def redirect_url(arg):
     # Get the original URL from the database, clean it, and redirect to it
     if db.check_link(path) is True:
         link = db.get_link(path)
-        resp = make_response(render_template("redirect.html", link=link))
+        resp = make_response(render_template("redirect.html", tld=tld, link=link))
         return resp
     logging.warning("404: No entry found")
     resp = make_response(render_template("404.html", tld=tld, code=404))
