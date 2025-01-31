@@ -3,16 +3,14 @@ name: CodeQL
 
 on:
   push:
-    branches: [ "main" ]
-    paths: ['.github/workflows/codeql.yml', '**.py', '**.js']
+    branches: ["main"]
+    paths: [".github/workflows/codeql.yml", "**.py", "**.js"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
     types:
       - ready_for_review
 
-
-permissions:
-  read-all
+permissions: read-all
 
 jobs:
   analyze:
@@ -28,14 +26,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - language: python
-          build-mode: none
-        - language: javascript-typescript
-          build-mode: none
+          - language: python
+            build-mode: none
+          - language: javascript-typescript
+            build-mode: none
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+<<<<<<< HEAD
     - name: Initialize CodeQL
       uses: github/codeql-action/init@17a820bf2e43b47be2c72b39cc905417bc1ab6d0 # v3.28.6
       with:
@@ -55,3 +54,24 @@ jobs:
       uses: github/codeql-action/analyze@17a820bf2e43b47be2c72b39cc905417bc1ab6d0 # v3.28.6
       with:
         category: "/language:${{matrix.language}}"
+=======
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@dd746615b3b9d728a6a37ca2045b68ca76d4841a # v3.28.8
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+      - if: matrix.build-mode == 'manual'
+        shell: bash
+        run: |
+          echo 'If you are using a "manual" build mode for one or more of the' \
+            'languages you are analyzing, replace this with the commands to build' \
+            'your code, for example:'
+          echo '  make bootstrap'
+          echo '  make release'
+          exit 1
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@dd746615b3b9d728a6a37ca2045b68ca76d4841a # v3.28.8
+        with:
+          category: "/language:${{matrix.language}}"
+>>>>>>> 7357ae7 (prettier reformat of files)

@@ -3,13 +3,12 @@ name: Grype
 
 on:
   push:
-    branches: ["main" ]
-    paths: ['Dockerfile', '.github/workflows/anchore.yml']
+    branches: ["main"]
+    paths: ["Dockerfile", ".github/workflows/anchore.yml"]
   pull_request:
     branches: ["main"]
     types:
       - ready_for_review
-
 
 permissions:
   contents: read
@@ -23,6 +22,7 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     steps:
+<<<<<<< HEAD
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Build Docker image
@@ -39,3 +39,21 @@ jobs:
       uses: github/codeql-action/upload-sarif@17a820bf2e43b47be2c72b39cc905417bc1ab6d0 # v3.28.6
       with:
         sarif_file: ${{ steps.scan.outputs.sarif }}
+=======
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build . --file Dockerfile --tag jackseceng/linkshort:latest
+      - name: Perform Vulnerability Scan
+        uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
+        id: scan
+        with:
+          image: "jackseceng/linkshort:latest"
+          fail-build: false # Turn this on once initial findings are dealt with
+          severity-cutoff: critical
+          only-fixed: true
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@dd746615b3b9d728a6a37ca2045b68ca76d4841a # v3.28.8
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}
+>>>>>>> 7357ae7 (prettier reformat of files)
