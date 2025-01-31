@@ -1,0 +1,10 @@
+.github/*
+.gitignore
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+docker-compose.yaml
+Dockerfile
+LICENSE
+readme.md
+renovate.json
+security.md
