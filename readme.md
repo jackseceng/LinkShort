@@ -9,6 +9,8 @@
 
 This is the Python code and Docker configuration for a link shortening web app
 
+- [DockerHub image repository](https://hub.docker.com/r/jackseceng/linkshort)
+
 **This is not a functional application yet,  I will make a full release when it is in a secure, production ready state**
 
 I am using this to learn:
