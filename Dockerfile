@@ -6,18 +6,18 @@ RUN set -e; \
         apk update && apk add --no-cache \
             curl=8.11.1-r0 \
     ; \
-    pip install --no-cache-dir -r /tmp/requirements.txt;
+    pip install --no-cache-dir -r /tmp/requirements.txt; \
     rm -rf /tmp;
 
 # Create a non-root user and group
 RUN addgroup -S appuser && adduser -S -G appuser appuser
 
-COPY . /app
+COPY . .
 
-WORKDIR /app/src
+WORKDIR /app
 
 # Set up permissions
-RUN chown -R appuser:appuser /app/src
+RUN chown -R appuser:appuser /app
 
 # Container Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
