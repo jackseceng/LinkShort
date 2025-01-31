@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="refresh" content="3; URL={{link}}" />
-    <title>A short link</title>
+    <title>Redirecting...</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
@@ -49,12 +49,19 @@
         </center>
       </div>
       <div class="credits">
+        <<<<<<< HEAD
+        <a href="https://{{tld}}" target="_blank"> Created with {{tld}} </a>
+        =======
         <a
-          href="https://{{tld}}"
+          href="https://github.com/jackseceng/LinkShort/tree/main"
           target="_blank"
         >
-          Created with {{tld}}
+          Source code
         </a>
+        |
+        <a href="https://jacksec.engineer" target="_blank"> Made by Jack </a>
+        >>>>>>> parent of a43a638 (adding better title and footer to redirect
+        page)
       </div>
     </form>
   </body>
