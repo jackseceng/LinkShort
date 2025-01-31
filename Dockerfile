@@ -1,9 +1,5 @@
 FROM python:3.13.1-alpine3.21
 
-# Copy in application files
-COPY . .
-WORKDIR /app
-
 RUN set -e; \
         # Install OS dependencies
         apk update && apk add --no-cache \
@@ -14,6 +10,10 @@ RUN set -e; \
     rm requirements.txt; \
     # Create a non-root user and group
     addgroup -S appuser && adduser -S -G appuser appuser;
+
+# Copy in application files
+COPY . .
+WORKDIR /app
 
 # Give appuser permissions for app directory
 RUN chown -R appuser:appuser /app
