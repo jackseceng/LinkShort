@@ -1,22 +1,23 @@
 FROM python:3.13.1-alpine3.21
 
+COPY ./requirements.txt /tmp/requirements.txt
+
 RUN set -e; \
-        # Install OS dependencies
         apk update && apk add --no-cache \
             curl=8.11.1-r0 \
     ; \
-    # Install python requirements then remove requirements file
-    pip install --no-cache-dir -r requirements.txt; \
-    rm requirements.txt; \
-    # Create a non-root user and group
-    addgroup -S appuser && adduser -S -G appuser appuser;
+    pip install --no-cache-dir -r /tmp/requirements.txt;
+    rm -rf /tmp;
 
-# Copy in application files
-COPY . .
-WORKDIR /app
+# Create a non-root user and group
+RUN addgroup -S appuser && adduser -S -G appuser appuser
 
-# Give appuser permissions for app directory
-RUN chown -R appuser:appuser /app
+COPY . /app
+
+WORKDIR /app/src
+
+# Set up permissions
+RUN chown -R appuser:appuser /app/src
 
 # Container Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
