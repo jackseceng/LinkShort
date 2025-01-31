@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      ['Dockerfile', 'src/**', '.github/workflows/docker.yml']
+      ['Dockerfile', 'app/**', '.github/workflows/docker.yml']
 
 permissions:
   read-all
