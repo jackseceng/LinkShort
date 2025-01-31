@@ -1,6 +1,8 @@
 FROM python:3.13.1-alpine3.21
 
-COPY ./requirements.txt /tmp/requirements.txt
+# Copy in application files
+COPY . .
+WORKDIR /app
 
 RUN set -e; \
         # Install OS dependencies
@@ -8,14 +10,10 @@ RUN set -e; \
             curl=8.11.1-r0 \
     ; \
     # Install python requirements then remove requirements file
-    pip install --no-cache-dir -r /tmp/requirements.txt; \
-    rm -rf /tmp; \
+    pip install --no-cache-dir -r requirements.txt; \
+    rm requirements.txt; \
     # Create a non-root user and group
     addgroup -S appuser && adduser -S -G appuser appuser;
-
-# Copy in application files
-WORKDIR /app
-COPY app/ .
 
 # Give appuser permissions for app directory
 RUN chown -R appuser:appuser /app
