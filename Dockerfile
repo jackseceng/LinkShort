@@ -6,10 +6,9 @@ RUN set -e; \
         apk update && apk add --no-cache \
             curl=8.11.1-r0 \
     ; \
-    pip install --no-cache-dir -r /tmp/requirements.txt;
-
-# Create a non-root user and group
-RUN addgroup -S appuser && adduser -S -G appuser appuser
+    pip install --no-cache-dir -r /tmp/requirements.txt; \
+    rm -rf /tmp; \
+    addgroup -S appuser && adduser -S -G appuser appuser;
 
 COPY . /app
 
