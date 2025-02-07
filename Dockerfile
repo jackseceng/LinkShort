@@ -7,7 +7,7 @@ COPY . .
 # Install dependencies
 RUN set -e; \
         apk update && apk add --no-cache \
-            curl=8.11.1-r0 \
+            curl=8.12.0-r0 \
     ; \
     pip install --no-cache-dir -r requirements.txt; \
     rm -rf requirements.txt;
