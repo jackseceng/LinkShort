@@ -1,11 +1,12 @@
 """Main web application logic module"""
 
 import logging
-import bleach
-from flask import Flask, make_response, render_template, request
 from os import environ
+
+import bleach
 import turso_mgmt as db
 import url_mgmt as urls
+from flask import Flask, make_response, render_template, request
 
 # Checkout out these libs:
 # https://github.com/gruns/furl
@@ -83,7 +84,7 @@ def redirect_url(arg):
     # Get the original URL from the database, clean it, and redirect to it
     if db.check_link(path) is True:
         link = db.get_link(path)
-        resp = make_response(render_template("redirect.html", link=link))
+        resp = make_response(render_template("redirect.html", link=link, tld=tld))
         return resp
     logging.warning("404: No entry found")
     resp = make_response(render_template("404.html", tld=tld, code=404))
@@ -93,7 +94,7 @@ def redirect_url(arg):
 @app.after_request
 def add_security_headers(resp):
     """Add CSP headers to all responses generated"""
-    resp.headers["Content-Security-Policy"] = "default-src 'self'"
+    resp.headers["Content-Security-Policy"] = "default-src 'self' img-src 'self' data:;"
     return resp
 
 

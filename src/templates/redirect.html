@@ -1,38 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta http-equiv="refresh" content="3; URL={{link}}" />
-    <title>Redirecting...</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-96x96.png') }}" sizes="96x96" />
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-96x96.png') }}" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}" />
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}" />
-    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+    <title>A short link</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='favicon-96x96.png') }}"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='favicon-96x96.png') }}"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{{ url_for('static', filename='favicon.svg') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ url_for('static', filename='apple-touch-icon.png') }}"
+    />
+    <link
+      rel="manifest"
+      href="{{ url_for('static', filename='site.webmanifest') }}"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
 
-<body>
+  <body>
     <div id="output"></div>
     <form autocomplete="off" class="form">
-        <div class="control">
-            <center>
-                <div class="loader"></div>
-            </center>
-        </div>
-        <div class="credits">
-            <a href="https://github.com/jackseceng/LinkShort/tree/main" target="_blank">
-                Source code
-            </a>
-            |
-            <a href="https://jacksec.engineer" target="_blank">
-                Made by Jack
-            </a>
-        </div>
+      <div class="control">
+        <center>
+          <div class="loader"></div>
+        </center>
+      </div>
+      <div class="credits">
+        <a href="https://{{tld}}" target="_blank"> Created with {{tld}} </a>
+      </div>
     </form>
-</body>
-
+  </body>
 </html>
 <!-- Based on this codepen: https://codepen.io/marko-zub/pen/mzPeOV -->

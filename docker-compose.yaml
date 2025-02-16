@@ -9,4 +9,4 @@ services:
     networks:
       - ls-net
     ports:
-      - '80:8080' # WEB Port
+      - "80:8080" # WEB Port
