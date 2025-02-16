@@ -1,42 +1,41 @@
 ---
-  name: Grype
-  
-  on:
-    push:
-      branches: ["main" ]
-      paths: ['Dockerfile', 'requirements.txt', '.github/workflows/anchore.yml']
-    pull_request:
-      branches: ["main"]
-      types:
-        - ready_for_review
-  
-  
-  permissions:
-    contents: read
-  
-  jobs:
-    analyze:
-      name: Analyze (container)
-      runs-on: ubuntu-latest
-      permissions:
-        contents: read # for actions/checkout to fetch code
-        security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-        actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
-      steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Build Docker image
-        run: docker build . --file Dockerfile --tag jackseceng/linkshort:latest
-      - name: Perform Vulnerability Scan
-        uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
-        id: scan
-        with:
-          image: "jackseceng/linkshort:latest"
-          fail-build: false # Turn this on once initial findings are dealt with
-          severity-cutoff: critical
-          only-fixed: true
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0 # v3.28.9
-        with:
-          sarif_file: ${{ steps.scan.outputs.sarif }}
-  
+name: Grype
+
+on:
+  push:
+    branches: ["main" ]
+    paths: ['Dockerfile', 'requirements.txt', '.github/workflows/anchore.yml']
+  pull_request:
+    branches: ["main"]
+    types:
+      - ready_for_review
+
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (container)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Build Docker image
+      run: docker build . --file Dockerfile --tag jackseceng/linkshort:latest
+    - name: Perform Vulnerability Scan
+      uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
+      id: scan
+      with:
+        image: "jackseceng/linkshort:latest"
+        fail-build: false # Turn this on once initial findings are dealt with
+        severity-cutoff: critical
+        only-fixed: true
+    - name: Upload result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0 # v3.28.9
+      with:
+        sarif_file: ${{ steps.scan.outputs.sarif }}

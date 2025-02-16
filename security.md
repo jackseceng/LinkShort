@@ -12,12 +12,12 @@ If you find a bug please first check [the code scanning status page](https://git
 
 This is a list of tooling in use on this rpeository to find security issues.
 
-| Capability                   | Tool                                                             |
-| ---------------------------- | ---------------------------------------------------------------- |
-| Automated dependency updates | [Renovate](https://www.mend.io/renovate/)                        |
-| Code Bugs                    | [CodeQL](https://codeql.github.com/)                             |
-| Dependency Vulnerabilities   | [Snyk](https://snyk.io/product/open-source-security-management/) |
-| Container Vulnerabiltiies    | [Grype](https://github.com/anchore/grype/)                       |
+| Capability | Tool    |
+| ---------- | ------- |
+| Automated dependency updates    | [Renovate](https://www.mend.io/renovate/)                       |
+| Code Bugs                       | [CodeQL](https://codeql.github.com/)                            |
+| Dependency Vulnerabilities      | [Snyk](https://snyk.io/product/open-source-security-management/)|
+| Container Vulnerabiltiies       | [Grype](https://github.com/anchore/grype/)                      |
 
 ## Future security enhancements
 
