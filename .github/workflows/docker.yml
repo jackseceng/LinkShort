@@ -5,12 +5,8 @@ on:
   push:
     branches:
       - main
-<<<<<<< HEAD
-    paths:
-      ['Dockerfile', 'src/**', '.github/workflows/docker.yml']
-=======
-    paths: ["Dockerfile", "app/**", ".github/workflows/docker.yml"]
->>>>>>> 7357ae7 (prettier reformat of files)
+    paths: 
+      ['Dockerfile', 'requirements.txt', 'app/**', '.github/workflows/docker.yml']
 
 permissions: read-all
 
@@ -24,11 +20,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@53851d14592bedcffcf25ea515637cff71ef929a # v3.3.0
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@6524bf65af31da8d45b59e8c27de4bd072b392f5 # v3.8.0
-
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@4574d27a4764455b42196d70a065bc6853246a25 # v3.4.0
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@f7ce87c1d6bead3e36075b2ce75da1f6cc28aaca # v3.9.0
+        
       - name: Build and push
         uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991 # v6.13.0
         with:

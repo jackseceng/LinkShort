@@ -8,11 +8,6 @@ import turso_mgmt as db
 import url_mgmt as urls
 from flask import Flask, make_response, render_template, request
 
-# Checkout out these libs:
-# https://github.com/gruns/furl
-# https://docs.python.org/3/library/urllib.parse.html
-# https://pypi.org/project/tldextract/
-
 app = Flask(__name__)
 
 tld = environ["TLD"]
@@ -44,13 +39,13 @@ def input_url():
                 # Return homepage with error message
                 resp = make_response(render_template("index.html", errormessage=error))
                 return resp
-            path = urls.generate_path(str(user_input))
+            path = urls.generate_path()
 
             # Check for existing path
             # Generate new path if it does not already exist
             while db.check_link(path) is True:
                 logging.info("Collision detected")
-                path = urls.generate_path(str(user_input))
+                path = urls.generate_path()
             if db.insert_link(path, user_input) is False:
                 # 500 error returned for database failure
                 resp = make_response(
@@ -84,7 +79,7 @@ def redirect_url(arg):
     # Get the original URL from the database, clean it, and redirect to it
     if db.check_link(path) is True:
         link = db.get_link(path)
-        resp = make_response(render_template("redirect.html", link=link, tld=tld))
+        resp = make_response(render_template("redirect.html", tld=tld, link=link))
         return resp
     logging.warning("404: No entry found")
     resp = make_response(render_template("404.html", tld=tld, code=404))
@@ -94,7 +89,24 @@ def redirect_url(arg):
 @app.after_request
 def add_security_headers(resp):
     """Add CSP headers to all responses generated"""
-    resp.headers["Content-Security-Policy"] = "default-src 'self' img-src 'self' data:;"
+    # Following the OWASP cheat sheet
+    resp.headers.update(
+        {
+            "X-Frame-Options": "DENY",
+            "X-XSS-Protection": "0",
+            "X-Content-Type-Options": "nosniff",
+            "Referrer-Policy": "strict-origin-when-cross-origin",
+            "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+            "Content-Security-Policy": "default-src 'self' img-src 'self' data:;",
+            "Access-Control-Allow-Origin": f"https://{tld}",
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cross-Origin-Resource-Policy": "same-site",
+            "Permissions-Policy": "geolocation=(), camera=(), microphone=(), interest-cohort=()",
+            "X-CSRFToken": "Required",
+            "X-DNS-Prefetch-Control": "off",
+        }
+    )
     return resp
 
 

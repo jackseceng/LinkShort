@@ -1,0 +1,14 @@
+.github/*
+.gitignore
+node_modules/*
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+docker-compose.yaml
+Dockerfile
+LICENSE
+readme.md
+renovate.json
+security.md
+package-lock.json
+package.json
+stylelint.config.js

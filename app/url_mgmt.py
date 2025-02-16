@@ -1,17 +1,14 @@
 """Hashing and input checking module"""
 
 import logging
-from re import sub
+import secrets
+import string
 
-from bcrypt import gensalt, hashpw
 
-
-def generate_path(original_url):
-    """Generate path path value"""
-    hash_object = hashpw(original_url.encode(), gensalt(rounds=15))
-    hash_string = sub(r"\W+", "", str(hash_object, encoding="utf-8"))
-    # Return last 7 characters of resulting generated path
-    return hash_string[-7:]
+def generate_path():
+    """ "Generate path value"""
+    alphabet = string.ascii_letters + string.digits
+    return "".join(secrets.choice(alphabet) for _ in range(7))
 
 
 def check_url_whitespace(url_input):
