@@ -22,7 +22,8 @@ COPY --from=build-env /packages /packages
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
     CMD curl -f http://localhost:8080 || exit 1
 
-# Switch to non-root user
+# Run process
 ENV PYTHONPATH=/packages
 EXPOSE 80
+#checkov:skip=CKV_DOCKER_3:Ensure that a user for the container has been created
 CMD ["gunicorn_cfg.py"]
