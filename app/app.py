@@ -8,14 +8,14 @@ import turso_mgmt as db
 import url_mgmt as urls
 from flask import Flask, make_response, render_template, request
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 tld = environ["TLD"]
 
 INTERNAL_REFRESH = 120
 
 
-@app.route("/", methods=["POST", "GET"])
+@application.route("/", methods=["POST", "GET"])
 def input_url():
     """Main page process"""
     match request.method:
@@ -69,7 +69,7 @@ def input_url():
             return resp
 
 
-@app.route("/<arg>", methods=["GET"])
+@application.route("/<arg>", methods=["GET"])
 def redirect_url(arg):
     """Redirect logic for any GET requests to any URI on top of base URL"""
 
@@ -86,7 +86,7 @@ def redirect_url(arg):
     return resp
 
 
-@app.after_request
+@application.after_request
 def add_security_headers(resp):
     """Add CSP headers to all responses generated"""
     # Following the OWASP cheat sheet
@@ -112,4 +112,4 @@ def add_security_headers(resp):
 
 # Flask main function
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    application.run(host="0.0.0.0", port=8080, debug=False)
