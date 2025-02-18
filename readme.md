@@ -59,6 +59,7 @@ docker-compose down
 - [x] Simple URL shortening capabilities for URLs
 - [x] Sanitises input from user for both URLs and extensions on requests
 - [x] Checks user input for URLs that begin with *HTTPS* only
+- [x] Uses [distroless containers](https://github.com/GoogleContainerTools/distroless) for runtime security
 - [ ] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
 - [x] Generates QR codes for users to download and share
 - [x] Frontend with good looking CSS and HTML animations and colours
