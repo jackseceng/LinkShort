@@ -6,9 +6,6 @@ COPY . .
 
 # Install dependencies
 RUN set -e; \
-        apk update && apk add --no-cache \
-        curl=8.12.1-r0 \
-    ; \
     pip install --no-cache-dir -r requirements.txt --target /packages; \
     rm -rf requirements.txt;
 
@@ -20,7 +17,7 @@ COPY --from=build-env /packages /packages
 
 # Container Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
-    CMD curl -f http://localhost:8080 || exit 1
+    CMD ["python", "healthcheck/healthcheck.py"]
 
 # Run process
 ENV PYTHONPATH=/packages
