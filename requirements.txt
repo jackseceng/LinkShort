@@ -1,7 +1,7 @@
 Flask==3.1.0
 bleach==6.2.0
 Gunicorn==23.0.0
-requests==2.31.0 # Used in healthcheck only
+requests==2.32.2 # Used in healthcheck only
 sqlalchemy-libsql==0.1.0
 python-dotenv==1.0.1
 aiohttp==3.11.12 # Pinned to avoid a vulnerability
