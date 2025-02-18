@@ -1,4 +1,4 @@
-FROM python:3.13.2-alpine3.21 as build-env
+FROM python:3.13.2-alpine3.21 AS build-env
 
 # Copy applicaiton files
 WORKDIR /
