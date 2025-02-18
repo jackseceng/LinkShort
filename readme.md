@@ -11,7 +11,7 @@ This is the Python code and Docker configuration for a link shortening web app
 
 - [DockerHub image repository](https://hub.docker.com/r/jackseceng/linkshort)
 
-**This is not a functional application yet,  I will make a full release when it is in a secure, production ready state**
+- [Running demonstration application](https://cubel.ink)
 
 I am using this to learn:
 - Docker & Web App Hosting
@@ -59,12 +59,14 @@ docker-compose down
 - [x] Simple URL shortening capabilities for URLs
 - [x] Sanitises input from user for both URLs and extensions on requests
 - [x] Checks user input for URLs that begin with *HTTPS* only
+- [x] Uses [distroless containers](https://github.com/GoogleContainerTools/distroless) for runtime security
 - [ ] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
 - [x] Generates QR codes for users to download and share
 - [x] Frontend with good looking CSS and HTML animations and colours
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
 - [x] Containerised with docker compose using secrets management for credentials
-- [ ] Demonstration application set up and deployed on hosting provider
+- [x] Demonstration application set up and deployed on hosting provider
+> This has been set up on [cloud.run](https://cloud.run) via repository integration
 
 ## DevSecOps Automation
 
