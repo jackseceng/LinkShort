@@ -11,7 +11,7 @@ This is the Python code and Docker configuration for a link shortening web app
 
 - [DockerHub image repository](https://hub.docker.com/r/jackseceng/linkshort)
 
-**This is not a functional application yet,  I will make a full release when it is in a secure, production ready state**
+- [Running demonstration application](https://cubel.ink)
 
 I am using this to learn:
 - Docker & Web App Hosting
@@ -66,7 +66,7 @@ docker-compose down
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
 - [x] Containerised with docker compose using secrets management for credentials
 - [x] Demonstration application set up and deployed on hosting provider
-> Set up on [cloud.run](https://cloud.run) via repository integration
+> This has been set up on [cloud.run](https://cloud.run) via repository integration
 
 ## DevSecOps Automation
 
