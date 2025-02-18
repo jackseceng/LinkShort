@@ -65,7 +65,8 @@ docker-compose down
 - [x] Frontend with good looking CSS and HTML animations and colours
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
 - [x] Containerised with docker compose using secrets management for credentials
-- [ ] Demonstration application set up and deployed on hosting provider
+- [x] Demonstration application set up and deployed on hosting provider
+> Set up on [cloud.run](https://cloud.run) via repository integration
 
 ## DevSecOps Automation
 
