@@ -2,8 +2,8 @@
 
 import logging
 import secrets
-import string
 import sqlite3
+import string
 
 
 def generate_path():

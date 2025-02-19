@@ -7,7 +7,7 @@ COPY . .
 # Install dependencies
 RUN set -e; \
     pip install --no-cache-dir -r requirements.txt --target /packages; \
-    pip install urllib3; \
+    pip install urllib3==2.3.0; \
     python3 lists.py; \
     rm -rf requirements.txt; \
     rm -rf lists.py;
