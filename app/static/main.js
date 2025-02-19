@@ -3,7 +3,9 @@ const errorValue = document.getElementById('errorreason').getAttribute('value')
 if (errorValue === 'whitespace') {
   showNotification("URLs can't contain whitespace")
 } else if (errorValue === 'insecure') {
-  showNotification('HTTPS links only')
+  showNotification('Links must begin with HTTPS')
+} else if (errorValue === 'badsite') {
+  showNotification('URL has a bad reputaion')
 }
 
 function showNotification (message) {
