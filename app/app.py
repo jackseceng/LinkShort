@@ -34,6 +34,8 @@ def input_url():
                 error = "whitespace"
             if urls.check_url_security(user_input) is False:
                 error = "insecure"
+            if urls.check_url_reputation(user_input) is False:
+                error = "badsite"
             if len(error) != 0:
                 # If there is an error string,
                 # Return homepage with error message

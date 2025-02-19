@@ -12,3 +12,4 @@ security.md
 package-lock.json
 package.json
 stylelint.config.js
+app/badsites.db
