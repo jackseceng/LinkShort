@@ -60,7 +60,7 @@ docker-compose down
 - [x] Sanitises input from user for both URLs and extensions on requests
 - [x] Checks user input for URLs that begin with *HTTPS* only
 - [x] Uses [distroless containers](https://github.com/GoogleContainerTools/distroless) for runtime security
-- [ ] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
+- [x] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
 - [x] Generates QR codes for users to download and share
 - [x] Frontend with good looking CSS and HTML animations and colours
 - [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
