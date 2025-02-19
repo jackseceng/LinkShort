@@ -9,9 +9,9 @@
 
 This is the Python code and Docker configuration for a link shortening web app
 
-- [DockerHub image repository](https://hub.docker.com/r/jackseceng/linkshort)
+- Running demonstration available at [cubel.ink](https://cubel.ink)
 
-- [Running demonstration application](https://cubel.ink)
+- [DockerHub image repository](https://hub.docker.com/r/jackseceng/linkshort)
 
 I am using this to learn:
 - Docker & Web App Hosting
