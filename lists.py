@@ -1,5 +1,6 @@
-import urllib3
 import sqlite3
+
+import urllib3
 
 http = urllib3.PoolManager()
 CON = sqlite3.connect("app/badsites.db")
