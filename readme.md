@@ -56,16 +56,15 @@ docker-compose down
 
 ## Application Features
 
-- [x] Simple URL shortening capabilities for URLs
-- [x] Sanitises input from user for both URLs and extensions on requests
-- [x] Checks user input for URLs that begin with *HTTPS* only
-- [x] Uses [distroless containers](https://github.com/GoogleContainerTools/distroless) for runtime security
-- [x] Checks submitted URLs for internet reputation before generating them, reject poor reputation URLs
+- [x] Shortens URLs with unique extensions
+- [x] Sanitisation of input from user for both URLs and extensions on requests
+- [x] Checks on user shared URLs, to ensure they begin with HTTPS
+- [x] Uses distroless containers for runtime security
+- [x] Checks submitted URLs against spam lists, rejects known spam domains
 - [x] Generates QR codes for users to download and share
-- [x] Frontend with good looking CSS and HTML animations and colours
-- [x] Handles errors gracefully, with 404 and 500 error pages rendered to the users
-- [x] Containerised with docker compose using secrets management for credentials
-- [x] Demonstration application set up and deployed on hosting provider
+- [x] A frontend with reactive CSS & HTML
+- [x] 400 and 500 HTTP error handling with pages
+
 > This has been set up on [cloud.run](https://cloud.run) via repository integration
 
 ## DevSecOps Automation

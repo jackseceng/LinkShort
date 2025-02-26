@@ -21,4 +21,4 @@ This is a list of tooling in use on this rpeository to find security issues.
 
 ## Future security enhancements
 
-- Database entries are not encypted at rest, will implement with hashsums from extensions generated.
+- Database entries are not encypted at rest, will implement with hashsums from extensions generated. Docummented in [issue 177](https://github.com/jackseceng/LinkShort/issues/177)
