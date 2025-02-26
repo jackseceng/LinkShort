@@ -64,6 +64,7 @@ docker-compose down
 - [x] Generates QR codes for users to download and share
 - [x] A frontend with reactive CSS & HTML
 - [x] 400 and 500 HTTP error handling with pages
+- [x] Demonstration application set up:
 
 > This has been set up on [cloud.run](https://cloud.run) via repository integration
 
