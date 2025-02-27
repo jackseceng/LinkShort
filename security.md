@@ -10,7 +10,7 @@ If you find a bug please first check [the code scanning status page](https://git
 
 ## Security-related tooling
 
-This is a list of tooling in use on this rpeository to find security issues.
+This is a list of tooling used by this repository to find vulnerabilities & bugs.
 
 | Capability | Tool    |
 | ---------- | ------- |
