@@ -2,7 +2,7 @@
 
 ## Disclosure Policy
 
-If you find a bug please first check [the issues page for open bugs](https://github.com/jackseceng/LinkShort/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug)
+If you find a bug please first check [the issues page](https://github.com/jackseceng/LinkShort/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug) for open bugs
 
 - If your bug is already a reported issue, please give it a like and add any additional context you think is useful
 
