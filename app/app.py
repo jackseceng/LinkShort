@@ -1,12 +1,12 @@
 """Main web application logic module"""
 
 import logging
-from os import environ
+from os import environ, path
 
 import bleach
 import turso_mgmt as db
 import url_mgmt as urls
-from flask import Flask, make_response, render_template, request
+from flask import Flask, make_response, render_template, request, send_from_directory
 
 application = Flask(__name__)
 
@@ -75,9 +75,9 @@ def input_url():
 def redirect_url(arg):
     """Redirect logic for any GET requests to any URI on top of base URL"""
     # Clean arg, return 404 for unfound URL
-    path = bleach.clean(str(arg))
+    requested_path = bleach.clean(str(arg))
 
-    match path:
+    match requested_path:
         case "robots.txt":
             # Return robots.txt response
             resp = make_response("User-Agent: *\nDisallow: /\n")
@@ -85,13 +85,12 @@ def redirect_url(arg):
             return resp
         case "favicon.ico":
             # Empty response for favicon get request
-            resp = make_response("")
-            resp.headers["Content-Type"] = "image/x-icon"
-            return resp
+            return send_from_directory(path.join(application.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
         case _:
             # Get the original URL from the database, clean it, and redirect to it
-            if db.check_link(path[:7]) is True:
-                link = db.get_link(path)
+            if db.check_link(requested_path[:7]) is True:
+                link = db.get_link(requested_path)
                 resp = make_response(
                     render_template("redirect.html", tld=tld, link=link)
                 )
@@ -122,7 +121,6 @@ def add_security_headers(resp):
         }
     )
     return resp
-
 
 # Flask main function
 if __name__ == "__main__":
