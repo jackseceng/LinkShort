@@ -71,21 +71,33 @@ def input_url():
             return resp
 
 
-@application.route("/<arg>", methods=["GET"])
+@application.route("/<arg>")
 def redirect_url(arg):
     """Redirect logic for any GET requests to any URI on top of base URL"""
+    # Clean arg, return 404 for unfound URL
+    path = bleach.clean(str(arg))
 
-    # Clean arg, return 404 for inncorrect extension length
-    path = bleach.clean(str(arg[:7]))
-
-    # Get the original URL from the database, clean it, and redirect to it
-    if db.check_link(path) is True:
-        link = db.get_link(path)
-        resp = make_response(render_template("redirect.html", tld=tld, link=link))
-        return resp
-    logging.warning("404: No entry found")
-    resp = make_response(render_template("404.html", tld=tld, code=404))
-    return resp
+    match path:
+        case "robots.txt":
+            # Return robots.txt response
+            resp = make_response("User-Agent: *\nDisallow: /\n")
+            resp.headers["Content-Type"] = "text/plain; charset=utf-8"
+            return resp
+        case "favicon.ico":
+            # Empty response for favicon get request
+            resp = make_response("")
+            resp.headers["Content-Type"] = "image/x-icon"
+            return resp
+        case _:
+            # Get the original URL from the database, clean it, and redirect to it
+            if db.check_link(path[:7]) is True:
+                link = db.get_link(path)
+                resp = make_response(
+                    render_template("redirect.html", tld=tld, link=link)
+                )
+                return resp
+            resp = make_response(render_template("404.html", tld=tld, code=404))
+            return resp
 
 
 @application.after_request
