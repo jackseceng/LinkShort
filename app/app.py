@@ -85,8 +85,11 @@ def redirect_url(arg):
             return resp
         case "favicon.ico":
             # Empty response for favicon get request
-            return send_from_directory(path.join(application.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+            return send_from_directory(
+                path.join(application.root_path, "static"),
+                "favicon.ico",
+                mimetype="image/vnd.microsoft.icon",
+            )
         case _:
             # Get the original URL from the database, clean it, and redirect to it
             if db.check_link(requested_path[:7]) is True:
@@ -121,6 +124,7 @@ def add_security_headers(resp):
         }
     )
     return resp
+
 
 # Flask main function
 if __name__ == "__main__":
