@@ -92,7 +92,9 @@ def redirect_url(arg):
             # Get the original URL from the database, clean it, and redirect to it
             if db.check_link(path[:7]) is True:
                 link = db.get_link(path)
-                resp = make_response(render_template("redirect.html", tld=tld, link=link))
+                resp = make_response(
+                    render_template("redirect.html", tld=tld, link=link)
+                )
                 return resp
             resp = make_response(render_template("404.html", tld=tld, code=404))
             return resp
