@@ -13,7 +13,7 @@ RUN set -e; \
     rm -rf lists.py;
 
 # Set runtime to distroless image
-FROM gcr.io/distroless/python3:nonroot
+FROM gcr.io/distroless/python3-debian10
 WORKDIR /app
 COPY --from=build-env /app /app
 COPY --from=build-env /packages /packages

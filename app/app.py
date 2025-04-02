@@ -1,6 +1,6 @@
 """Main web application logic module"""
 
-import logging
+import hashlib
 from os import environ, path
 
 import bleach
@@ -41,14 +41,17 @@ def input_url():
                 # Return homepage with error message
                 resp = make_response(render_template("index.html", errormessage=error))
                 return resp
-            path = urls.generate_path()
+            linkpath = urls.generate_path()
+            hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
 
             # Check for existing path
             # Generate new path if it does not already exist
-            while db.check_link(path) is True:
-                logging.info("Collision detected")
-                path = urls.generate_path()
-            if db.insert_link(path, user_input) is False:
+            while db.check_link(hashsum) is True:
+                linkpath = urls.generate_path()
+                hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
+
+            ciphertext, salt = urls.encrypt_url(user_input, linkpath)
+            if db.insert_link(hashsum, ciphertext, salt) is False:
                 # 500 error returned for database failure
                 resp = make_response(
                     render_template("500.html", code=500, errormessage="None")
@@ -92,8 +95,17 @@ def redirect_url(arg):
             )
         case _:
             # Get the original URL from the database, clean it, and redirect to it
-            if db.check_link(requested_path[:7]) is True:
-                link = db.get_link(requested_path)
+            hashsum = hashlib.sha256(requested_path.encode("utf-8")).hexdigest()
+            if db.check_link(hashsum) is True:
+                fetched_data = db.get_link(hashsum)
+                if fetched_data is False:
+                    resp = make_response(
+                        render_template("500.html", code=500, errormessage="Database error")
+                    )
+                    return resp
+                else:
+                    url_bytes, salt_bytes = fetched_data
+                    link = urls.decrypt_url(url_bytes, path, salt_bytes)
                 resp = make_response(
                     render_template("redirect.html", tld=tld, link=link)
                 )
