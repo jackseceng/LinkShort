@@ -27,3 +27,5 @@ if __name__ == "__main__":
 
     add_sites(http.request("GET", URL1))
     add_sites(http.request("GET", URL2))
+
+    CON.close()
