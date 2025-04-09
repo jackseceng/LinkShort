@@ -19,13 +19,13 @@ def generate_path():
     return "".join(secrets.choice(alphabet) for _ in range(7))
 
 
-def encrypt_url(url: str, path: str):
+def encrypt_url(url: str, linkpath: str):
     """Derive a symmetric key using the path and a random salt."""
     salt = secrets.token_bytes(16)
     kdf = PBKDF2HMAC(
         algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt,
         iterations=KDF_ITERATIONS)
-    key = kdf.derive(path.encode("utf-8"))
+    key = kdf.derive(linkpath.encode("utf-8"))
 
     # Encrypt the message.
     f = Fernet(base64.urlsafe_b64encode(key))
@@ -34,12 +34,12 @@ def encrypt_url(url: str, path: str):
     return ciphertext, salt
 
 
-def decrypt_url(ciphertext: bytes, path: str, salt: bytes):
+def decrypt_url(ciphertext: bytes, linkpath: str, salt: bytes):
     """Decrypt URL using extension from user request and salt from database"""
     kdf = PBKDF2HMAC(
         algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt,
         iterations=KDF_ITERATIONS)
-    key = kdf.derive(path.encode("utf-8"))
+    key = kdf.derive(linkpath.encode("utf-8"))
 
     # Decrypt the message
     f = Fernet(base64.urlsafe_b64encode(key))
