@@ -1,10 +1,11 @@
 """Hashing and input checking module"""
 
+import base64
 import logging
 import secrets
 import sqlite3
 import string
-import base64
+
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
@@ -12,6 +13,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 KDF_ALGORITHM = hashes.SHA256()
 KDF_LENGTH = 32
 KDF_ITERATIONS = 120000
+
 
 def generate_path():
     """ "Generate path value"""
@@ -23,8 +25,8 @@ def encrypt_url(url: str, linkpath: str):
     """Derive a symmetric key using the path and a random salt."""
     salt = secrets.token_bytes(16)
     kdf = PBKDF2HMAC(
-        algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt,
-        iterations=KDF_ITERATIONS)
+        algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt, iterations=KDF_ITERATIONS
+    )
     key = kdf.derive(linkpath.encode("utf-8"))
 
     # Encrypt the message.
@@ -37,8 +39,8 @@ def encrypt_url(url: str, linkpath: str):
 def decrypt_url(ciphertext: bytes, linkpath: str, salt: bytes):
     """Decrypt URL using extension from user request and salt from database"""
     kdf = PBKDF2HMAC(
-        algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt,
-        iterations=KDF_ITERATIONS)
+        algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt, iterations=KDF_ITERATIONS
+    )
     key = kdf.derive(linkpath.encode("utf-8"))
 
     # Decrypt the message

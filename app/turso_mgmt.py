@@ -11,6 +11,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 
 class Base(DeclarativeBase):
     """Base class for SQLAlchemy ORM"""
+
     pass
 
 

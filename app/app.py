@@ -4,9 +4,11 @@ import hashlib
 from os import environ, path
 
 import bleach
+from flask import (Flask, make_response, render_template, request,
+                   send_from_directory)
+
 import turso_mgmt as db
 import url_mgmt as urls
-from flask import Flask, make_response, render_template, request, send_from_directory
 
 application = Flask(__name__)
 
@@ -100,12 +102,16 @@ def redirect_url(arg):
                 fetched_data = db.get_link(hashsum)
                 if fetched_data is False:
                     resp = make_response(
-                        render_template("500.html", code=500, errormessage="Database error")
+                        render_template(
+                            "500.html", code=500, errormessage="Database error"
+                        )
                     )
                     return resp
                 else:
                     url_bytes, salt_bytes = fetched_data
-                    link = urls.decrypt_url(url_bytes, requested_path, salt_bytes).decode("utf-8")
+                    link = urls.decrypt_url(
+                        url_bytes, requested_path, salt_bytes
+                    ).decode("utf-8")
                 resp = make_response(
                     render_template("redirect.html", tld=tld, link=link)
                 )
