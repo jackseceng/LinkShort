@@ -4,10 +4,9 @@ import hashlib
 from os import environ, path
 
 import bleach
-from flask import Flask, make_response, render_template, request, send_from_directory
-
 import turso_mgmt as db
 import url_mgmt as urls
+from flask import Flask, make_response, render_template, request, send_from_directory
 
 application = Flask(__name__)
 
