@@ -61,7 +61,7 @@ def input_url():
             # Return link page with URL if successful
             resp = make_response(
                 render_template(
-                    "link.html", tld=tld, extension=str(path), errormessage="None"
+                    "link.html", tld=tld, extension=str(linkpath), errormessage="None"
                 )
             )
             return resp
@@ -105,7 +105,7 @@ def redirect_url(arg):
                     return resp
                 else:
                     url_bytes, salt_bytes = fetched_data
-                    link = urls.decrypt_url(url_bytes, path, salt_bytes)
+                    link = urls.decrypt_url(url_bytes, requested_path, salt_bytes).decode("utf-8")
                 resp = make_response(
                     render_template("redirect.html", tld=tld, link=link)
                 )
