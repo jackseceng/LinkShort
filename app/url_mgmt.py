@@ -1,15 +1,53 @@
 """Hashing and input checking module"""
 
+import base64
 import logging
 import secrets
 import sqlite3
 import string
+
+from cryptography.fernet import Fernet
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+
+KDF_ALGORITHM = hashes.SHA256()
+KDF_LENGTH = 32
+KDF_ITERATIONS = 120000
 
 
 def generate_path():
     """ "Generate path value"""
     alphabet = string.ascii_letters + string.digits
     return "".join(secrets.choice(alphabet) for _ in range(7))
+
+
+def encrypt_url(url: str, linkpath: str):
+    """Derive a symmetric key using the path and a random salt."""
+    salt = secrets.token_bytes(16)
+    kdf = PBKDF2HMAC(
+        algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt, iterations=KDF_ITERATIONS
+    )
+    key = kdf.derive(linkpath.encode("utf-8"))
+
+    # Encrypt the message.
+    f = Fernet(base64.urlsafe_b64encode(key))
+    ciphertext = f.encrypt(url.encode("utf-8"))
+
+    return ciphertext, salt
+
+
+def decrypt_url(ciphertext: bytes, linkpath: str, salt: bytes):
+    """Decrypt URL using extension from user request and salt from database"""
+    kdf = PBKDF2HMAC(
+        algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt, iterations=KDF_ITERATIONS
+    )
+    key = kdf.derive(linkpath.encode("utf-8"))
+
+    # Decrypt the message
+    f = Fernet(base64.urlsafe_b64encode(key))
+    plaintext = f.decrypt(ciphertext)
+
+    return plaintext
 
 
 def check_url_whitespace(url_input):

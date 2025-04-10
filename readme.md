@@ -20,7 +20,17 @@ I am using this to learn:
 
 ## Testing locally
 
-- [Sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called 'links' in it.
+- [Sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called 'urls' in with the follwing SQL statement:
+```
+CREATE TABLE
+  urls (
+    hashsum VARCHAR(64) PRIMARY KEY,
+    url BLOB,
+    salt BLOB,
+    CONSTRAINT unique_hash UNIQUE (hashsum)
+  );
+```
+
 
 - Create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
 ```txt
@@ -57,6 +67,8 @@ docker-compose down
 ## Application Features
 
 - [x] Shortens URLs with unique extensions
+- [x] Encrypts stored URLs along with random with salts
+- [x] Extensions are stored as hashsums in the DB
 - [x] Sanitisation of input from user for both URLs and extensions on requests
 - [x] Checks on user shared URLs, to ensure they begin with HTTPS
 - [x] Uses distroless containers for runtime security
