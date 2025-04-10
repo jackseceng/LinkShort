@@ -38,8 +38,8 @@ DBURL = f"sqlite+{TURSO_DATABASE_URL}/?authToken={TURSO_AUTH_TOKEN}&secure=true"
 
 engine = create_engine(
     DBURL,
-    hide_parameters=False,
-    connect_args={"check_same_thread": False},
+    hide_parameters=True,
+    connect_args={"check_same_thread": True},
     echo=True,
 )
 
