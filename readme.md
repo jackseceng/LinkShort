@@ -71,7 +71,7 @@ docker-compose down
 - [x] Extensions are stored as hashsums in the DB
 - [x] Sanitisation of input from user for both URLs and extensions on requests
 - [x] Checks on user shared URLs, to ensure they begin with HTTPS
-- [x] Uses distroless containers for runtime security
+- [x] Uses minimal scratch image for runtime security
 - [x] Checks submitted URLs against spam lists, rejects known spam domains
 - [x] Generates QR codes for users to download and share
 - [x] A frontend with reactive CSS & HTML
