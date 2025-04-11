@@ -1,13 +1,14 @@
 """Main web application logic module"""
 
 import hashlib
-from os import environ, path
 from http import HTTPStatus
+from os import environ, path
 
 import bleach
 import turso_mgmt as db
 import url_mgmt as urls
-from flask import Flask, make_response, render_template, request, send_from_directory, abort
+from flask import (Flask, abort, make_response, render_template, request,
+                   send_from_directory)
 
 application = Flask(__name__)
 
@@ -136,10 +137,9 @@ def add_security_headers(resp):
 def page_not_found(error):
     """Handles 404 Not Found errors."""
     application.logger.info("Not Found: %s", error, exc_info=True)
-    resp = make_response(render_template
-                         ("404.html",
-                          tld=tld,
-                          code=HTTPStatus.NOT_FOUND))
+    resp = make_response(
+        render_template("404.html", tld=tld, code=HTTPStatus.NOT_FOUND)
+    )
     resp.status_code = HTTPStatus.NOT_FOUND
     return resp
 
@@ -148,10 +148,9 @@ def page_not_found(error):
 def internal_server_error(error):
     """Handles 500 Internal Server Errors."""
     application.logger.error("Server Error: %s", error, exc_info=True)
-    resp = make_response(render_template
-                         ("500.html",
-                          tld=tld,
-                          code=HTTPStatus.INTERNAL_SERVER_ERROR))
+    resp = make_response(
+        render_template("500.html", tld=tld, code=HTTPStatus.INTERNAL_SERVER_ERROR)
+    )
     resp.status_code = HTTPStatus.INTERNAL_SERVER_ERROR
     return resp
 
@@ -159,6 +158,7 @@ def internal_server_error(error):
 # Flask main function
 if __name__ == "__main__":
     import logging
+
     logging.basicConfig(level=logging.INFO)
 
     application.run(host="0.0.0.0", port=8080, debug=False)
