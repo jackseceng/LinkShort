@@ -54,7 +54,7 @@ def get_link(hashsum: str):
             url = bytes(item.url)
             salt = bytes(item.salt)
         return url, salt
-    except SQLAlchemyError as e:
+    except Exception as e:
         logging.error("Error on get_link: %s", e)
         return False
 
@@ -68,7 +68,7 @@ def insert_link(hashsum: str, url: bytes, salt: bytes):
             session.add(new_entry)
             session.commit()
             return True
-    except SQLAlchemyError as e:
+    except Exception as e:
         logging.error("Error on insert_link:  %s", e)
         return False
 
@@ -79,6 +79,6 @@ def check_link(hashsum: str):
         session = Session(engine)
         # Return if entry exists
         return bool(session.query(Entry).filter_by(hashsum=hashsum).first())
-    except SQLAlchemyError as e:
+    except Exception as e:
         logging.error("Error on check_link:  %s", e)
         return False
