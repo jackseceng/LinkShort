@@ -1,12 +1,20 @@
 """Main web application logic module"""
 
 import hashlib
+from http import HTTPStatus
 from os import environ, path
 
 import bleach
 import turso_mgmt as db
 import url_mgmt as urls
-from flask import Flask, make_response, render_template, request, send_from_directory
+from flask import (
+    Flask,
+    abort,
+    make_response,
+    render_template,
+    request,
+    send_from_directory,
+)
 
 application = Flask(__name__)
 
@@ -53,10 +61,7 @@ def input_url():
             ciphertext, salt = urls.encrypt_url(user_input, linkpath)
             if db.insert_link(hashsum, ciphertext, salt) is False:
                 # 500 error returned for database failure
-                resp = make_response(
-                    render_template("500.html", code=500, errormessage="None")
-                )
-                return resp
+                abort(HTTPStatus.INTERNAL_SERVER_ERROR)
 
             # Return link page with URL if successful
             resp = make_response(
@@ -68,10 +73,7 @@ def input_url():
 
         case _:
             # Catch all to return 500 error for any unexpected cases
-            resp = make_response(
-                render_template("500.html", code=500, errormessage="None")
-            )
-            return resp
+            abort(HTTPStatus.INTERNAL_SERVER_ERROR)
 
 
 @application.route("/<arg>")
@@ -99,23 +101,18 @@ def redirect_url(arg):
             if db.check_link(hashsum) is True:
                 fetched_data = db.get_link(hashsum)
                 if fetched_data is False:
-                    resp = make_response(
-                        render_template(
-                            "500.html", code=500, errormessage="Database error"
-                        )
-                    )
-                    return resp
+                    abort(HTTPStatus.INTERNAL_SERVER_ERROR)
                 else:
                     url_bytes, salt_bytes = fetched_data
-                    link = urls.decrypt_url(
+                    newlink = urls.decrypt_url(
                         url_bytes, requested_path, salt_bytes
                     ).decode("utf-8")
-                resp = make_response(
-                    render_template("redirect.html", tld=tld, link=link)
-                )
-                return resp
-            resp = make_response(render_template("404.html", tld=tld, code=404))
-            return resp
+                    resp = make_response(
+                        render_template("redirect.html", tld=tld, link=newlink)
+                    )
+                    return resp
+            else:
+                abort(HTTPStatus.NOT_FOUND)
 
 
 @application.after_request
@@ -142,6 +139,32 @@ def add_security_headers(resp):
     return resp
 
 
+@application.errorhandler(HTTPStatus.NOT_FOUND)
+def page_not_found(error):
+    """Handles 404 Not Found errors."""
+    application.logger.info("Not Found: %s", error, exc_info=True)
+    resp = make_response(
+        render_template("404.html", tld=tld, code=HTTPStatus.NOT_FOUND)
+    )
+    resp.status_code = HTTPStatus.NOT_FOUND
+    return resp
+
+
+@application.errorhandler(HTTPStatus.INTERNAL_SERVER_ERROR)
+def internal_server_error(error):
+    """Handles 500 Internal Server Errors."""
+    application.logger.error("Server Error: %s", error, exc_info=True)
+    resp = make_response(
+        render_template("500.html", tld=tld, code=HTTPStatus.INTERNAL_SERVER_ERROR)
+    )
+    resp.status_code = HTTPStatus.INTERNAL_SERVER_ERROR
+    return resp
+
+
 # Flask main function
 if __name__ == "__main__":
+    import logging
+
+    logging.basicConfig(level=logging.INFO)
+
     application.run(host="0.0.0.0", port=8080, debug=False)
