@@ -13,7 +13,7 @@ from flask import (
     make_response,
     render_template,
     request,
-    send_from_directory
+    send_from_directory,
 )
 
 application = Flask(__name__)
