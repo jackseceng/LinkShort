@@ -22,8 +22,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    #checkov:skip=CKV2_GHA_1:Ensure top-level permissions are not set to write-all
     # Skipped check as Checkov is detecting this incorrectly
+    #checkov:skip=CKV2_GHA_1:Ensure top-level permissions are not set to write-all
     permissions:
       contents: read
       packages: write
