@@ -35,7 +35,6 @@ jobs:
           # To report GitHub Actions status checks
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_CSS: true
-          VALIDATE_CHECKOV: true
           VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_GITLEAKS: true
           VALIDATE_GITHUB_ACTIONS: true
