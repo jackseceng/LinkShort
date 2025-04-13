@@ -56,6 +56,5 @@ EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
     CMD ["/usr/local/bin/python", "healthcheck/healthcheck.py"]
 
-# Define the command to run the application, skip check as scratch can't have users
-#checkov:skip=CKV_DOCKER_3:Ensure that a user for the container has been created
+# Define the command to run the application
 CMD ["/usr/local/bin/python", "gunicorn_cfg.py"]

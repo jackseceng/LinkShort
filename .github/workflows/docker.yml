@@ -22,11 +22,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    #checkov:skip=CKV2_GHA_1:This is not write all permission
     permissions:
-      #checkov:skip=CKV2_GHA_1:This is not write all permission
       contents: read
-      #checkov:skip=CKV2_GHA_1:This is not write all permission
       packages: write
       pull-requests: write
 
