@@ -22,10 +22,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    # Skipped check as Checkov is detecting this incorrectly
     permissions:
       contents: read
-      #checkov:skip=CKV2_GHA_1:Ensure top-level permissions are not set to write-all
+      #checkov:skip=CKV2_GHA_1:This is not write all permission
       packages: write
       pull-requests: write
 
