@@ -60,12 +60,4 @@ jobs:
           only-severities: critical,high,medium
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          sarif-file: sarif.output.json
           summary: true
-
-      - name: Upload result to GitHub Code Scanning
-        id: upload-sarif
-        if: ${{ github.event_name != 'pull_request_target' }}
-        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
-        with:
-          sarif_file: sarif.output.json
