@@ -42,7 +42,7 @@
             if: ${{ github.event_name != 'pull_request_target' }}
             uses: docker/scout-action@d341d36d6eebbe05c0b25760c63afa19e8f23269 # v1.17.0
             with:
-                command: cves,recommendations
+                command: cves
                 image: jackseceng/linkshort:latest
                 ignore-unchanged: true
                 only-severities: critical,high,medium
