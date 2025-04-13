@@ -5,21 +5,15 @@ FROM python:3.13.3-alpine3.21 AS build-env
 WORKDIR /build
 
 # Copy application files
-COPY requirements.txt .
+COPY . .
 
 # Install python dependencies into a target directory
 RUN set -e; \
     pip install --no-cache-dir -r requirements.txt --target /packages; \
     pip install --no-cache-dir urllib3==2.3.0
 
-# Copy the rest of the application code
-COPY . .
-
 # Run build-time script for bad sites db creation and clean up
-RUN set -e; \
-    python3 lists.py; \
-    rm -rf requirements.txt; \
-    rm -rf lists.py;
+RUN python3 lists.py
 
 # Stage 2: Runtime Stage based on scratch as minimal runtime container
 FROM scratch
