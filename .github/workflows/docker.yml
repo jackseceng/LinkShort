@@ -2,13 +2,10 @@ name: Docker
 
 on:
   push:
-    tags: [ "*" ]
-    branches:
-      - 'main'
-    paths:
-      ['Dockerfile', 'requirements.txt', 'app/**', '.github/workflows/docker.yml']
+    branches: ["main"]
+    paths: ['Dockerfile', 'requirements.txt', '.github/workflows/docker.yml']
   pull_request:
-    branches: [ "**" ]
+    branches: [ "main" ]
     types:
       - ready_for_review
 
