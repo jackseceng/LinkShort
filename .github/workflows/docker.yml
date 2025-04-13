@@ -19,7 +19,7 @@ env:
   COMPARE_TAG: latest
 
 jobs:
-  build:
+  Push-Analyze:
 
     runs-on: ubuntu-latest
     permissions:
