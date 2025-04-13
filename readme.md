@@ -91,7 +91,7 @@ Static & Software Composition Analysis:
 
 Container Image Scanning:
 - [x] [Grype](https://github.com/anchore/grype/)
-- [x] [Docker Scout](https://docs.docker.com/scout/
+- [x] [Docker Scout](https://docs.docker.com/scout/)
 
 Automated Dependency Upgrades:
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/)
