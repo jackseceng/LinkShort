@@ -82,13 +82,22 @@ docker-compose down
 
 ## DevSecOps Automation
 
-- [x] [Super Linter](https://github.com/super-linter/super-linter) Code linting
-- [x] [CodeQL](https://codeql.github.com/) Source code vulnerability scanning
-- [x] [Snyk](https://snyk.io) Open source dependency vulnerability scanning
-- [x] [Grype](https://github.com/anchore/grype/) Container vulnerability scanning
-- [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/) Automated dependency upgrades
+Code Linting:
+- [x] [Super Linter](https://github.com/super-linter/super-linter)
+
+Static & Software Composition Analysis:
+- [x] [CodeQL](https://codeql.github.com/)
+- [x] [Snyk](https://snyk.io)
+
+Container Image Scanning:
+- [x] [Grype](https://github.com/anchore/grype/)
+- [x] [Docker Scout](https://docs.docker.com/scout/
+
+Automated Dependency Upgrades:
+- [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/)
+
+Commit Standardisation:
 - [ ] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
-- [x] [Docker Push](https://github.com/docker/build-push-action) Docker image publication on pushes to main branch
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
 
 ## Developed by [Jack](https://jacksec.engineer)
