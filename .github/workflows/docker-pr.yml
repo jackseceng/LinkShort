@@ -11,6 +11,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
+  SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
   BRANCH: ${{ github.head_ref }}
   # Use `latest` as the tag to compare to if empty, assuming that it's already pushed
   COMPARE_TAG: latest
@@ -54,11 +55,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           labels: |
-            org.opencontainers.image.revision=${{ env.BRANCH }}
-          tags: |
-            type=edge,branch=$repo.default_branch
-            type=semver,pattern=v{{version}}
-            type=sha,prefix=,suffix=,format=short
+            org.opencontainers.image.revision=${{ env.SHA }}
 
       # Build and push Docker image with Buildx
       # https://github.com/docker/build-push-action
@@ -68,7 +65,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.BRANCH }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
