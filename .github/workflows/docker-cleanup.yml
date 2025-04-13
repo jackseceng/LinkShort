@@ -10,13 +10,7 @@ on:
 
 
 env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: docker.io
-  IMAGE_NAME: ${{ github.repository }}
-  SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
   BRANCH: ${{ github.head_ref }}
-  # Use `latest` as the tag to compare to if empty, assuming that it's already pushed
-  COMPARE_TAG: latest
 
 jobs:
   cleanup:
@@ -32,4 +26,4 @@ jobs:
           curl -i -X DELETE \
           -H "Accept: application/json" \
           -H "Authorization: JWT $DOCKERHUB_TOKEN" \
-          https://hub.docker.com/v2/repositories/jackseceng/linkshort/tags/${{ github.head_ref }}/
+          https://hub.docker.com/v2/repositories/jackseceng/linkshort/tags/${{ env.BRANCH }}/
