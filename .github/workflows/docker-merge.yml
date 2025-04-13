@@ -15,6 +15,10 @@
       build-push-scan:
         name: Build Push and Scan
         runs-on: ubuntu-latest
+        permissions:
+            security-events: write
+            contents: read
+            packages: write
         steps:
           -
             name: Login to Docker Hub
