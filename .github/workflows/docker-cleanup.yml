@@ -1,0 +1,35 @@
+---
+name: Docker
+
+on:
+  pull_request:
+    types:
+      [ "closed" ]
+    paths:
+      ['Dockerfile', 'requirements.txt', 'app/**', '.github/workflows/docker-pr.yml']
+
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: docker.io
+  IMAGE_NAME: ${{ github.repository }}
+  SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
+  BRANCH: ${{ github.head_ref }}
+  # Use `latest` as the tag to compare to if empty, assuming that it's already pushed
+  COMPARE_TAG: latest
+
+jobs:
+  cleanup:
+    name: Cleanup PR Conatiner
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: read
+
+    steps:
+      - name: Delete Image
+        run: |
+          curl -i -X DELETE \
+          -H "Accept: application/json" \
+          -H "Authorization: JWT $DOCKERHUB_TOKEN" \
+          https://hub.docker.com/v2/repositories/jackseceng/linkshort/tags/${{ github.head_ref }}/
