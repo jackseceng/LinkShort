@@ -1,27 +1,21 @@
-# Stage 1: Build environment using Alpine Python
+# Stage 1: Build stage environment using alpine python Image
 FROM python:3.13.3-alpine3.21 AS build-env
 
-# Set working directory
+# Set build directory
 WORKDIR /build
 
 # Copy application files
-COPY requirements.txt .
+COPY . .
 
 # Install python dependencies into a target directory
 RUN set -e; \
     pip install --no-cache-dir -r requirements.txt --target /packages; \
     pip install --no-cache-dir urllib3==2.3.0
 
-# Copy the rest of the application code
-COPY . .
+# Run build-time script to create badsites DB
+RUN python3 lists.py
 
-# Run build-time script for bad sites db creation and clean up
-RUN set -e; \
-    python3 lists.py; \
-    rm -rf requirements.txt; \
-    rm -rf lists.py;
-
-# Stage 2: Runtime Stage based on scratch as minimal runtime container
+# Stage 2: Runtime Stage using scratch Image
 FROM scratch
 
 # Copy necessary system libraries and interpreter from build-env
@@ -52,7 +46,7 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONPATH=/packages \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
-# Set working directory
+# Set runtime directory
 WORKDIR /app
 
 # Expose the application port
@@ -62,6 +56,6 @@ EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
     CMD ["/usr/local/bin/python", "healthcheck/healthcheck.py"]
 
-# Define the command to run the application, skip check as scrach can't have users
+# Define the command to run the application, skip check as scratch can't have users
 #checkov:skip=CKV_DOCKER_3:Ensure that a user for the container has been created
 CMD ["/usr/local/bin/python", "gunicorn_cfg.py"]
