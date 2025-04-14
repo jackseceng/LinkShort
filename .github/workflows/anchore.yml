@@ -32,11 +32,9 @@ jobs:
       with:
         image: jackseceng/linkshort
         fail-build: true
-        severity-cutoff: high
+        severity-cutoff: medium
         only-fixed: true
-        quiet: false
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
       with:
         sarif_file: ${{ steps.scan.outputs.sarif }}
-        
