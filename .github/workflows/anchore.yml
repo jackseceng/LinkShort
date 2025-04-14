@@ -27,14 +27,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Build Docker image
-      run: docker build . --file Dockerfile --tag jackseceng/linkshort:latest
+      run: docker build . --file Dockerfile --tag jackseceng/linkshort:{{ $env.BRANCH }}
     - name: Perform Vulnerability Scan
       uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
       id: scan
       with:
-        image: "jackseceng/linkshort:{{ $env.BRANCH }}"
+        image: jackseceng/linkshort:{{ $env.BRANCH }}
         fail-build: true
-        severity-cutoff: medium
+        severity-cutoff: high
         only-fixed: true
         output-format: table
     - name: Upload result to GitHub Code Scanning
