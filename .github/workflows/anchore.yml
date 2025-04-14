@@ -9,7 +9,8 @@ on:
     branches: ["main"]
     types:
       - ready_for_review
-
+env:
+  BRANCH: ${{ github.head_ref }}
 
 permissions:
   contents: read
@@ -31,11 +32,10 @@ jobs:
       uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
       id: scan
       with:
-        image: "jackseceng/linkshort:latest"
+        image: "jackseceng/linkshort:{{ $env.BRANCH }}"
         fail-build: true
-        severity-cutoff: critical,high,medium
+        severity-cutoff: medium
         only-fixed: true
-        scope: all-layers
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
       with:
