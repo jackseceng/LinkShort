@@ -30,7 +30,7 @@ jobs:
       uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
       id: scan
       with:
-        image: docker.io/jackseceng1/linkshort:latest
+        image: docker.io/jackseceng/linkshort:docker-scout-prs
         fail-build: true
         severity-cutoff: medium
         only-fixed: true
