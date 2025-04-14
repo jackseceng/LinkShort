@@ -54,15 +54,6 @@ jobs:
       pull-requests: write
 
     steps:
-    - name: Perform Grype Vulnerability Scan
-      uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
-      id: grype-scan
-      with:
-        image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BRANCH }}
-        fail-build: true
-        severity-cutoff: medium
-        only-fixed: true
-
     - name: Perform Scout Vulnerability Scan
       id: scout-scan
       if: ${{ github.event_name != 'pull_request_target' }}
@@ -77,3 +68,12 @@ jobs:
         write-comment: true
         github-token: ${{ secrets.GITHUB_TOKEN }}
         summary: true
+
+    - name: Perform Grype Vulnerability Scan
+      uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
+      id: grype-scan
+      with:
+        image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BRANCH }}
+        fail-build: true
+        severity-cutoff: medium
+        only-fixed: true
