@@ -55,6 +55,7 @@ jobs:
                 image: jackseceng/linkshort:latest
                 ignore-unchanged: true
                 only-severities: critical,high,medium
+                exit-on: vulnerability
                 write-comment: true
                 github-token: ${{ secrets.GITHUB_TOKEN }}
                 sarif-file: sarif.output.json
