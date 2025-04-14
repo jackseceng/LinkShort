@@ -1,5 +1,5 @@
 ---
-name: Docker
+name: Container
 
 on:
   pull_request:
@@ -11,20 +11,17 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
-  SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
   BRANCH: ${{ github.head_ref }}
   # Use `latest` as the tag to compare to if empty, assuming that it's already pushed
   COMPARE_TAG: latest
 
 jobs:
-  analyze:
-    name: Analyze (scout)
+  Analyze:
     runs-on: ubuntu-latest
 
     permissions:
-      security-events: write
       contents: read
-      packages: write
+      actions: read
       pull-requests: write
 
     steps:
@@ -48,8 +45,8 @@ jobs:
           tags: jackseceng/linkshort:${{ env.BRANCH }}
           provenance: true
           sbom: true
-
-      - name: Perform Vulnerability Scan
+  
+      - name: Perform Scout Vulnerability Scan
         id: scout-scan
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: docker/scout-action@d341d36d6eebbe05c0b25760c63afa19e8f23269 # v1.17.0
@@ -63,3 +60,13 @@ jobs:
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           summary: true
+
+      - name: Perform Grype Vulnerability Scan
+        uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
+        id: grype-scan
+        with:
+          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BRANCH }}
+          fail-build: true
+          severity-cutoff: medium
+          only-fixed: true
+          output-format: table
