@@ -59,6 +59,7 @@ jobs:
           to: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.COMPARE_TAG }}
           ignore-unchanged: true
           only-severities: critical,high,medium
+          exit-on: vulnerability
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           summary: true
