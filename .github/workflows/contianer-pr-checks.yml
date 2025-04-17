@@ -71,12 +71,14 @@ jobs:
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           summary: true
+          sarif-file: sarif.output.json
       - 
         name: Trivy Vulnerability Scan
         id: trivy-scan
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}'
+          scan-type: 'image'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH,MEDIUM'
           format: 'sarif'
@@ -91,4 +93,10 @@ jobs:
         uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
         with:
           sarif_file: 'trivy-results.sarif'
-      
+      - 
+        name: Upload Scout result to GitHub Code Scanning
+        id: upload-sarif
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
+        with:
+            sarif_file: sarif.output.json
