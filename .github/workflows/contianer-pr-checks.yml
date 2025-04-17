@@ -1,0 +1,105 @@
+---
+name: Container
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    types:
+      - ready_for_review
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: docker.io
+  IMAGE_NAME: ${{ github.repository }}
+  PR_NUMBER: ${{ github.event.number }}
+  COMPARE_TAG: latest
+
+jobs:
+  push:
+    name: Push Image
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: read
+
+    steps:
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+        
+      - name: Build and push
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
+        with:
+          push: true
+          tags: jackseceng/linkshort:${{ env.PR_NUMBER }}
+          provenance: true
+          sbom: true
+    
+  build-analyze:
+    name: Build and Analyze
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    steps:
+    - 
+      name: Checkout repository
+      uses: actions/checkout@v4
+    - 
+      name: Build Docker image
+      run: docker build . --file Dockerfile --tag jackseceng/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
+    - 
+      name: Grype Vulnerability Scan
+      uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
+      id: grype-scan
+      with:
+        image: jackseceng/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
+        fail-build: true
+        severity-cutoff: medium
+        only-fixed: true
+    - 
+      name: Scout Vulnerability Scan
+      id: scout-scan
+      if: ${{ github.event_name != 'pull_request_target' }}
+      uses: docker/scout-action@d341d36d6eebbe05c0b25760c63afa19e8f23269 # v1.17.0
+      with:
+        command: compare
+        image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
+        to: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.COMPARE_TAG }}
+        ignore-unchanged: true
+        only-severities: critical,high,medium
+        exit-on: vulnerability
+        write-comment: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        summary: true
+    - 
+      name: Trivy Vulnerability Scan
+      uses: aquasecurity/trivy-action@0.28.0
+      with:
+        image-ref: 'docker.io/jackseceng/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}'
+        ignore-unfixed: true
+        severity: 'CRITICAL,HIGH,MEDIUM'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+    - 
+      name: Upload Grype result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
+      with:
+        sarif_file: ${{ steps.grype-scan.outputs.sarif }}
+    - 
+      name: Upload Trivy result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
+      with:
+        sarif_file: 'trivy-results.sarif'
+    
