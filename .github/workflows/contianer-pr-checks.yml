@@ -10,6 +10,7 @@ on:
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
+  REPOSITORY: jackseceng
   IMAGE_NAME: linkshort
   PR_NUMBER: ${{ github.event.number }}
   COMPARE_TAG: latest
@@ -20,7 +21,10 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      pull-requests: read
+      security-events: write
+      contents: read
+      packages: write
+      pull-requests: write
 
     steps:
       -
@@ -40,76 +44,51 @@ jobs:
         uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
         with:
           push: true
-          tags: jackseceng/linkshort:${{ env.PR_NUMBER }}
+          tags: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
           provenance: true
           sbom: true
-    
-  build-analyze:
-    name: Build and Analyze
-    needs: push
-    runs-on: ubuntu-latest
-
-    permissions:
-      security-events: write
-      contents: read
-      packages: write
-      pull-requests: write
-
-    steps:
-    - 
-      name: Checkout repository
-      uses: actions/checkout@v4
-    - 
-      name: Build Docker image
-      run: docker build . --file Dockerfile --tag jackseceng/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
-    - 
-      name: Grype Vulnerability Scan
-      uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
-      id: grype-scan
-      with:
-        image: jackseceng/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
-        fail-build: true
-        severity-cutoff: medium
-        only-fixed: true
-    -
-      name: Login to Docker Hub
-      uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - 
-      name: Scout Vulnerability Scan
-      id: scout-scan
-      if: ${{ github.event_name != 'pull_request_target' }}
-      uses: docker/scout-action@d341d36d6eebbe05c0b25760c63afa19e8f23269 # v1.17.0
-      with:
-        command: compare
-        image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
-        to: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.COMPARE_TAG }}
-        ignore-unchanged: true
-        only-severities: critical,high,medium
-        exit-on: vulnerability
-        write-comment: true
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        summary: true
-    - 
-      name: Trivy Vulnerability Scan
-      id: trivy-scan
-      uses: aquasecurity/trivy-action@0.28.0
-      with:
-        image-ref: 'docker.io/jackseceng/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}'
-        ignore-unfixed: true
-        severity: 'CRITICAL,HIGH,MEDIUM'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-    - 
-      name: Upload Grype result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
-      with:
-        sarif_file: ${{ steps.grype-scan.outputs.sarif }}
-    - 
-      name: Upload Trivy result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
-      with:
-        sarif_file: 'trivy-results.sarif'
-    
+      - 
+        name: Grype Vulnerability Scan
+        uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
+        id: grype-scan
+        with:
+          image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
+          fail-build: true
+          severity-cutoff: medium
+          only-fixed: true
+      - 
+        name: Scout Vulnerability Scan
+        id: scout-scan
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: docker/scout-action@d341d36d6eebbe05c0b25760c63afa19e8f23269 # v1.17.0
+        with:
+          command: compare
+          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
+          to: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.COMPARE_TAG }}
+          ignore-unchanged: true
+          only-severities: critical,high,medium
+          exit-on: vulnerability
+          write-comment: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          summary: true
+      - 
+        name: Trivy Vulnerability Scan
+        id: trivy-scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - 
+        name: Upload Grype result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
+        with:
+          sarif_file: ${{ steps.grype-scan.outputs.sarif }}
+      - 
+        name: Upload Trivy result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
+        with:
+          sarif_file: 'trivy-results.sarif'
+      
