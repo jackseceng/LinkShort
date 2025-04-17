@@ -1,5 +1,5 @@
 ---
-name: Codebase
+name: Files
 
 on:
   pull_request:
