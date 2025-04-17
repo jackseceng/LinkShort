@@ -4,8 +4,8 @@ name: Image
 on:
   pull_request:
     branches: [ "main" ]
-    types:
-      - ready_for_review
+    paths:
+      ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container.yml']
   push:
     branches: [ "main" ]
     paths:
