@@ -1,5 +1,5 @@
 ---
-name: Container
+name: Image
 
 on:
   pull_request:
@@ -8,15 +8,14 @@ on:
       - ready_for_review
 
 env:
-  # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
   REPOSITORY: jackseceng
   IMAGE_NAME: linkshort
   PR_NUMBER: ${{ github.event.number }}
 
 jobs:
-  push:
-    name: Push Image
+  analyze:
+    name: Analyze
     runs-on: ubuntu-latest
 
     permissions:
@@ -72,7 +71,7 @@ jobs:
       - 
         name: Trivy Vulnerability Scan
         id: trivy-scan
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # v0.30.0
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}'
           scan-type: 'image'
@@ -81,18 +80,18 @@ jobs:
           format: 'sarif'
           output: 'trivy-results.sarif'
       - 
-        name: Upload Grype result to GitHub Code Scanning
+        name: Upload Grype results to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
         with:
           sarif_file: ${{ steps.grype-scan.outputs.sarif }}
       - 
-        name: Upload Trivy result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
-        with:
-          sarif_file: 'trivy-results.sarif'
-      - 
-        name: Upload Scout result to GitHub Code Scanning
+        name: Upload Scout results to GitHub Code Scanning
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
         with:
             sarif_file: sarif.output.json
+      - 
+        name: Upload Trivy results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
+        with:
+          sarif_file: 'trivy-results.sarif'
