@@ -1,5 +1,5 @@
 ---
-name: CodeQL
+name: Code
 
 on:
   push:
@@ -7,8 +7,7 @@ on:
     paths: ['.github/workflows/codeql.yml', '**.py', '**.js']
   pull_request:
     branches: [ "main" ]
-    types:
-      - ready_for_review
+    paths: ['.github/workflows/codeql.yml', '**.py', '**.js']
 
 
 permissions:
