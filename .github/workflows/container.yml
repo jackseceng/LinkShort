@@ -2,15 +2,14 @@
 name: Image
 
 on:
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container.yml']
   push:
     branches: [ "main" ]
     paths:
       ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container.yml']
-
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container.yml']
 env:
   REGISTRY: docker.io
   REPOSITORY: jackseceng
