@@ -13,7 +13,6 @@ env:
   REPOSITORY: jackseceng
   IMAGE_NAME: linkshort
   PR_NUMBER: ${{ github.event.number }}
-  COMPARE_TAG: latest
 
 jobs:
   push:
@@ -62,17 +61,14 @@ jobs:
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: docker/scout-action@d341d36d6eebbe05c0b25760c63afa19e8f23269 # v1.17.0
         with:
-          command: compare
           image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.PR_NUMBER }}
-          to: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.COMPARE_TAG }}
+          command: cves
           ignore-unchanged: true
           only-severities: critical,high,medium
-          exit-on: vulnerability
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          summary: true
-          format: sarif
           sarif-file: sarif.output.json
+          summary: true
       - 
         name: Trivy Vulnerability Scan
         id: trivy-scan
