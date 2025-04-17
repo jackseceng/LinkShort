@@ -1,5 +1,5 @@
 ---
-name: Docker
+name: Cleanup
 
 on:
   pull_request:

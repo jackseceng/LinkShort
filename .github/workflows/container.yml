@@ -6,6 +6,10 @@ on:
     branches: [ "main" ]
     types:
       - ready_for_review
+  push:
+    branches: [ "main" ]
+    paths:
+      ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container.yml']
 
 env:
   REGISTRY: docker.io

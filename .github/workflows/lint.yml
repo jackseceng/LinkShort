@@ -1,5 +1,5 @@
 ---
-name: Linter
+name: Codebase
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   lint:
-    name: Scan
+    name: Lint
     runs-on: ubuntu-latest
 
     permissions:
