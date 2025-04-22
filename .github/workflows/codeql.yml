@@ -4,10 +4,10 @@ name: Code
 on:
   push:
     branches: [ "main" ]
-    paths: ['.github/workflows/codeql.yml', '**.py', '**.js']
+    paths: ['.github/workflows/codeql.yml', '**.py', '**.js', 'Dockerfile', 'requirements.txt',]
   pull_request:
     branches: [ "main" ]
-    paths: ['.github/workflows/codeql.yml', '**.py', '**.js']
+    paths: ['.github/workflows/codeql.yml', '**.py', '**.js', 'Dockerfile', 'requirements.txt',]
 
 
 permissions:
