@@ -15,7 +15,6 @@ env:
   REGISTRY: docker.io
   REPOSITORY: jackseceng
   IMAGE_NAME: linkshort
-  TAG: latest
 
 jobs:
   analyze:
