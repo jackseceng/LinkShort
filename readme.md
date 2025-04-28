@@ -1,11 +1,15 @@
-[![Known Vulnerabilities](https://snyk.io/test/github/jackseceng/LinkShort/badge.svg)](https://snyk.io/test/github/jackseceng/LinkShort)
-[![CodeQL](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml)
-[![Grype](https://github.com/jackseceng/LinkShort/actions/workflows/anchore.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/anchore.yml)
-[![Docker Build](https://github.com/jackseceng/LinkShort/actions/workflows/docker-merge.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/docker-merge.yml)
-![Docker Image Size (tag)](https://img.shields.io/docker/image-size/jackseceng/linkshort/latest)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jackseceng/LinkShort)
-
 # LinkShort - Containerised URL shortener
+
+Security: 
+
+[![SCA](https://snyk.io/test/github/jackseceng/LinkShort/badge.svg)](https://snyk.io/test/github/jackseceng/LinkShort)
+[![SAST](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml)
+[![Image](https://github.com/jackseceng/LinkShort/actions/workflows/container-merge.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/container-merge.yml)
+
+Size:
+
+![Image Size](https://img.shields.io/docker/image-size/jackseceng/linkshort/latest)
+![Codebase Size](https://img.shields.io/github/languages/code-size/jackseceng/LinkShort)
 
 This is the Python code and Docker configuration for a link shortening web app
 
