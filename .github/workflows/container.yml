@@ -1,0 +1,108 @@
+---
+name: Image
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container.yml']
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container.yml']
+
+env:
+  REGISTRY: docker.io
+  REPOSITORY: jackseceng
+  IMAGE_NAME: linkshort
+  TAG: latest
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+      contents: read
+      packages: write
+      pull-requests: write
+
+    steps:
+      - 
+        name: Set Tag if PR
+        if:  ${{ github.event_name }} == 'pull_request'
+        env: 
+          TAG: ${{ github.event.number }}
+      - 
+        name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+
+      - name: Build and push
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
+        with:
+          push: true
+          tags: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+          provenance: true
+          sbom: true
+      - 
+        name: Grype Vulnerability Scan
+        uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
+        id: grype-scan
+        with:
+          image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+          fail-build: true
+          severity-cutoff: medium
+          only-fixed: true
+      - 
+        name: Scout Vulnerability Scan
+        id: scout-scan
+        uses: docker/scout-action@d341d36d6eebbe05c0b25760c63afa19e8f23269 # v1.17.0
+        with:
+          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+          command: cves
+          ignore-unchanged: true
+          only-severities: critical,high,medium
+          write-comment: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          sarif-file: sarif.output.json
+          summary: true
+      - 
+        name: Trivy Vulnerability Scan
+        id: trivy-scan
+        uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # v0.30.0
+        with:
+          image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}'
+          scan-type: 'image'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - 
+        name: Upload Grype results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
+        with:
+          sarif_file: ${{ steps.grype-scan.outputs.sarif }}
+      - 
+        name: Upload Scout results to GitHub Code Scanning
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
+        with:
+            sarif_file: sarif.output.json
+      - 
+        name: Upload Trivy results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
+        with:
+          sarif_file: 'trivy-results.sarif'
