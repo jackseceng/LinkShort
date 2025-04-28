@@ -1,6 +1,6 @@
 # LinkShort - Containerised URL shortener
 
-Security: 
+Security:
 
 [![SCA](https://snyk.io/test/github/jackseceng/LinkShort/badge.svg)](https://snyk.io/test/github/jackseceng/LinkShort)
 [![SAST](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml)
@@ -25,7 +25,7 @@ I am using this to learn:
 ## Testing locally
 
 - [Sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called 'urls' in with the follwing SQL statement:
-```
+```SQL
 CREATE TABLE
   urls (
     hashsum VARCHAR(64) PRIMARY KEY,
