@@ -4,7 +4,6 @@ name: Image
 on:
   pull_request:
     branches: [ "main" ]
-    types: [opened, reopened, closed]
     paths:
       ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container.yml']
 
@@ -26,15 +25,6 @@ jobs:
       pull-requests: write
 
     steps:
-      - 
-        name: Delete Tag
-        if: github.event.action =='closed'
-        uses: fjogeleit/http-request-action@23ad54bcd1178fcff6a0d17538fa09de3a7f0a4d # v1.16.4
-        with:
-          url: https://hub.docker.com/v2/repositories/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}/tags/grype-from-remote/
-          method: 'DELETE'
-          bearerToken: ${{ secrets.DOCKERHUB_TOKEN }}
-          customHeaders: '{"Content-Type": "application/json"}'
       - 
         name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
