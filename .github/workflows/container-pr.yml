@@ -4,6 +4,7 @@ name: Image
 on:
   pull_request:
     branches: [ "main" ]
+    types: [opened, reopened, closed]
     paths:
       ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container.yml']
 
