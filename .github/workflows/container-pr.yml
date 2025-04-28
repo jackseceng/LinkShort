@@ -97,3 +97,11 @@ jobs:
         uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
         with:
           sarif_file: 'trivy-results.sarif'
+      - 
+        name: Delete Tag
+        uses: fjogeleit/http-request-action@23ad54bcd1178fcff6a0d17538fa09de3a7f0a4d # v1.16.4
+        with:
+          url: https://hub.docker.com/v2/repositories/{{env.REPOSITORY}}/{{env.IMAGE_NAME}}/tags/grype-from-remote/
+          method: 'DELETE'
+          bearerToken: ${{ secrets.DOCKERHUB_TOKEN }}
+          customHeaders: '{"Content-Type": "application/json"}'
