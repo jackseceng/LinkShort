@@ -1,10 +1,11 @@
 # LinkShort - Containerised URL shortener
 
-Security:
+Scans:
 
 [![SCA](https://snyk.io/test/github/jackseceng/LinkShort/badge.svg)](https://snyk.io/test/github/jackseceng/LinkShort)
 [![SAST](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml)
-[![Image](https://github.com/jackseceng/LinkShort/actions/workflows/container-merge.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/container-merge.yml)
+[![Image](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml)
+[![Linter](https://github.com/jackseceng/LinkShort/actions/workflows/lint/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 Size:
 
