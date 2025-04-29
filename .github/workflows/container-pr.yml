@@ -4,8 +4,6 @@ name: Image
 on:
   pull_request:
     branches: [ "main" ]
-    paths:
-      ['Dockerfile', 'requirements.txt', 'app/**', 'lists.py', '.github/workflows/container-pr.yml']
 
 env:
   REGISTRY: docker.io
