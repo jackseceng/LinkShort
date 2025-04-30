@@ -130,7 +130,7 @@ jobs:
         name: Upload Grype results to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3.28.15
         with:
-          sarif_file: ${{ steps.grype-scan.outputs.sarif }}
+          sarif_file: 'grype-results.sarif'
       - 
         name: Upload Scout results to GitHub Code Scanning
         if: ${{ github.event_name != 'pull_request_target' }}
