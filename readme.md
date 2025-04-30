@@ -3,9 +3,9 @@
 Scans:
 
 [![SCA](https://snyk.io/test/github/jackseceng/LinkShort/badge.svg)](https://snyk.io/test/github/jackseceng/LinkShort)
-[![SAST](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml)
+[![SAST](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://codeql.github.com/)
 [![Image](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml)
-[![Linter](https://github.com/jackseceng/LinkShort/actions/workflows/lint/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![Linter](https://github.com/jackseceng/LinkShort/actions/workflows/lint.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 Size:
 
@@ -97,6 +97,7 @@ Static & Software Composition Analysis:
 Container Image Scanning:
 - [x] [Grype](https://github.com/anchore/grype/)
 - [x] [Docker Scout](https://docs.docker.com/scout/)
+- [x] [Trivy](https://trivy.dev/latest/docs/target/container_image/)
 
 Automated Dependency Upgrades:
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/)
