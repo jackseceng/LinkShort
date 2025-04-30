@@ -67,7 +67,7 @@ jobs:
           fail-build: true
           severity-cutoff: medium
           only-fixed: true
-          output: 'grype-results.sarif'
+          output-file: 'grype-results.sarif'
       - 
         name: Grype Vulnerability Scan PR
         if: github.event_name == 'pull_request'
@@ -77,7 +77,7 @@ jobs:
           fail-build: true
           severity-cutoff: medium
           only-fixed: true
-          output: 'grype-results.sarif'
+          output-file: 'grype-results.sarif'
       - 
         name: Scout Vulnerability Scan Merge
         if: github.event.pull_request.merged == true
