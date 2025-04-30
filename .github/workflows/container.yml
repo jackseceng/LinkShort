@@ -42,7 +42,7 @@ jobs:
 
       - 
         name: Build and Push Merge
-        if: github.event.pull_request.merged == true
+        if: github.event.pull_request.merged
         uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
         with:
           push: true
@@ -60,7 +60,7 @@ jobs:
           sbom: true
       - 
         name: Grype Vulnerability Scan Merge
-        if: github.event.pull_request.merged == true
+        if: github.event.pull_request.merged
         uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
         with:
           image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
@@ -80,7 +80,7 @@ jobs:
           output-file: 'grype-results.sarif'
       - 
         name: Scout Vulnerability Scan Merge
-        if: github.event.pull_request.merged == true
+        if: github.event.pull_request.merged
         uses: docker/scout-action@d341d36d6eebbe05c0b25760c63afa19e8f23269 # v1.17.0
         with:
           image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
@@ -106,7 +106,7 @@ jobs:
           summary: true
       - 
         name: Trivy Vulnerability Scan Merge
-        if: github.event.pull_request.merged == true
+        if: github.event.pull_request.merged
         uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # v0.30.0
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest'
