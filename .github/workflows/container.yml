@@ -60,6 +60,7 @@ jobs:
           sbom: true
       - 
         name: Grype Vulnerability Scan Merge
+        id: grype-scan
         if: github.event.pull_request.merged == true
         uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
         with:
@@ -69,6 +70,7 @@ jobs:
           only-fixed: true
       - 
         name: Grype Vulnerability Scan PR
+        id: grype-scan
         if: github.event_name == 'pull_request'
         uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6.1.0
         with:
