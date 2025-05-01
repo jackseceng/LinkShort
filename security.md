@@ -10,7 +10,7 @@ If you find a bug please first check [the issues page](https://github.com/jackse
 
 ## Security-related tooling
 
-This is a list of tooling used by this repository to find vulnerabilities & bugs.
+This is a list of tooling used by this repository to find vulnerabilities & bugs with a criticality of Medium or higher.
 
 | Capability | Tool    |
 | ---------- | ------- |
