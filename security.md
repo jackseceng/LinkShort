@@ -8,7 +8,7 @@ If you find a bug please first check [the issues page](https://github.com/jackse
 
 - If your bug is not on the status page, please [report a vulnerability on the repository security page](https://github.com/jackseceng/LinkShort/security/advisories/new)
 
-## Security-related tooling
+## Tooling
 
 This is a list of tooling used by this repository to find vulnerabilities & bugs.
 > Security findings with a criticality of Medium or higher are considered a failure on PR checks
@@ -21,6 +21,6 @@ This is a list of tooling used by this repository to find vulnerabilities & bugs
 | Dependency Vulnerabilities      | [Snyk](https://snyk.io/product/open-source-security-management/)|
 | Container Vulnerabiltiies       | [Grype](https://github.com/anchore/grype/) [Scout](https://docs.docker.com/scout/) [Trivy](https://trivy.dev/latest/docs/target/container_image/) |
 
-## Future security enhancements
+## Future enhancements
 
 - Database entries are not encypted at rest, will implement with hashsums from extensions generated. Docummented in [issue 177](https://github.com/jackseceng/LinkShort/issues/177)
