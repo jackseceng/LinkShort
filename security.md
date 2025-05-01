@@ -21,6 +21,6 @@ This is a list of tooling used by this repository to find vulnerabilities & bugs
 | Dependency Vulnerabilities      | [Snyk](https://snyk.io/product/open-source-security-management/)|
 | Container Vulnerabiltiies       | [Grype](https://github.com/anchore/grype/) [Scout](https://docs.docker.com/scout/) [Trivy](https://trivy.dev/latest/docs/target/container_image/) |
 
-## Future enhancements
+## Future Enhancements
 
 - Database entries are not encypted at rest, will implement with hashsums from extensions generated. Docummented in [issue 177](https://github.com/jackseceng/LinkShort/issues/177)
