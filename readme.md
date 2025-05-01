@@ -1,4 +1,4 @@
-# LinkShort - Containerised URL shortener
+# LinkShort - Containerised URL Shortener
 
 Scans:
 
