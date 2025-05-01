@@ -3,10 +3,10 @@
 ## Project Objectives
 
 - This is a Python Flask app that shortens URLs and re-directs users that go to the shortened URLs.
-- It uses Docker to host the web services that serve web clients.
-- It uses [Turso](https://turso.tech) for it's database.
-- The repository itself is intended to test the capabiltiies of DevSecOps automation tooling.
-- If there are any exploitable vulnerabilities that have a patch available, they will be applied.
+- It uses Docker to create an image with a web service.
+- It uses [Turso](https://turso.tech) as a database to store URLs.
+- The repository uses automated DevSecOps tooling to detect vulnerabilities and bugs.
+- If there are any patchable, exploitable vulnerabilities, they will be applied if they build and test successfully.
 - Usage and/or contribution to this project must be done under the terms in the `LICENSE` file.
 
 ## Testing locally
@@ -17,9 +17,11 @@
 
 ## Making PRs
 
-> Before raising a PR, please run the following tools on your code to verify that it will pass PR checks:
-- [Super Linter Checks](https://github.com/jackseceng/LinkShort/blob/f8a4cc63c7f99f289fa41b05b82673909738ea99/.github/workflows/lint.yml#L36C1-L47C45)
-- [Snyk CLI](https://docs.snyk.io/scan-using-snyk/working-with-snyk-in-your-environment/running-scans#run-tests-manually)
+> Before raising a PR, please run the following tools on your code, findings of Medium criticality and higher will not pass PR checks:
+- [Snyk](https://docs.snyk.io/scan-using-snyk/working-with-snyk-in-your-environment/running-scans#run-tests-manually)
+- [Grype](https://github.com/anchore/grype/?tab=readme-ov-file#getting-started)
+- [Scout](https://docs.docker.com/scout/quickstart/)
+- [Trivy](https://trivy.dev/latest/docs/target/container_image/)
 
 ## Support Expectations
 
