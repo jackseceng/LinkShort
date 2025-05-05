@@ -3,7 +3,7 @@ bleach==6.2.0
 Gunicorn==23.0.0
 sqlalchemy-libsql==0.1.0
 python-dotenv==1.1.0
-Cryptography==44.0.2
+Cryptography==44.0.3
 aiohttp==3.11.18 # Pinned to avoid a vulnerability
 zipp>=3.19.1 # Pinned to avoid a vulnerability
 
