@@ -81,7 +81,7 @@ jobs:
       - 
         name: Scout Vulnerability Scan Main
         if: github.ref == 'refs/heads/main'
-        uses: docker/scout-action@381b657c498a4d287752e7f2cfb2b41823f566d9 # v1.17.1
+        uses: docker/scout-action@c94507b5bf72bd25244caafe9d4dab09fa2d687b # v1.18.0
         with:
           image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
           command: cves
@@ -94,7 +94,7 @@ jobs:
       - 
         name: Scout Vulnerability Scan PR
         if: github.event_name == 'pull_request'
-        uses: docker/scout-action@381b657c498a4d287752e7f2cfb2b41823f566d9 # v1.17.1
+        uses: docker/scout-action@c94507b5bf72bd25244caafe9d4dab09fa2d687b # v1.18.0
         with:
           image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}
           command: cves
