@@ -52,7 +52,7 @@ Please make sure your local environment variables in your terminal do not share 
 ### Docker compose
 From the root directory of this repository, run:
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 ```bash
 [+] Running (2/2)
