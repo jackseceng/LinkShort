@@ -66,7 +66,7 @@ You can re-run this command whenever you make changes to rebuild the container.
 
 To shut down the service, run this command:
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ## Application Features
