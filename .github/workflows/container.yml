@@ -128,17 +128,31 @@ jobs:
           output: 'trivy-results.sarif'
       - 
         name: Upload Grype results to GitHub Code Scanning
+        if: github.ref == 'refs/heads/main'
         uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f # v3.28.18
         with:
           sarif_file: 'grype-results.sarif'
+      -
+        name: Post Trivy Results to PR Comment
+        if: github.event_name == 'pull_request'
+        uses: sett-and-hive/sarif-to-comment-action@706100a6efc1bc781270df6beafce1716c8360ba # v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          branch: ${{ github.head_ref }}
+          pr-number: ${{ github.event.number }}
+          sarif-file: 'trivy-results.sarif'
+          title: Trivy Results
+          dry-run: false
       - 
         name: Upload Scout results to GitHub Code Scanning
-        if: ${{ github.event_name != 'pull_request_target' }}
+        if: github.ref == 'refs/heads/main'
         uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f # v3.28.18
         with:
             sarif_file: sarif.output.json
       - 
         name: Upload Trivy results to GitHub Code Scanning
+        if: github.ref == 'refs/heads/main'
         uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f # v3.28.18
         with:
           sarif_file: 'trivy-results.sarif'
