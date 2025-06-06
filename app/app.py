@@ -117,7 +117,18 @@ def redirect_url(arg):
 
 @application.after_request
 def add_security_headers(resp):
+    cdn = "cdn.statically.io"
     """Add CSP headers to all responses generated"""
+    app_origin_url = f"https://{tld}"
+
+    # CSP sources: 'self', 'data:' (for images), and the CDN are always included.
+    cdn_for_csp = f"https://{cdn}"
+
+    csp_default_sources = ["'self'", cdn_for_csp]
+    csp_img_sources = ["'self'", "data:", cdn_for_csp]
+
+    final_csp_policy = f"default-src {' '.join(csp_default_sources)}; img-src {' '.join(csp_img_sources)};"
+
     # Following the OWASP cheat sheet
     resp.headers.update(
         {
@@ -126,11 +137,10 @@ def add_security_headers(resp):
             "X-Content-Type-Options": "nosniff",
             "Referrer-Policy": "strict-origin-when-cross-origin",
             "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
-            "Content-Security-Policy": "default-src 'self' img-src 'self' data:;",
-            "Access-Control-Allow-Origin": f"https://{tld}",
+            "Content-Security-Policy": final_csp_policy,
+            "Access-Control-Allow-Origin": app_origin_url,
             "Cross-Origin-Opener-Policy": "same-origin",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-            "Cross-Origin-Resource-Policy": "same-site",
+            "Cross-Origin-Resource-Policy": "cross-site",
             "Permissions-Policy": "geolocation=(), camera=(), microphone=(), interest-cohort=()",
             "X-CSRFToken": "Required",
             "X-DNS-Prefetch-Control": "off",
