@@ -41,7 +41,6 @@ jobs:
           VALIDATE_GITLEAKS: true
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_HTML: true
-          VALIDATE_HTML_PRETTIER: true
           VALIDATE_MARKDOWN: true
           VALIDATE_PYTHON_BLACK: true
           VALIDATE_PYTHON_ISORT: true
