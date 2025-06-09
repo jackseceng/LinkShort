@@ -8,4 +8,4 @@ aiohttp==3.12.7 # Pinned to avoid a vulnerability
 zipp>=3.19.1 # Pinned to avoid a vulnerability
 
 # Healthcheck dependencies
-requests==2.32.3
+requests==2.32.4
