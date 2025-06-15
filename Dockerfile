@@ -9,6 +9,7 @@ COPY . .
 
 # Install python dependencies into a target directory
 RUN set -e; \
+    apk add --no-cache build-base cmake coreutils; \
     pip install --no-cache-dir -r requirements.txt --target /packages; \
     pip install --no-cache-dir urllib3==2.3.0
 
@@ -27,6 +28,7 @@ COPY --from=build-env /usr/lib/libssl.so.3 /usr/lib/libssl.so.3
 COPY --from=build-env /usr/lib/libcrypto.so.3 /usr/lib/libcrypto.so.3
 COPY --from=build-env /usr/lib/libz.so.1 /usr/lib/libz.so.1
 COPY --from=build-env /usr/lib/libsqlite3.so.0 /usr/lib/libsqlite3.so.0
+COPY --from=build-env /usr/lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
 
 # Copy Python installation
 COPY --from=build-env /usr/local/bin/python /usr/local/bin/python
