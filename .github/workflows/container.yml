@@ -128,17 +128,17 @@ jobs:
           output: 'trivy-results.sarif'
       - 
         name: Upload Grype results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@ce28f5bb42b7a9f2c824e633a3f6ee835bab6858 # v3.29.0
+        uses: github/codeql-action/upload-sarif@181d5eefc20863364f96762470ba6f862bdef56b # v3.29.2
         with:
           sarif_file: 'grype-results.sarif'
       - 
         name: Upload Scout results to GitHub Code Scanning
         if: ${{ github.event_name != 'pull_request_target' }}
-        uses: github/codeql-action/upload-sarif@ce28f5bb42b7a9f2c824e633a3f6ee835bab6858 # v3.29.0
+        uses: github/codeql-action/upload-sarif@181d5eefc20863364f96762470ba6f862bdef56b # v3.29.2
         with:
             sarif_file: sarif.output.json
       - 
         name: Upload Trivy results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@ce28f5bb42b7a9f2c824e633a3f6ee835bab6858 # v3.29.0
+        uses: github/codeql-action/upload-sarif@181d5eefc20863364f96762470ba6f862bdef56b # v3.29.2
         with:
           sarif_file: 'trivy-results.sarif'
