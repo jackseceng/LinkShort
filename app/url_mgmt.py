@@ -3,9 +3,9 @@
 import base64
 import logging
 import secrets
-import urllib3
 import string
 
+import urllib3
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
@@ -30,7 +30,10 @@ def encrypt_url(url: str, linkpath: str):
     try:
         salt = secrets.token_bytes(16)
         kdf = PBKDF2HMAC(
-            algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt, iterations=KDF_ITERATIONS
+            algorithm=KDF_ALGORITHM,
+            length=KDF_LENGTH,
+            salt=salt,
+            iterations=KDF_ITERATIONS,
         )
         key = kdf.derive(linkpath.encode("utf-8"))
 
@@ -48,7 +51,10 @@ def decrypt_url(ciphertext: bytes, linkpath: str, salt: bytes):
     """Decrypt URL using extension from user request and salt from database"""
     try:
         kdf = PBKDF2HMAC(
-            algorithm=KDF_ALGORITHM, length=KDF_LENGTH, salt=salt, iterations=KDF_ITERATIONS
+            algorithm=KDF_ALGORITHM,
+            length=KDF_LENGTH,
+            salt=salt,
+            iterations=KDF_ITERATIONS,
         )
         key = kdf.derive(linkpath.encode("utf-8"))
 
@@ -92,11 +98,11 @@ def check_url_reputation(url_input):
             URL1 = "https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt"
             URL2 = "https://raw.githubusercontent.com/stamparm/blackbook/refs/heads/master/blackbook.txt"
 
-            response1 = http.request('GET', URL1)
-            response2 = http.request('GET', URL2)
+            response1 = http.request("GET", URL1)
+            response2 = http.request("GET", URL2)
 
-            text1 = response1.data.decode('utf-8')
-            text2 = response2.data.decode('utf-8')
+            text1 = response1.data.decode("utf-8")
+            text2 = response2.data.decode("utf-8")
 
             blacklist = text1 + text2
 

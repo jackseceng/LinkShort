@@ -9,7 +9,10 @@ COPY . .
 
 # Install python dependencies into a target directory
 RUN set -e; \
-    apk add --no-cache build-base cmake coreutils; \
+    apk add --no-cache \
+    build-base=0.5-r3 \
+    cmake=3.31.1-r0 \
+    coreutils=9.5-r2; \
     pip install --no-cache-dir -r requirements.txt --target /packages;
 
 
