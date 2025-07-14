@@ -1,4 +1,4 @@
-const errorValue = document.getElementById('errormessage').getAttribute('value')
+const errorValue = document.getElementById('errorreason').getAttribute('value')
 
 if (errorValue === 'whitespace') {
   showNotification("URLs can't contain whitespace")
