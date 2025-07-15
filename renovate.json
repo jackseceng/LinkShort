@@ -1,11 +1,28 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "semanticCommitScope": "deps",
   "automergeType": "pr",
   "prCreation": "immediate",
+  "extends": [
+    "config:base",
+    ":automergeRequireAllStatusChecks",
+    ":ignoreUnstable",
+    ":rebaseStalePrs"
+  ],
   "packageRules": [
     {
-      "matchConfidence": ["high", "very high"]
+      "assignees": [
+        "jackseceng"
+      ],
+      "assigneesSampleSize": 2,
+      "bumpVersion": "patch",
+      "commitMessagePrefix": "chore(deps)",
+      "labels": [
+        "maintenance", 
+        "renovate"
+      ],
+      "matchConfidence": [
+        "high", "very high"
+      ]
     }
   ]
 }
