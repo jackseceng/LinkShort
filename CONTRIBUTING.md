@@ -17,17 +17,15 @@
 
 ## Making PRs
 
-> Vulnerabilities of medium criticality or higher must be fixed or justified in your PR.
-
-> Before raising a PR, please run the following tools on your work, PR checks run the same tooling.
+> Vulnerabilities of medium criticality or higher must be fixed or justified in your PR. The repo uses these tools:
+- [CodeQL](https://codeql.github.com/)
 - [Snyk](https://docs.snyk.io/scan-using-snyk/working-with-snyk-in-your-environment/running-scans#run-tests-manually)
 - [Grype](https://github.com/anchore/grype/?tab=readme-ov-file#getting-started)
 - [Scout](https://docs.docker.com/scout/quickstart/)
 - [Trivy](https://trivy.dev/latest/docs/target/container_image/)
 
 > Your commits must use the [Conventional Commits format](https://www.conventionalcommits.org/en/v1.0.0/)
-- It is recommended that you write your commits with [commitizen](https://commitizen-tools.github.io/commitizen/) to ensure consistency
-
+- It is recommended that you write your commits with [commitizen](https://commitizen-tools.github.io/commitizen/)
 
 ## Support Expectations
 
