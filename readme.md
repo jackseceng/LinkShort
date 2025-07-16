@@ -107,7 +107,7 @@ Automated Dependency Upgrades:
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/)
 
 Commit Standardisation:
-- [ ] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
+- [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
 - [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
 
 ## Developed by [Jack](https://jacksec.engineer)
