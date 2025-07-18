@@ -50,4 +50,5 @@ jobs:
           # Find VALIDATE_ALL_CODEBASE on this page:
           # https://github.com/super-linter/super-linter
           FILTER_REGEX_EXCLUDE: ".app/static/qrcode.min.js"
+          # Excluding min.js file as not compatible with prettier linter
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
