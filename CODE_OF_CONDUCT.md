@@ -59,7 +59,7 @@ representative at an online or offline event.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to Jack Edwards, his contact details are [here](https://jacksec.engineer/#contact).
+reported to Jack Edwards, [contact details available here](https://jacksec.engineer/#contact).
 All complaints will be reviewed and investigated promptly and fairly,
 be aware that Jack holds certain views that may not agree with your own, be prepared for this.
 
