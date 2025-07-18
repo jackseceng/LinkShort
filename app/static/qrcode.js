@@ -1099,6 +1099,7 @@ var QRCode;
     }),
     (QRCode.CorrectLevel = d));
 })();
+
 /**
  * @license
  * Copyright (c) 2012 davidshimjs
