@@ -1,4 +1,5 @@
 name: Version
+run-name: ${{ github.actor }} is automatically releasing a new version 🚀
 
 on:
   push:
@@ -11,6 +12,14 @@ jobs:
     runs-on: ubuntu-latest # Runs on an Ubuntu runner
 
     steps:
+      # Step 0: Generate a GitHub App token
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+
       # Step 1: Checkout the repository code
       - name: Checkout Repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -38,4 +47,4 @@ jobs:
       - name: Run Semantic Release
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provide the GitHub token for authentication
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
