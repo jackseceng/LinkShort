@@ -10,3 +10,4 @@ renovate.json
 security.md
 package.json
 app/static
+node_modules
