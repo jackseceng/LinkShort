@@ -108,6 +108,5 @@ Automated Dependency Upgrades:
 
 Commit Standardisation:
 - [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
-- [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
 
 ## Developed by [Jack](https://jacksec.engineer)
