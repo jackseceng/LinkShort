@@ -6,6 +6,8 @@ If you find a bug please first check [the issues page](https://github.com/jackse
 
 If your bug is already a reported issue, please give it a like and add any additional context you think is useful
 
+Your must use fill out all the fields in the bug report issue template for this repository. Incomplete or incorrectly formatted reports will be rejected.
+
 ## Tooling
 
 This is a list of tooling used by this repository to find vulnerabilities & bugs.
