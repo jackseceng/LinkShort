@@ -4,14 +4,13 @@
 
 If you find a bug please first check [the issues page](https://github.com/jackseceng/LinkShort/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug) for open bugs
 
-- If your bug is already a reported issue, please give it a like and add any additional context you think is useful
-
-- If your bug is not on the status page, please [report a vulnerability on the repository security page](https://github.com/jackseceng/LinkShort/security/advisories/new)
+If your bug is already a reported issue, please give it a like and add any additional context you think is useful
 
 ## Tooling
 
 This is a list of tooling used by this repository to find vulnerabilities & bugs.
-> Security findings with a criticality of Medium or higher are considered a failure on PR checks
+- PR checks are not currently set to fail if a vulnerability is found, please review your PR scans before requesting a review.
+- Unfixed vulnerabilities of medium severity or higher must be justified to a PR reviewer before merging
 
 
 | Capability | Tool    |
@@ -23,4 +22,4 @@ This is a list of tooling used by this repository to find vulnerabilities & bugs
 
 ## Future Enhancements
 
-- Database entries are not encypted at rest, will implement with hashsums from extensions generated. Docummented in [issue 177](https://github.com/jackseceng/LinkShort/issues/177)
+[x] Encrypt database entries at rest with hashsums from extensions as primary key. [Documented in Issue 177](https://github.com/jackseceng/LinkShort/issues/177)
