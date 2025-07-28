@@ -2,11 +2,8 @@
 
 ## Disclosure Policy
 
-If you find a bug please first check [the issues page](https://github.com/jackseceng/LinkShort/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug) for open bugs
-
-If your bug is already a reported issue, please give it a like and add any additional context you think is useful
-
-Your must fill out all the fields in the bug report template for this repository. Incomplete or incorrectly formatted reports will be rejected.
+- Please first check [the issues page](https://github.com/jackseceng/LinkShort/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug) to see if your bug has already been reported. If it has, please give it a :+1:and add any additional context you think is useful
+- If you have found an unreported bug, you must fill out all fields in [the bug report template](https://github.com/jackseceng/LinkShort/security/advisories/new) for this repository. Incomplete or incorrectly formatted reports will be rejected.
 
 ## Tooling
 
@@ -24,4 +21,4 @@ This is a list of tooling used by this repository to find vulnerabilities & bugs
 
 ## Future Enhancements
 
-[x] Encrypt database entries at rest with hashsums from extensions as primary key. [Documented in Issue 177](https://github.com/jackseceng/LinkShort/issues/177)
+- [x] [177](https://github.com/jackseceng/LinkShort/issues/177): Encrypt database entries at rest with hashsums from extensions as primary key.
