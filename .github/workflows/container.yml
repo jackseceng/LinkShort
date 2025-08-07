@@ -61,7 +61,7 @@ jobs:
       - 
         name: Grype Vulnerability Scan Main
         if: github.ref == 'refs/heads/main'
-        uses: anchore/scan-action@df395807f4554463d4455b8047cf58e37b6acaae # v6.5.0
+        uses: anchore/scan-action@1638637db639e0ade3258b51db49a9a137574c3e # v6.5.1
         with:
           image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
           fail-build: false
@@ -71,7 +71,7 @@ jobs:
       - 
         name: Grype Vulnerability Scan PR
         if: github.event_name == 'pull_request'
-        uses: anchore/scan-action@df395807f4554463d4455b8047cf58e37b6acaae # v6.5.0
+        uses: anchore/scan-action@1638637db639e0ade3258b51db49a9a137574c3e # v6.5.1
         with:
           image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}
           fail-build: false
