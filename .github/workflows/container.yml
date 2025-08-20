@@ -142,3 +142,27 @@ jobs:
         uses: github/codeql-action/upload-sarif@96f518a34f7a870018057716cc4d7a5c014bd61c # v3.29.10
         with:
           sarif_file: 'trivy-results.sarif'
+      -
+        name: Post Grype Results to PR Comment
+        if: github.event_name == 'pull_request'
+        uses: sett-and-hive/sarif-to-comment-action@706100a6efc1bc781270df6beafce1716c8360ba # v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          branch: ${{ github.head_ref }}
+          pr-number: ${{ github.event.number }}
+          sarif-file: 'grype-results.sarif'
+          title: Grype Results
+          dry-run: false
+      -
+        name: Post Trivy Results to PR Comment
+        if: github.event_name == 'pull_request'
+        uses: sett-and-hive/sarif-to-comment-action@706100a6efc1bc781270df6beafce1716c8360ba # v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          branch: ${{ github.head_ref }}
+          pr-number: ${{ github.event.number }}
+          sarif-file: 'trivy-results.sarif'
+          title: Trivy Results
+          dry-run: false
