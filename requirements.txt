@@ -1,4 +1,4 @@
-Flask==3.1.1
+Flask==3.1.2
 bleach==6.2.0
 Gunicorn==23.0.0
 libsql==0.1.8
