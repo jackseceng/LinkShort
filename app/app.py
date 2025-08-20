@@ -1,6 +1,7 @@
 """Main web application logic module"""
 
 import hashlib
+import logging
 from http import HTTPStatus
 from os import environ, path
 
@@ -49,19 +50,23 @@ def input_url():
                 # Return homepage with error message
                 resp = make_response(render_template("index.html", errormessage=error))
                 return resp
+
             linkpath = urls.generate_path()
             hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
-
-            # Check for existing path
-            # Generate new path if it does not already exist
-            while db.check_link(hashsum) is True:
-                linkpath = urls.generate_path()
-                hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
-
             ciphertext, salt = urls.encrypt_url(user_input, linkpath)
-            if db.insert_link(hashsum, ciphertext, salt) is False:
-                # 500 error returned for database failure
-                abort(HTTPStatus.INTERNAL_SERVER_ERROR)
+
+            result, message = db.insert_link(hashsum, ciphertext, salt)
+            while result is False:
+                if message == "non-unique":
+                    logging.info("Regenerating link path")
+                    # Non-unique hashsum, regenrate
+                    linkpath = urls.generate_path()
+                    hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
+                    result, message = db.insert_link(hashsum, ciphertext, salt)
+
+                elif message is not None:
+                    # 500 error returned for database failure
+                    abort(HTTPStatus.INTERNAL_SERVER_ERROR)
 
             # Return link page with URL if successful
             resp = make_response(
@@ -98,39 +103,45 @@ def redirect_url(arg):
         case _:
             # Get the original URL from the database, clean it, and redirect to it
             hashsum = hashlib.sha256(requested_path.encode("utf-8")).hexdigest()
-            if db.check_link(hashsum) is True:
-                fetched_data = db.get_link(hashsum)
-                if fetched_data is False:
-                    abort(HTTPStatus.INTERNAL_SERVER_ERROR)
-                else:
-                    url_bytes, salt_bytes = fetched_data
-                    newlink = urls.decrypt_url(
-                        url_bytes, requested_path, salt_bytes
-                    ).decode("utf-8")
-                    resp = make_response(
-                        render_template("redirect.html", tld=tld, link=newlink)
-                    )
-                    return resp
+            url_bytes, salt_bytes = db.get_link(hashsum)
+            if url_bytes is False:
+                abort(HTTPStatus.INTERNAL_SERVER_ERROR)
             else:
-                abort(HTTPStatus.NOT_FOUND)
+                newlink = urls.decrypt_url(
+                    url_bytes, requested_path, salt_bytes
+                ).decode("utf-8")
+                resp = make_response(
+                    render_template("redirect.html", tld=tld, link=newlink)
+                )
+                return resp
+            abort(HTTPStatus.NOT_FOUND)
 
 
 @application.after_request
 def add_security_headers(resp):
+    cdn = "cdn.statically.io"
     """Add CSP headers to all responses generated"""
+    app_origin_url = f"https://{tld}"
+
+    # CSP sources: 'self', 'data:' (for images), and the CDN are always included.
+    cdn_for_csp = f"https://{cdn}"
+
+    csp_default_sources = ["'self'", cdn_for_csp]
+    csp_img_sources = ["'self'", "data:", cdn_for_csp]
+
+    final_csp_policy = f"default-src {' '.join(csp_default_sources)}; img-src {' '.join(csp_img_sources)};"
+
     # Following the OWASP cheat sheet
     resp.headers.update(
         {
             "X-Frame-Options": "DENY",
             "X-XSS-Protection": "0",
-            "X-Content-Type-Options": "nosniff",
             "Referrer-Policy": "strict-origin-when-cross-origin",
             "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
-            "Content-Security-Policy": "default-src 'self' img-src 'self' data:;",
-            "Access-Control-Allow-Origin": f"https://{tld}",
+            "Content-Security-Policy": final_csp_policy,
+            "Access-Control-Allow-Origin": app_origin_url,
             "Cross-Origin-Opener-Policy": "same-origin",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-            "Cross-Origin-Resource-Policy": "same-site",
+            "Cross-Origin-Resource-Policy": "cross-site",
             "Permissions-Policy": "geolocation=(), camera=(), microphone=(), interest-cohort=()",
             "X-CSRFToken": "Required",
             "X-DNS-Prefetch-Control": "off",

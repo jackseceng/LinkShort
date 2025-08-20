@@ -81,9 +81,13 @@ docker compose down
 - [x] Generates QR codes for users to download and share
 - [x] A frontend with reactive CSS & HTML
 - [x] 400 and 500 HTTP error handling with pages
+- [x] Static content served through CDN
+
+> This has been set up via [statically.io](https://statically.io/)
+
 - [x] Demonstration application set up:
 
-> This has been set up on [cloud.run](https://cloud.run) via repository integration
+> This has been set up on [cloud.run](https://cloud.run) via it's repository integration
 
 ## DevSecOps Automation
 
@@ -103,7 +107,6 @@ Automated Dependency Upgrades:
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/)
 
 Commit Standardisation:
-- [ ] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
-- [ ] [Commitizen](https://commitizen-tools.github.io/commitizen/) Automated release management
+- [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
 
 ## Developed by [Jack](https://jacksec.engineer)

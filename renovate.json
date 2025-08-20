@@ -3,9 +3,13 @@
   "semanticCommitScope": "deps",
   "automergeType": "pr",
   "prCreation": "immediate",
+  "dependencyDashboard": true,
   "packageRules": [
     {
       "matchConfidence": ["high", "very high"]
     }
+  ],
+  "extends": [
+    ":semanticCommits"
   ]
 }

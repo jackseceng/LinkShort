@@ -1,5 +1,5 @@
 # Stage 1: Build stage environment using alpine python Image
-FROM python:3.13.3-alpine3.21 AS build-env
+FROM python:3.13.7-alpine3.21 AS build-env
 
 # Set build directory
 WORKDIR /build
@@ -9,11 +9,12 @@ COPY . .
 
 # Install python dependencies into a target directory
 RUN set -e; \
-    pip install --no-cache-dir -r requirements.txt --target /packages; \
-    pip install --no-cache-dir urllib3==2.3.0
+    apk add --no-cache \
+    build-base=0.5-r3 \
+    cmake=3.31.1-r0 \
+    coreutils=9.5-r2; \
+    pip install --no-cache-dir -r requirements.txt --target /packages;
 
-# Run build-time script to create badsites DB
-RUN python3 lists.py
 
 # Stage 2: Runtime Stage using scratch Image
 FROM scratch
@@ -26,7 +27,7 @@ COPY --from=build-env /usr/local/lib/python3.13 /usr/local/lib/python3.13
 COPY --from=build-env /usr/lib/libssl.so.3 /usr/lib/libssl.so.3
 COPY --from=build-env /usr/lib/libcrypto.so.3 /usr/lib/libcrypto.so.3
 COPY --from=build-env /usr/lib/libz.so.1 /usr/lib/libz.so.1
-COPY --from=build-env /usr/lib/libsqlite3.so.0 /usr/lib/libsqlite3.so.0
+COPY --from=build-env /usr/lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
 
 # Copy Python installation
 COPY --from=build-env /usr/local/bin/python /usr/local/bin/python
