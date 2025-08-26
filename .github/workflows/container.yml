@@ -74,7 +74,7 @@ jobs:
         uses: anchore/scan-action@1638637db639e0ade3258b51db49a9a137574c3e # v6.5.1
         with:
           image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}
-          fail-build: false
+          fail-build: true
           severity-cutoff: medium
           only-fixed: true
           output-file: 'grype-results.sarif'
