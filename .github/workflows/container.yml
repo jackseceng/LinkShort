@@ -107,7 +107,7 @@ jobs:
       - 
         name: Trivy Vulnerability Scan Main
         if: github.ref == 'refs/heads/main'
-        uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4 # 0.32.0
+        uses: aquasecurity/trivy-action@f9424c10c36e288d5fa79bd3dfd1aeb2d6eae808 # 0.33.0
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest'
           scan-type: 'image'
@@ -118,7 +118,7 @@ jobs:
       -
         name: Trivy Vulnerability Scan PR
         if: github.event_name == 'pull_request'
-        uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4 # 0.32.0
+        uses: aquasecurity/trivy-action@f9424c10c36e288d5fa79bd3dfd1aeb2d6eae808 # 0.33.0
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}'
           scan-type: 'image'
