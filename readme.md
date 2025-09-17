@@ -46,7 +46,7 @@ TLD=localhost
 
 **! WARNING !**
 
-Please make sure your local environment variables in your terminal do not share names with the ones in this `.env` file, and ensure they match what is in your `docker-compose.yaml` file as well
+The `docker-compose.yaml` and `.env` files must reference the same variable names where applicable, also make sure the variable names are not set elsewhere in your testing environment.
 > If you made separate testing and production databases, make sure to use the test database token and endpoint url in your `.env` file, and the production ones in your hosting environment variables.
 
 ### Docker compose
