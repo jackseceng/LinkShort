@@ -105,7 +105,7 @@ def redirect_url(arg):
             hashsum = hashlib.sha256(requested_path.encode("utf-8")).hexdigest()
             url_bytes, salt_bytes = db.get_link(hashsum)
             if url_bytes is False:
-                abort(HTTPStatus.INTERNAL_SERVER_ERROR)
+                abort(HTTPStatus.NOT_FOUND)
             else:
                 newlink = urls.decrypt_url(
                     url_bytes, requested_path, salt_bytes
