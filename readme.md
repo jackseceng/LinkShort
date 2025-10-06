@@ -35,7 +35,7 @@ CREATE TABLE
     CONSTRAINT unique_hash UNIQUE (hashsum)
   );
 ```
-
+> To avoid cluttering up your database while testing locally, it is recommended you create 2 databases: One for testing and one for production
 
 - Create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
 ```txt
@@ -46,8 +46,8 @@ TLD=localhost
 
 **! WARNING !**
 
-Please make sure your local environment variables in your terminal do not share names with the ones in this `.env` file.
-> If you change the names of the variables in this file, make sure to change their references in the `docker-compose.yaml` file as well.
+The `docker-compose.yaml` and `.env` files must reference the same variable names where applicable, also make sure the variable names are not set elsewhere in your testing environment.
+> If you made separate testing and production databases, make sure to use the test database token and endpoint url in your `.env` file, and the production ones in your hosting environment variables.
 
 ### Docker compose
 From the root directory of this repository, run:
