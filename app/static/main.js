@@ -6,6 +6,8 @@ if (errorValue === "whitespace") {
   showNotification("Links must begin with HTTPS");
 } else if (errorValue === "badsite") {
   showNotification("URL has a bad reputaion");
+} else if (errorValue == "captchafail") {
+  showNotification("Captcha failed");
 }
 
 function showNotification(message) {

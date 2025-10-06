@@ -14,12 +14,14 @@ from flask import (
     make_response,
     render_template,
     request,
+    jsonify,
     send_from_directory,
 )
 
 application = Flask(__name__)
 
 tld = environ["TLD"]
+cf_secret = environ["CF_SECRET"]
 
 INTERNAL_REFRESH = 120
 
@@ -34,47 +36,62 @@ def input_url():
             return resp
 
         case "POST":
-            # Retrieve user input from html form on index page
-            # Perform syntax checks
-            received_request = dict(request.form.to_dict())
-            user_input = bleach.clean(str(received_request["link"]))
-            error = ""
-            if urls.check_url_whitespace(user_input) is False:
-                error = "whitespace"
-            if urls.check_url_security(user_input) is False:
-                error = "insecure"
-            if urls.check_url_reputation(user_input) is False:
-                error = "badsite"
-            if len(error) != 0:
-                # If there is an error string,
-                # Return homepage with error message
+            token = request.form.get('cf-turnstile-response')
+            remoteip = request.headers.get('CF-Connecting-IP') or \
+                    request.headers.get('X-Forwarded-For') or \
+                    request.remote_addr
+
+            validation = urls.validate_turnstile(token, cf_secret, remoteip)
+
+            if validation['success']:
+                # Valid token - process form
+                
+                # Retrieve user input from html form on index page
+                # Perform syntax checks
+                received_request = dict(request.form.to_dict())
+                user_input = bleach.clean(str(received_request["link"]))
+                error = ""
+                if urls.check_url_whitespace(user_input) is False:
+                    error = "whitespace"
+                if urls.check_url_security(user_input) is False:
+                    error = "insecure"
+                if urls.check_url_reputation(user_input) is False:
+                    error = "badsite"
+                if len(error) != 0:
+                    # If there is an error string,
+                    # Return homepage with error message
+                    resp = make_response(render_template("index.html", errormessage=error))
+                    return resp
+
+                linkpath = urls.generate_path()
+                hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
+                ciphertext, salt = urls.encrypt_url(user_input, linkpath)
+
+                result, message = db.insert_link(hashsum, ciphertext, salt)
+                while result is False:
+                    if message == "non-unique":
+                        logging.info("Regenerating link path")
+                        # Non-unique hashsum, regenrate
+                        linkpath = urls.generate_path()
+                        hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
+                        result, message = db.insert_link(hashsum, ciphertext, salt)
+
+                    elif message is not None:
+                        # 500 error returned for database failure
+                        abort(HTTPStatus.INTERNAL_SERVER_ERROR)
+
+                # Return link page with URL if successful
+                resp = make_response(
+                    render_template(
+                        "link.html", tld=tld, extension=str(linkpath), errormessage="None"
+                    )
+                )
+                return resp
+            else:
+                # Invalid token - reject submission
+                error = "captchafail"
                 resp = make_response(render_template("index.html", errormessage=error))
                 return resp
-
-            linkpath = urls.generate_path()
-            hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
-            ciphertext, salt = urls.encrypt_url(user_input, linkpath)
-
-            result, message = db.insert_link(hashsum, ciphertext, salt)
-            while result is False:
-                if message == "non-unique":
-                    logging.info("Regenerating link path")
-                    # Non-unique hashsum, regenrate
-                    linkpath = urls.generate_path()
-                    hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
-                    result, message = db.insert_link(hashsum, ciphertext, salt)
-
-                elif message is not None:
-                    # 500 error returned for database failure
-                    abort(HTTPStatus.INTERNAL_SERVER_ERROR)
-
-            # Return link page with URL if successful
-            resp = make_response(
-                render_template(
-                    "link.html", tld=tld, extension=str(linkpath), errormessage="None"
-                )
-            )
-            return resp
 
         case _:
             # Catch all to return 500 error for any unexpected cases
@@ -120,13 +137,15 @@ def redirect_url(arg):
 @application.after_request
 def add_security_headers(resp):
     cdn = "cdn.statically.io"
+    cf = "challenges.cloudflare.com"
     """Add CSP headers to all responses generated"""
     app_origin_url = f"https://{tld}"
 
-    # CSP sources: 'self', 'data:' (for images), and the CDN are always included.
+    # CSP sources: 'self', 'data:' (for images), and third party domains are included:
     cdn_for_csp = f"https://{cdn}"
+    cf_for_csp = f"https://{cf}"
 
-    csp_default_sources = ["'self'", cdn_for_csp]
+    csp_default_sources = ["'self'", cdn_for_csp, cf_for_csp]
     csp_img_sources = ["'self'", "data:", cdn_for_csp]
 
     final_csp_policy = f"default-src {' '.join(csp_default_sources)}; img-src {' '.join(csp_img_sources)};"
