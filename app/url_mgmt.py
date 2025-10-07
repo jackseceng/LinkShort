@@ -4,8 +4,8 @@ import base64
 import logging
 import secrets
 import string
-import requests
 
+import requests
 import urllib3
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
@@ -117,15 +117,12 @@ def check_url_reputation(url_input):
 
 
 def validate_turnstile(token, secret, remoteip=None):
-    url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+    url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
 
-    data = {
-        'secret': secret,
-        'response': token
-    }
+    data = {"secret": secret, "response": token}
 
     if remoteip:
-        data['remoteip'] = remoteip
+        data["remoteip"] = remoteip
 
     try:
         response = requests.post(url, data=data, timeout=10)
@@ -133,4 +130,4 @@ def validate_turnstile(token, secret, remoteip=None):
         return response.json()
     except requests.RequestException as e:
         print(f"Turnstile validation error: {e}")
-        return {'success': False, 'error-codes': ['internal-error']}
+        return {"success": False, "error-codes": ["internal-error"]}

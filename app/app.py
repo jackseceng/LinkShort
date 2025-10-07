@@ -8,15 +8,8 @@ from os import environ, path
 import bleach
 import turso_mgmt as db
 import url_mgmt as urls
-from flask import (
-    Flask,
-    abort,
-    make_response,
-    render_template,
-    request,
-    jsonify,
-    send_from_directory,
-)
+from flask import (Flask, abort, jsonify, make_response, render_template,
+                   request, send_from_directory)
 
 application = Flask(__name__)
 
@@ -36,16 +29,18 @@ def input_url():
             return resp
 
         case "POST":
-            token = request.form.get('cf-turnstile-response')
-            remoteip = request.headers.get('CF-Connecting-IP') or \
-                    request.headers.get('X-Forwarded-For') or \
-                    request.remote_addr
+            token = request.form.get("cf-turnstile-response")
+            remoteip = (
+                request.headers.get("CF-Connecting-IP")
+                or request.headers.get("X-Forwarded-For")
+                or request.remote_addr
+            )
 
             validation = urls.validate_turnstile(token, cf_secret, remoteip)
 
-            if validation['success']:
+            if validation["success"]:
                 # Valid token - process form
-                
+
                 # Retrieve user input from html form on index page
                 # Perform syntax checks
                 received_request = dict(request.form.to_dict())
@@ -60,7 +55,9 @@ def input_url():
                 if len(error) != 0:
                     # If there is an error string,
                     # Return homepage with error message
-                    resp = make_response(render_template("index.html", errormessage=error))
+                    resp = make_response(
+                        render_template("index.html", errormessage=error)
+                    )
                     return resp
 
                 linkpath = urls.generate_path()
@@ -83,7 +80,10 @@ def input_url():
                 # Return link page with URL if successful
                 resp = make_response(
                     render_template(
-                        "link.html", tld=tld, extension=str(linkpath), errormessage="None"
+                        "link.html",
+                        tld=tld,
+                        extension=str(linkpath),
+                        errormessage="None",
                     )
                 )
                 return resp
