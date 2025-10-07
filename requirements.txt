@@ -5,5 +5,6 @@ libsql==0.1.11
 urllib3==2.5.0
 python-dotenv==1.1.1
 Cryptography==46.0.2
+requests==2.32.5
 aiohttp==3.12.15 # Pinned to avoid a vulnerability
 zipp>=3.19.1 # Pinned to avoid a vulnerability
