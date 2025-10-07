@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>cubelink - Secure Link Shortener</title>
@@ -66,6 +66,16 @@
           <div class="bg-inner"></div>
         </div>
       </div>
+      <center>
+      <div
+        class="cf-turnstile"
+        data-sitekey="0x4AAAAAAB4sJ2UCNZj4Zku8"
+        data-theme="dark"
+        data-size="normal"
+        data-callback="onSuccess"
+      ></div>
+      </center>
+      <br>
       <button class="btn block-cube block-cube-hover" type="submit">
         <div class="bg-top">
           <div class="bg-inner"></div>
@@ -78,18 +88,23 @@
         </div>
         <div class="text">Shorten it!</div>
       </button>
-      <div class="credits">
-        <a
-          href="https://github.com/jackseceng/LinkShort/tree/main"
-          target="_blank"
-        >
-          Source code
-        </a>
-        |
-        <a href="https://jacksec.engineer" target="_blank"> Made by Jack </a>
-      </div>
     </form>
+    <div class="credits">
+      <a
+        href="https://github.com/jackseceng/LinkShort/tree/main"
+        target="_blank"
+      >
+        Source code
+      </a>
+      |
+      <a href="https://jacksec.engineer" target="_blank"> Made by Jack </a>
+    </div>
     <script src="https://cdn.statically.io/gh/jackseceng/linkshort/main/app/static/main.js"></script>
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    ></script>
   </body>
 </html>
 <!-- Based on this codepen: https://codepen.io/marko-zub/pen/mzPeOV -->

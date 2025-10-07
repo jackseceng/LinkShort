@@ -25,7 +25,7 @@ I am using this to learn:
 
 ## Testing locally
 
-- [Sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called 'urls' in with the follwing SQL statement:
+- For the database, [sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called 'urls' in with the follwing SQL statement:
 ```SQL
 CREATE TABLE
   urls (
@@ -37,10 +37,14 @@ CREATE TABLE
 ```
 > To avoid cluttering up your database while testing locally, it is recommended you create 2 databases: One for testing and one for production
 
+- For the captcha, [sign up for a freee Cloudflare acccount](https://dash.cloudflare.com/sign-up), and setup a turnstile widget for your TLD and localhost domains.
+> Read [the Cloudflare Turnstile docs](https://developers.cloudflare.com/turnstile/) to learn how to get the feature set up.
+
 - Create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
 ```txt
 ENDPOINT="<your-turso-url>"
 TOKEN="<your-turso-token>"
+CF_SECRET="<your-cloudflare-secret-key>"
 TLD=localhost
 ```
 
@@ -82,6 +86,9 @@ docker compose down
 - [x] A frontend with reactive CSS & HTML
 - [x] 400 and 500 HTTP error handling with pages
 - [x] Static content served through CDN
+- [x] Captcha on main page
+- [ ] Custom URLs users enter in the main form
+- [ ] Statistics page for URLs to see how many clicks links have got
 
 > This has been set up via [statically.io](https://statically.io/)
 
