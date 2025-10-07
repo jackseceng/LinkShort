@@ -8,8 +8,15 @@ from os import environ, path
 import bleach
 import turso_mgmt as db
 import url_mgmt as urls
-from flask import (Flask, abort, jsonify, make_response, render_template,
-                   request, send_from_directory)
+from flask import (
+    Flask,
+    abort,
+    jsonify,
+    make_response,
+    render_template,
+    request,
+    send_from_directory,
+)
 
 application = Flask(__name__)
 
