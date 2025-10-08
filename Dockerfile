@@ -1,5 +1,5 @@
 # Stage 1: Build stage environment using alpine python Image
-FROM python:3.13.7-alpine3.21 AS build-env
+FROM python:3.14.0-alpine3.21 AS build-env
 
 # Set build directory
 WORKDIR /build
@@ -22,8 +22,8 @@ FROM scratch
 # Copy necessary system libraries and interpreter from build-env
 COPY --from=build-env /lib/ld-musl-x86_64.so.1 /lib/ld-musl-x86_64.so.1
 COPY --from=build-env /lib/libc.musl-x86_64.so.1 /lib/libc.musl-x86_64.so.1
-COPY --from=build-env /usr/local/lib/libpython3.13.so.1.0 /usr/local/lib/libpython3.13.so.1.0
-COPY --from=build-env /usr/local/lib/python3.13 /usr/local/lib/python3.13
+COPY --from=build-env /usr/local/lib/libpython3.14.so.1.0 /usr/local/lib/libpython3.14.so.1.0
+COPY --from=build-env /usr/local/lib/python3.14 /usr/local/lib/python3.14
 COPY --from=build-env /usr/lib/libssl.so.3 /usr/lib/libssl.so.3
 COPY --from=build-env /usr/lib/libcrypto.so.3 /usr/lib/libcrypto.so.3
 COPY --from=build-env /usr/lib/libz.so.1 /usr/lib/libz.so.1
