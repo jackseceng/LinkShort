@@ -1,5 +1,5 @@
 # Stage 1: Build stage environment using alpine python Image
-FROM python:3.13.7-alpine3.21 AS build-env
+FROM python:3.14.0-alpine3.21 AS build-env
 
 # Set build directory
 WORKDIR /build
