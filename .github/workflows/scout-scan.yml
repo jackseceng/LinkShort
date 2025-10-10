@@ -24,12 +24,26 @@ jobs:
       pull-requests: write # Required for scout to write comments
 
     steps:
+      - name: 'Get image tag'
+        id: get_tag
+        run: |
+          if [[ "${{ github.event.workflow_run.event }}" == "pull_request" ]]; then
+            echo "tag=${{ github.event.number }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       -
-        name: Scout Vulnerability Scan Main
-        if: github.ref == 'refs/heads/main'
+        name: Scout Vulnerability Scan
         uses: docker/scout-action@f8c776824083494ab0d56b8105ba2ca85c86e4de # v1.18.2
         with:
-          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.get_tag.outputs.tag }}
           command: cves
           ignore-unchanged: true
           only-severities: critical,high,medium
@@ -37,20 +51,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           sarif-file: sarif.output.json
           summary: true
-      - 
-        name: Scout Vulnerability Scan PR
-        if: github.event_name == 'pull_request'
-        uses: docker/scout-action@f8c776824083494ab0d56b8105ba2ca85c86e4de # v1.18.2
-        with:
-          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}
-          command: cves
-          ignore-unchanged: true
-          only-severities: critical,high,medium
-          write-comment: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          sarif-file: sarif.output.json
-          summary: true
-      - 
+
+      -
         name: Upload Scout results to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@e296a935590eb16afc0c0108289f68c87e2a89a5 # v4.30.7
         with:
