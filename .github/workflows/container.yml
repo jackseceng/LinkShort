@@ -1,5 +1,5 @@
 ---
-name: Image
+name: Build Container Image
 
 on:
   push:
@@ -13,15 +13,13 @@ env:
   IMAGE_NAME: linkshort
 
 jobs:
-  analyze:
-    name: Analyze
+  build-and-push:
+    name: Build and Push
     runs-on: ubuntu-latest
 
     permissions:
-      security-events: write
       contents: read
       packages: write
-      pull-requests: write
 
     steps:
       - 
@@ -58,87 +56,3 @@ jobs:
           tags: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}
           provenance: true
           sbom: true
-      - 
-        name: Grype Vulnerability Scan Main
-        if: github.ref == 'refs/heads/main'
-        uses: anchore/scan-action@f6601287cdb1efc985d6b765bbf99cb4c0ac29d8 # v7.0.0
-        with:
-          image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          fail-build: false
-          severity-cutoff: medium
-          only-fixed: true
-          output-file: 'grype-results.sarif'
-      - 
-        name: Grype Vulnerability Scan PR
-        if: github.event_name == 'pull_request'
-        uses: anchore/scan-action@f6601287cdb1efc985d6b765bbf99cb4c0ac29d8 # v7.0.0
-        with:
-          image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}
-          fail-build: true
-          severity-cutoff: medium
-          only-fixed: true
-          output-file: 'grype-results.sarif'
-      - 
-        name: Scout Vulnerability Scan Main
-        if: github.ref == 'refs/heads/main'
-        uses: docker/scout-action@f8c776824083494ab0d56b8105ba2ca85c86e4de # v1.18.2
-        with:
-          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          command: cves
-          ignore-unchanged: true
-          only-severities: critical,high,medium
-          write-comment: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          sarif-file: sarif.output.json
-          summary: true
-      - 
-        name: Scout Vulnerability Scan PR
-        if: github.event_name == 'pull_request'
-        uses: docker/scout-action@f8c776824083494ab0d56b8105ba2ca85c86e4de # v1.18.2
-        with:
-          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}
-          command: cves
-          ignore-unchanged: true
-          only-severities: critical,high,medium
-          write-comment: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          sarif-file: sarif.output.json
-          summary: true
-      - 
-        name: Trivy Vulnerability Scan Main
-        if: github.ref == 'refs/heads/main'
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # 0.33.1
-        with:
-          image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest'
-          scan-type: 'image'
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH,MEDIUM'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-      -
-        name: Trivy Vulnerability Scan PR
-        if: github.event_name == 'pull_request'
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # 0.33.1
-        with:
-          image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}'
-          scan-type: 'image'
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH,MEDIUM'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-      - 
-        name: Upload Grype results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@e296a935590eb16afc0c0108289f68c87e2a89a5 # v4.30.7
-        with:
-          sarif_file: 'grype-results.sarif'
-      - 
-        name: Upload Scout results to GitHub Code Scanning
-        if: ${{ github.event_name != 'pull_request_target' }}
-        uses: github/codeql-action/upload-sarif@e296a935590eb16afc0c0108289f68c87e2a89a5 # v4.30.7
-        with:
-            sarif_file: sarif.output.json
-      - 
-        name: Upload Trivy results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@e296a935590eb16afc0c0108289f68c87e2a89a5 # v4.30.7
-        with:
-          sarif_file: 'trivy-results.sarif'

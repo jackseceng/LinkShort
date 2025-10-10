@@ -1,0 +1,50 @@
+---
+name: Grype Scan
+
+on:
+  workflow_run:
+    workflows: ["Build Container Image"]
+    types:
+      - completed
+
+env:
+  REGISTRY: docker.io
+  REPOSITORY: jackseceng
+  IMAGE_NAME: linkshort
+
+jobs:
+  grype-scan:
+    name: Grype Scan
+    runs-on: ubuntu-latest
+    # Run scan only if the triggering workflow was successful
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      -
+        name: Grype Vulnerability Scan Main
+        if: github.ref == 'refs/heads/main'
+        uses: anchore/scan-action@f6601287cdb1efc985d6b765bbf99cb4c0ac29d8 # v7.0.0
+        with:
+          image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          fail-build: false
+          severity-cutoff: medium
+          only-fixed: true
+          output-file: 'grype-results.sarif'
+      - 
+        name: Grype Vulnerability Scan PR
+        if: github.event_name == 'pull_request'
+        uses: anchore/scan-action@f6601287cdb1efc985d6b765bbf99cb4c0ac29d8 # v7.0.0
+        with:
+          image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}
+          fail-build: true
+          severity-cutoff: medium
+          only-fixed: true
+          output-file: 'grype-results.sarif'
+      - 
+        name: Upload Grype results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@e296a935590eb16afc0c0108289f68c87e2a89a5 # v4.30.7
+        with:
+          sarif_file: 'grype-results.sarif'

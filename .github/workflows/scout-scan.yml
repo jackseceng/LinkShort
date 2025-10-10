@@ -1,0 +1,57 @@
+---
+name: Docker Scout Scan
+
+on:
+  workflow_run:
+    workflows: ["Build Container Image"]
+    types:
+      - completed
+
+env:
+  REGISTRY: docker.io
+  REPOSITORY: jackseceng
+  IMAGE_NAME: linkshort
+
+jobs:
+  scout-scan:
+    name: Scout Scan
+    runs-on: ubuntu-latest
+    # Run scan only if the triggering workflow was successful
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: read
+      security-events: write
+      pull-requests: write # Required for scout to write comments
+
+    steps:
+      -
+        name: Scout Vulnerability Scan Main
+        if: github.ref == 'refs/heads/main'
+        uses: docker/scout-action@f8c776824083494ab0d56b8105ba2ca85c86e4de # v1.18.2
+        with:
+          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          command: cves
+          ignore-unchanged: true
+          only-severities: critical,high,medium
+          write-comment: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          sarif-file: sarif.output.json
+          summary: true
+      - 
+        name: Scout Vulnerability Scan PR
+        if: github.event_name == 'pull_request'
+        uses: docker/scout-action@f8c776824083494ab0d56b8105ba2ca85c86e4de # v1.18.2
+        with:
+          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event.number }}
+          command: cves
+          ignore-unchanged: true
+          only-severities: critical,high,medium
+          write-comment: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          sarif-file: sarif.output.json
+          summary: true
+      - 
+        name: Upload Scout results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@e296a935590eb16afc0c0108289f68c87e2a89a5 # v4.30.7
+        with:
+          sarif_file: sarif.output.json
