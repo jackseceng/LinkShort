@@ -1,5 +1,5 @@
 ---
-name: Build and Scan Container
+name: Container
 
 on:
   push:
@@ -72,9 +72,9 @@ jobs:
         id: get_tag
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            echo "tag=${{ github.event.number }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.event.number }}" >> "$GITHUB_OUTPUT"
           else
-            echo "tag=latest" >> $GITHUB_OUTPUT
+            echo "tag=latest" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Login to Docker Hub
