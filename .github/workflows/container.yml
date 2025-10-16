@@ -86,7 +86,7 @@ jobs:
 
       - name: Run Grype Scan
         if: matrix.scanner.id == 'grype'
-        uses: anchore/scan-action@f6601287cdb1efc985d6b765bbf99cb4c0ac29d8 # v7.0.0
+        uses: anchore/scan-action@9e8428812aebf5a6a5fc3fdd55de39d1c79b8b12 # v7.0.1
         with:
           image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.get_tag.outputs.tag }}
           fail-build: ${{ github.event_name == 'pull_request' }}
