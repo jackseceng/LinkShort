@@ -6,5 +6,5 @@ urllib3==2.5.0
 python-dotenv==1.1.1
 Cryptography==46.0.3
 requests==2.32.5
-aiohttp==3.13.0 # Pinned to avoid a vulnerability
+aiohttp==3.13.1 # Pinned to avoid a vulnerability
 zipp>=3.19.1 # Pinned to avoid a vulnerability
