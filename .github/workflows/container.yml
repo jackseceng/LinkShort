@@ -89,10 +89,9 @@ jobs:
         uses: anchore/scan-action@a5605eb0943e46279cb4fbd9d44297355d3520ab # v7.0.2
         with:
           image: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.get_tag.outputs.tag }}
-          fail-build: ${{ github.event_name == 'pull_request' }}
           severity-cutoff: medium
           only-fixed: true
-          output-format: sarif, table
+          output-format: sarif
           output-file: 'results.sarif'
 
       - name: Run Trivy Scan
