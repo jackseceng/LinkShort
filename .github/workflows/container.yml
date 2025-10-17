@@ -92,7 +92,7 @@ jobs:
           fail-build: ${{ github.event_name == 'pull_request' }}
           severity-cutoff: medium
           only-fixed: true
-          output-format: sarif
+          output-format: sarif, table
           output-file: 'results.sarif'
 
       - name: Run Trivy Scan
