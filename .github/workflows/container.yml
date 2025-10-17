@@ -113,6 +113,7 @@ jobs:
           command: cves
           image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.get_tag.outputs.tag }}
           only-severities: critical,high,medium
+          only-fixed: true
           sarif-file: 'results.sarif'
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
