@@ -85,16 +85,11 @@ docker compose down
 - [x] Generates QR codes for users to download and share
 - [x] A frontend with reactive CSS & HTML
 - [x] 400 and 500 HTTP error handling with pages
-- [x] Static content served through CDN
 - [x] Captcha on main page
+- [x] Static content served through CDN: Served via [statically.io](https://statically.io/)
+- [x] Demonstration application set up: Hosted on [cloud.run](https://cloud.run)
 - [ ] Custom URLs users enter in the main form
 - [ ] Statistics page for URLs to see how many clicks links have got
-
-> This has been set up via [statically.io](https://statically.io/)
-
-- [x] Demonstration application set up:
-
-> This has been set up on [cloud.run](https://cloud.run) via it's repository integration
 
 ## DevSecOps Automation
 
