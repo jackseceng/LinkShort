@@ -2,7 +2,7 @@ Flask==3.1.2
 bleach==6.3.0
 Gunicorn==23.0.0
 libsql==0.1.11
-urllib3==2.5.0
+urllib3==2.6.0
 python-dotenv==1.2.1
 Cryptography==46.0.3
 requests==2.32.5
