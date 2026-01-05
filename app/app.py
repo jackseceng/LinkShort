@@ -190,6 +190,7 @@ def add_security_headers(resp):
         secure_cf_for_csp,
         secure_gh_for_csp,
         "'sha256-sW46uehl6LrIgxsQX51/2gXn4IE2y9hpq1LyURo44u0='",
+        "'sha256-i4h44GrmZ9q9uryDWYd+IeNzCHfWIDOHOlhgx81ucQk='",
         insecure_cdn_for_csp,
         insecure_cf_for_csp,
         insecure_gh_for_csp,
