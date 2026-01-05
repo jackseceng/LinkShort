@@ -149,13 +149,15 @@ def add_security_headers(resp):
     app_origin_url = f"https://{tld}"
 
     # CSP sources: 'self', 'data:' (for images), and third party domains are included:
-    cdn_for_csp = f"https://{cdn}"
-    cf_for_csp = f"https://{cf}"
+    cdn_for_csp = cdn
+    cf_for_csp = cf
 
     csp_default_sources = ["'self'", cdn_for_csp, cf_for_csp]
     csp_img_sources = ["'self'", "data:", cdn_for_csp]
+    csp_style_sources = ["'self'", cdn_for_csp]
+    csp_script_sources = ["'self'", cdn_for_csp, cf_for_csp]
 
-    final_csp_policy = f"default-src {' '.join(csp_default_sources)}; img-src {' '.join(csp_img_sources)};"
+    final_csp_policy = f"default-src {' '.join(csp_default_sources)}; img-src {' '.join(csp_img_sources)}; style-src {' '.join(csp_style_sources)}; script-src {' '.join(csp_script_sources)};"
 
     # Following the OWASP cheat sheet
     resp.headers.update(
