@@ -145,17 +145,34 @@ def redirect_url(arg):
 def add_security_headers(resp):
     cdn = "cdn.statically.io"
     cf = "challenges.cloudflare.com"
+    gh = "raw.githubusercontent.com"
+
     """Add CSP headers to all responses generated"""
     app_origin_url = f"https://{tld}"
 
-    # CSP sources: 'self', 'data:' (for images), and third party domains are included:
-    cdn_for_csp = cdn
-    cf_for_csp = cf
+    # Insecure CSP sources: 'self', 'data:' (for images), and third party domains are included:
+    insecure_cdn_for_csp = f"http://{cdn}"
+    insecure_cf_for_csp = f"http://{cf}"
+    insecure_gh_for_csp = f"https://{gh}"
 
-    csp_default_sources = ["'self'", cdn_for_csp, cf_for_csp]
-    csp_img_sources = ["'self'", "data:", cdn_for_csp]
-    csp_style_sources = ["'self'", cdn_for_csp]
-    csp_script_sources = ["'self'", cdn_for_csp, cf_for_csp]
+    # Secure CSP sources: 'self', 'data:' (for images), and third party domains are included:
+    secure_cdn_for_csp = f"https://{cdn}"
+    secure_cf_for_csp = f"https://{cf}"
+    secure_gh_for_csp = f"https://{gh}"
+
+    csp_default_sources = ["'self'", secure_cdn_for_csp, secure_cf_for_csp, secure_cdn_for_csp, insecure_cdn_for_csp, insecure_cf_for_csp, insecure_gh_for_csp]
+    csp_img_sources = ["'self'", "data:", secure_cdn_for_csp, secure_gh_for_csp, insecure_cdn_for_csp, insecure_gh_for_csp]
+    csp_style_sources = ["'self'", secure_cdn_for_csp, secure_gh_for_csp, insecure_cdn_for_csp, insecure_gh_for_csp]
+    csp_script_sources = [
+        "'self'",
+        secure_cdn_for_csp,
+        secure_cf_for_csp,
+        secure_gh_for_csp,
+        "'sha256-sW46uehl6LrIgxsQX51/2gXn4IE2y9hpq1LyURo44u0='",
+        insecure_cdn_for_csp,
+        insecure_cf_for_csp,
+        insecure_gh_for_csp,
+    ]
 
     final_csp_policy = f"default-src {' '.join(csp_default_sources)}; img-src {' '.join(csp_img_sources)}; style-src {' '.join(csp_style_sources)}; script-src {' '.join(csp_script_sources)};"
 
