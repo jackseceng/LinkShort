@@ -160,9 +160,30 @@ def add_security_headers(resp):
     secure_cf_for_csp = f"https://{cf}"
     secure_gh_for_csp = f"https://{gh}"
 
-    csp_default_sources = ["'self'", secure_cdn_for_csp, secure_cf_for_csp, secure_cdn_for_csp, insecure_cdn_for_csp, insecure_cf_for_csp, insecure_gh_for_csp]
-    csp_img_sources = ["'self'", "data:", secure_cdn_for_csp, secure_gh_for_csp, insecure_cdn_for_csp, insecure_gh_for_csp]
-    csp_style_sources = ["'self'", secure_cdn_for_csp, secure_gh_for_csp, insecure_cdn_for_csp, insecure_gh_for_csp]
+    csp_default_sources = [
+        "'self'",
+        secure_cdn_for_csp,
+        secure_cf_for_csp,
+        secure_cdn_for_csp,
+        insecure_cdn_for_csp,
+        insecure_cf_for_csp,
+        insecure_gh_for_csp,
+    ]
+    csp_img_sources = [
+        "'self'",
+        "data:",
+        secure_cdn_for_csp,
+        secure_gh_for_csp,
+        insecure_cdn_for_csp,
+        insecure_gh_for_csp,
+    ]
+    csp_style_sources = [
+        "'self'",
+        secure_cdn_for_csp,
+        secure_gh_for_csp,
+        insecure_cdn_for_csp,
+        insecure_gh_for_csp,
+    ]
     csp_script_sources = [
         "'self'",
         secure_cdn_for_csp,
