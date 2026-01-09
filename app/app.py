@@ -186,6 +186,7 @@ def add_security_headers(resp):
     ]
     csp_script_sources = [
         "'self'",
+        "'sha256-1aWi69DzdfnFAgV3l9O3h7iYj25d63Y6ik7yjzUKsqo='",
         secure_cdn_for_csp,
         secure_cf_for_csp,
         secure_gh_for_csp,
