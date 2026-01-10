@@ -157,7 +157,6 @@ def add_security_headers(resp):
     insecure_cf_for_csp = f"http://{cf}"
     insecure_gh_for_csp = f"https://{gh}"
 
-
     # Secure CSP sources: 'self', 'data:' (for images), and third party domains are included:
     secure_cdn1_for_csp = f"https://{cdn1}"
     secure_cdn2_for_csp = f"https://{cdn2}"
@@ -183,7 +182,7 @@ def add_security_headers(resp):
         secure_gh_for_csp,
         insecure_cdn1_for_csp,
         insecure_cdn2_for_csp,
-        insecure_gh_for_csp
+        insecure_gh_for_csp,
     ]
     csp_style_sources = [
         "'self'",
