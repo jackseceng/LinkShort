@@ -143,7 +143,8 @@ def redirect_url(arg):
 
 @application.after_request
 def add_security_headers(resp):
-    cdn = "cdn.statically.io"
+    cdn1 = "cdn.statically.io"
+    cdn2 = "cdn.jsdelivr.net"
     cf = "challenges.cloudflare.com"
     gh = "raw.githubusercontent.com"
 
@@ -151,48 +152,53 @@ def add_security_headers(resp):
     app_origin_url = f"https://{tld}"
 
     # Insecure CSP sources: 'self', 'data:' (for images), and third party domains are included:
-    insecure_cdn_for_csp = f"http://{cdn}"
+    insecure_cdn1_for_csp = f"http://{cdn1}"
+    insecure_cdn2_for_csp = f"https://{cdn2}"
     insecure_cf_for_csp = f"http://{cf}"
     insecure_gh_for_csp = f"https://{gh}"
 
     # Secure CSP sources: 'self', 'data:' (for images), and third party domains are included:
-    secure_cdn_for_csp = f"https://{cdn}"
+    secure_cdn1_for_csp = f"https://{cdn1}"
+    secure_cdn2_for_csp = f"https://{cdn2}"
     secure_cf_for_csp = f"https://{cf}"
     secure_gh_for_csp = f"https://{gh}"
 
     csp_default_sources = [
         "'self'",
-        secure_cdn_for_csp,
+        secure_cdn1_for_csp,
+        secure_cdn2_for_csp,
         secure_cf_for_csp,
-        secure_cdn_for_csp,
-        insecure_cdn_for_csp,
+        secure_gh_for_csp,
+        insecure_cdn1_for_csp,
+        insecure_cdn2_for_csp,
         insecure_cf_for_csp,
         insecure_gh_for_csp,
     ]
     csp_img_sources = [
         "'self'",
         "data:",
-        secure_cdn_for_csp,
+        secure_cdn1_for_csp,
+        secure_cdn2_for_csp,
         secure_gh_for_csp,
-        insecure_cdn_for_csp,
+        insecure_cdn1_for_csp,
+        insecure_cdn2_for_csp,
         insecure_gh_for_csp,
     ]
     csp_style_sources = [
         "'self'",
-        secure_cdn_for_csp,
-        secure_gh_for_csp,
-        insecure_cdn_for_csp,
-        insecure_gh_for_csp,
+        secure_cdn1_for_csp,
+        secure_cdn2_for_csp,
+        insecure_cdn1_for_csp,
+        insecure_cdn2_for_csp,
     ]
     csp_script_sources = [
         "'self'",
-        "'sha256-1aWi69DzdfnFAgV3l9O3h7iYj25d63Y6ik7yjzUKsqo='",
-        secure_cdn_for_csp,
+        secure_cdn1_for_csp,
+        secure_cdn2_for_csp,
         secure_cf_for_csp,
-        secure_gh_for_csp,
-        insecure_cdn_for_csp,
+        insecure_cdn1_for_csp,
+        insecure_cdn2_for_csp,
         insecure_cf_for_csp,
-        insecure_gh_for_csp,
     ]
 
     final_csp_policy = f"default-src {' '.join(csp_default_sources)}; img-src {' '.join(csp_img_sources)}; style-src {' '.join(csp_style_sources)}; script-src {' '.join(csp_script_sources)};"
