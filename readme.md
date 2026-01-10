@@ -37,10 +37,12 @@ CREATE TABLE
 ```
 > To avoid cluttering up your database while testing locally, it is recommended you create 2 databases: One for testing and one for production
 
-- For the captcha, [sign up for a freee Cloudflare acccount](https://dash.cloudflare.com/sign-up), and setup a turnstile widget for your TLD and localhost domains.
+For the captcha, [sign up for a freee Cloudflare acccount](https://dash.cloudflare.com/sign-up), and setup a turnstile widget for your TLD and localhost domains.
 > Read [the Cloudflare Turnstile docs](https://developers.cloudflare.com/turnstile/) to learn how to get the feature set up.
 
-- Create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
+If you are changing static content like the JS or HTML files, you will need to make sure that the HTML files affected by this change point to either your local version, or point to a hosting service you have set up for testing.
+
+You will need to create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
 ```txt
 ENDPOINT="<your-turso-url>"
 TOKEN="<your-turso-token>"
@@ -85,8 +87,8 @@ docker compose down
 - [x] Generates QR codes for users to download and share
 - [x] A frontend with reactive CSS & HTML
 - [x] 400 and 500 HTTP error handling with pages
-- [x] Captcha on main page
-- [x] Static content served through CDN: Served via [statically.io](https://statically.io/)
+- [x] Captcha on main page: Uses [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)
+- [x] Static content served through CDN: Served via [statically.io](https://statically.io/) & [JSDelivr](https://www.jsdelivr.com/)
 - [x] Demonstration application set up: Hosted on [cloud.run](https://cloud.run)
 - [ ] Custom URLs users enter in the main form
 - [ ] Statistics page for URLs to see how many clicks links have got
