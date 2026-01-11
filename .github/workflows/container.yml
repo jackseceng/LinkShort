@@ -152,15 +152,16 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Generate summary and post comment
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
-        with:
-          script: |
-            const { execSync } = require('child_process');
-            const summary = execSync('python scripts/summarize_sarif.py sarif-artifacts').toString();
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: summary
-            });
+      - name: Install dependencies
+        run: |
+          python -m pip install PyGithub
+
+      - name: Run Security Summary Script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref }}
+          PR_NUMBER: ${{ github.event.number }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: |
+          python .github/workflows/security_summary.py
