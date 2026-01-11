@@ -136,6 +136,7 @@ jobs:
     if: github.event_name == 'pull_request'
     permissions:
       pull-requests: write
+      security-events: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
