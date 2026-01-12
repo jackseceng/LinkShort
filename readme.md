@@ -108,8 +108,9 @@ Container Image Scanning:
 
 Automated Dependency Upgrades:
 - [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/)
+- [x] [Dependabot](https://github.com/dependabot)
 
 Commit Standardisation:
-- [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) Commit title standardisation
+- [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Developed by [Jack](https://jacksec.engineer)
