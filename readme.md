@@ -1,27 +1,20 @@
 # LinkShort
 
-## Security
-
 [![SCA](https://snyk.io/test/github/jackseceng/LinkShort/badge.svg)](https://snyk.io/test/github/jackseceng/LinkShort)
 [![SAST](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://codeql.github.com/)
 [![Image Scans](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml)
-
-## Stats
-
 ![Image Size](https://img.shields.io/docker/image-size/jackseceng/linkshort/latest)
 ![Codebase Size](https://img.shields.io/github/languages/code-size/jackseceng/LinkShort)
 
-## About
-
-- Running demonstration available at [cubel.ink](https://cubel.ink)
-
-- [DockerHub image](https://hub.docker.com/r/jackseceng/linkshort)
-
 This is the Python code, web assets and Docker configuration for a link shortening web app
 
-I am using this to learn:
+- Try out the app at [cubel.ink](https://cubel.ink)
+
+- Download the [DockerHub image](https://hub.docker.com/r/jackseceng/linkshort)
+
+I am using this repo to learn:
 - Docker & Web App Hosting
-- Python Development
+- Python Web Development
 - DevSecOps Automation
 
 ## Testing locally
@@ -56,7 +49,7 @@ TLD=localhost
 The `docker-compose.yaml` and `.env` files must reference the same variable names where applicable, also make sure the variable names are not set elsewhere in your testing environment.
 > If you made separate testing and production databases, make sure to use the test database token and endpoint url in your `.env` file, and the production ones in your hosting environment variables.
 
-### Docker compose
+### Launch local instance
 
 From the root directory of this repository, run:
 ```bash
@@ -77,7 +70,7 @@ To shut down the service, run this command:
 docker compose down
 ```
 
-## Application Features
+## Features
 
 - [x] Shortens URLs with unique extensions
 - [x] Encrypts stored URLs along with random with salts
@@ -95,7 +88,7 @@ docker compose down
 - [ ] Custom URLs users enter in the main form
 - [ ] Statistics page for URLs to see how many clicks links have got
 
-## DevSecOps Automation
+## DevSecOps
 
 Code Linting:
 - [x] [Super Linter](https://github.com/super-linter/super-linter)
