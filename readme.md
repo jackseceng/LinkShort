@@ -1,12 +1,12 @@
 # LinkShort - Containerised URL Shortener
 
-Security:
+## Security
 
 [![SCA](https://snyk.io/test/github/jackseceng/LinkShort/badge.svg)](https://snyk.io/test/github/jackseceng/LinkShort)
 [![SAST](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://codeql.github.com/)
 [![Image Scans](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml)
 
-Stats:
+## Stats
 
 ![Image Size](https://img.shields.io/docker/image-size/jackseceng/linkshort/latest)
 ![Codebase Size](https://img.shields.io/github/languages/code-size/jackseceng/LinkShort)
@@ -55,6 +55,7 @@ The `docker-compose.yaml` and `.env` files must reference the same variable name
 > If you made separate testing and production databases, make sure to use the test database token and endpoint url in your `.env` file, and the production ones in your hosting environment variables.
 
 ### Docker compose
+
 From the root directory of this repository, run:
 ```bash
 docker compose up -d --build
