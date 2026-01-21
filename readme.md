@@ -1,4 +1,4 @@
-# LinkShort - Containerised URL Shortener
+# LinkShort
 
 ## Security
 
@@ -11,11 +11,13 @@
 ![Image Size](https://img.shields.io/docker/image-size/jackseceng/linkshort/latest)
 ![Codebase Size](https://img.shields.io/github/languages/code-size/jackseceng/LinkShort)
 
-This is the Python code and Docker configuration for a link shortening web app
+## About
 
 - Running demonstration available at [cubel.ink](https://cubel.ink)
 
-- [DockerHub image repository](https://hub.docker.com/r/jackseceng/linkshort)
+- [DockerHub image](https://hub.docker.com/r/jackseceng/linkshort)
+
+This is the Python code, web assets and Docker configuration for a link shortening web app
 
 I am using this to learn:
 - Docker & Web App Hosting
