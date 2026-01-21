@@ -24,7 +24,7 @@ I am using this to learn:
 
 ## Testing locally
 
-- For the database, [sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called 'urls' in with the follwing SQL statement:
+- For the database, [sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called `urls` in with the follwing SQL statement:
 ```SQL
 CREATE TABLE
   urls (
