@@ -36,7 +36,7 @@ CREATE TABLE
 ```
 > To avoid cluttering up your database while testing locally, it is recommended you create 2 databases: One for testing and one for production
 
-For the captcha, [sign up for a freee Cloudflare acccount](https://dash.cloudflare.com/sign-up), and setup a turnstile widget for your TLD and localhost domains.
+For the captcha, [sign up for a free Cloudflare acccount](https://dash.cloudflare.com/sign-up), and setup a turnstile widget for your TLD and localhost domains.
 > Read [the Cloudflare Turnstile docs](https://developers.cloudflare.com/turnstile/) to learn how to get the feature set up.
 
 If you are changing static content like the JS or HTML files, you will need to make sure that the HTML files affected by this change point to either your local version, or point to a hosting service you have set up for testing.
