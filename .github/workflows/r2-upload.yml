@@ -19,10 +19,8 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-1
+          aws-region: ${{ secrets.R2_ACCOUNT_ID }}
 
       - name: Upload to R2 using AWS CLI
         run: |
-          aws s3 sync app/static s3://${{ secrets.R2_BUCKET }} --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com/cubelink-web-assets
-
-
+          aws s3 sync app/static s3://${{ secrets.R2_BUCKET }} --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com --bucket cubelink-web-assets
