@@ -31,7 +31,7 @@ CREATE TABLE
 ```
 > To avoid cluttering up your database while testing locally, it is recommended you create 2 databases: One for testing and one for production
 
-For the captcha and content distrubution, [sign up for a free Cloudflare acccount](https://dash.cloudflare.com/sign-up), 
+For the captcha and content distrubution, [sign up for a free Cloudflare acccount](https://dash.cloudflare.com/sign-up),
 
 Then, setup a turnstile widget for your TLD and localhost domains.
 > More information available in [the Cloudflare Turnstile docs](https://developers.cloudflare.com/turnstile/)

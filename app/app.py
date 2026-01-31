@@ -38,7 +38,7 @@ def input_url():
 
         case "POST":
             token = request.form.get("cf-turnstile-response")
-            remoteip = ( 
+            remoteip = (
                 request.headers.get("CF-Connecting-IP")
                 or request.headers.get("X-Forwarded-For")
                 or request.remote_addr
@@ -64,7 +64,9 @@ def input_url():
                     # If there is an error string,
                     # Return homepage with error message
                     resp = make_response(
-                        render_template("index.html", errormessage=error, tld=tld, cdn=cdn)
+                        render_template(
+                            "index.html", errormessage=error, tld=tld, cdn=cdn
+                        )
                     )
                     return resp
 
@@ -99,7 +101,9 @@ def input_url():
             else:
                 # Invalid token - reject submission
                 error = "captchafail"
-                resp = make_response(render_template("index.html", errormessage=error, tld=tld, cdn=cdn))
+                resp = make_response(
+                    render_template("index.html", errormessage=error, tld=tld, cdn=cdn)
+                )
                 return resp
 
         case _:
@@ -215,7 +219,9 @@ def internal_server_error(error):
     """Handles 500 Internal Server Errors."""
     application.logger.error("Server Error: %s", error, exc_info=True)
     resp = make_response(
-        render_template("500.html", code=HTTPStatus.INTERNAL_SERVER_ERROR, tld=tld, cdn=cdn)
+        render_template(
+            "500.html", code=HTTPStatus.INTERNAL_SERVER_ERROR, tld=tld, cdn=cdn
+        )
     )
     resp.status_code = HTTPStatus.INTERNAL_SERVER_ERROR
     return resp
