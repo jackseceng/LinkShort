@@ -12,9 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: shallwefootball/s3-upload-action@v1.3.3
-        with:
-          aws_key_id: ${{ secrets.R2_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.R2_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.R2_BUCKET }}
-          source_dir: 'app/static'
+      - name: Upload to S3
+        run: |
+          aws s3 sync ./app/static s3://cubelink-web-assets
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.R2_BUCKET }}
+
