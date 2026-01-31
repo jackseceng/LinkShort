@@ -33,7 +33,7 @@ jobs:
           SYNC_DIR: _site
           SYNC_TYPE: cloudflare
           # bucket must be exist in region:
-          SYNC_REGION: ${{ secret.R2_ACCOUNT_ID }}
+          SYNC_REGION: ${{ secrets.R2_ACCOUNT_ID }}
           SYNC_BUCKET: cubelink-web-assets
           # set at: Settings - Secrets and variables - Actions - Repository secrets:
           SYNC_ACCESS_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
