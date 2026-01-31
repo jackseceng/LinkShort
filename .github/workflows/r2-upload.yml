@@ -8,19 +8,33 @@ on:
       - '.github/workflows/r2-upload.yml'
 
 jobs:
-  upload:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Configure credentials
-        uses: aws-actions/configure-aws-credentials@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@8575951200e472d5f2d95c625da0c7bec8217c42 # v1.161.0
         with:
-          aws-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.R2_ACCOUNT_ID }}
-
-      - name: Upload to R2 using AWS CLI
-        run: |
-          aws s3 sync app/static s3://${{ secrets.R2_BUCKET }} --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com --bucket cubelink-web-assets
+          ruby-version: '3.1'
+          bundler-cache: true
+          cache-version: 0
+      - name: Build with Jekyll
+        # Outputs to the './_site' directory by default
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+      - name: Sync to Cloud Storage
+        uses: michaelliao/sync-s3-compatible-action@v6
+        env:
+          # force delete unused files on cloud storage:
+          SYNC_OPT_UNUSED: delete
+          # "_site" is default value
+          SYNC_DIR: _site
+          SYNC_TYPE: cloudflare
+          # bucket must be exist in region:
+          SYNC_REGION: ${{ secret.R2_ACCOUNT_ID }}
+          SYNC_BUCKET: cubelink-web-assets
+          # set at: Settings - Secrets and variables - Actions - Repository secrets:
+          SYNC_ACCESS_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          SYNC_ACCESS_SECRET: ${{ secrets.R2_SECRET_ACCESS_KEY }}
