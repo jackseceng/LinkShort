@@ -21,6 +21,7 @@ from flask import (
 application = Flask(__name__)
 
 tld = environ["TLD"]
+cdn = environ["CDN"]
 cf_secret = environ["CF_SECRET"]
 
 INTERNAL_REFRESH = 120
@@ -32,7 +33,7 @@ def input_url():
     match request.method:
         case "GET":
             # Return homepage
-            resp = make_response(render_template("index.html"))
+            resp = make_response(render_template("index.html", tld=tld, cdn=cdn))
             return resp
 
         case "POST":
@@ -63,7 +64,9 @@ def input_url():
                     # If there is an error string,
                     # Return homepage with error message
                     resp = make_response(
-                        render_template("index.html", errormessage=error)
+                        render_template(
+                            "index.html", errormessage=error, tld=tld, cdn=cdn
+                        )
                     )
                     return resp
 
@@ -88,16 +91,19 @@ def input_url():
                 resp = make_response(
                     render_template(
                         "link.html",
-                        tld=tld,
                         extension=str(linkpath),
                         errormessage="None",
+                        tld=tld,
+                        cdn=cdn,
                     )
                 )
                 return resp
             else:
                 # Invalid token - reject submission
                 error = "captchafail"
-                resp = make_response(render_template("index.html", errormessage=error))
+                resp = make_response(
+                    render_template("index.html", errormessage=error, tld=tld, cdn=cdn)
+                )
                 return resp
 
         case _:
@@ -135,7 +141,7 @@ def redirect_url(arg):
                     url_bytes, requested_path, salt_bytes
                 ).decode("utf-8")
                 resp = make_response(
-                    render_template("redirect.html", tld=tld, link=newlink)
+                    render_template("redirect.html", link=newlink, tld=tld, cdn=cdn)
                 )
                 return resp
             abort(HTTPStatus.NOT_FOUND)
@@ -143,62 +149,37 @@ def redirect_url(arg):
 
 @application.after_request
 def add_security_headers(resp):
-    cdn1 = "cdn.statically.io"
-    cdn2 = "cdn.jsdelivr.net"
     cf = "challenges.cloudflare.com"
-    gh = "raw.githubusercontent.com"
 
     """Add CSP headers to all responses generated"""
     app_origin_url = f"https://{tld}"
 
-    # Insecure CSP sources: 'self', 'data:' (for images), and third party domains are included:
-    insecure_cdn1_for_csp = f"http://{cdn1}"
-    insecure_cdn2_for_csp = f"https://{cdn2}"
-    insecure_cf_for_csp = f"http://{cf}"
-    insecure_gh_for_csp = f"https://{gh}"
+    # CSP sources: 'self', 'data:' (for images), and third party domains are included:
+    cf_for_csp = f"https://{cf}"
 
-    # Secure CSP sources: 'self', 'data:' (for images), and third party domains are included:
-    secure_cdn1_for_csp = f"https://{cdn1}"
-    secure_cdn2_for_csp = f"https://{cdn2}"
-    secure_cf_for_csp = f"https://{cf}"
-    secure_gh_for_csp = f"https://{gh}"
+    # CDN domain for web assets
+    cdn_for_csp = f"https://{cdn}"
 
     csp_default_sources = [
         "'self'",
-        secure_cdn1_for_csp,
-        secure_cdn2_for_csp,
-        secure_cf_for_csp,
-        secure_gh_for_csp,
-        insecure_cdn1_for_csp,
-        insecure_cdn2_for_csp,
-        insecure_cf_for_csp,
-        insecure_gh_for_csp,
+        cf_for_csp,
+        cdn_for_csp,
     ]
     csp_img_sources = [
         "'self'",
         "data:",
-        secure_cdn1_for_csp,
-        secure_cdn2_for_csp,
-        secure_gh_for_csp,
-        insecure_cdn1_for_csp,
-        insecure_cdn2_for_csp,
-        insecure_gh_for_csp,
+        cf_for_csp,
+        cdn_for_csp,
     ]
     csp_style_sources = [
         "'self'",
-        secure_cdn1_for_csp,
-        secure_cdn2_for_csp,
-        insecure_cdn1_for_csp,
-        insecure_cdn2_for_csp,
+        cf_for_csp,
+        cdn_for_csp,
     ]
     csp_script_sources = [
         "'self'",
-        secure_cdn1_for_csp,
-        secure_cdn2_for_csp,
-        secure_cf_for_csp,
-        insecure_cdn1_for_csp,
-        insecure_cdn2_for_csp,
-        insecure_cf_for_csp,
+        cf_for_csp,
+        cdn_for_csp,
     ]
 
     final_csp_policy = f"default-src {' '.join(csp_default_sources)}; img-src {' '.join(csp_img_sources)}; style-src {' '.join(csp_style_sources)}; script-src {' '.join(csp_script_sources)};"
@@ -227,7 +208,7 @@ def page_not_found(error):
     """Handles 404 Not Found errors."""
     application.logger.info("Not Found: %s", error, exc_info=True)
     resp = make_response(
-        render_template("404.html", tld=tld, code=HTTPStatus.NOT_FOUND)
+        render_template("404.html", code=HTTPStatus.NOT_FOUND, tld=tld, cdn=cdn)
     )
     resp.status_code = HTTPStatus.NOT_FOUND
     return resp
@@ -238,7 +219,9 @@ def internal_server_error(error):
     """Handles 500 Internal Server Errors."""
     application.logger.error("Server Error: %s", error, exc_info=True)
     resp = make_response(
-        render_template("500.html", tld=tld, code=HTTPStatus.INTERNAL_SERVER_ERROR)
+        render_template(
+            "500.html", code=HTTPStatus.INTERNAL_SERVER_ERROR, tld=tld, cdn=cdn
+        )
     )
     resp.status_code = HTTPStatus.INTERNAL_SERVER_ERROR
     return resp

@@ -4,44 +4,38 @@
     <title>Your short link - cubelink</title>
     <link
       rel="stylesheet"
-      href="https://cdn.statically.io/gh/jackseceng/linkshort@main/app/static/style.css"
+      href="https://{{ cdn }}/style.css"
     />
     <link
       rel="icon"
       type="image/png"
-      href="https://cdn.statically.io/gh/jackseceng/linkshort@main/app/static/favicon-96x96.png"
-      sizes="96x96"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      href="https://cdn.statically.io/gh/jackseceng/linkshort@main/app/static/favicon-96x96.png"
+      href="https://{{ cdn }}/favicon-96x96.png"
       sizes="96x96"
     />
     <link
       rel="icon"
       type="image/svg+xml"
-      href="https://cdn.statically.io/gh/jackseceng/linkshort@main/app/static/favicon.svg"
+      href="https://{{ cdn }}/favicon.svg"
     />
     <link
       rel="shortcut icon"
-      href="https://cdn.statically.io/gh/jackseceng/linkshort@main/app/static/favicon.ico"
+      href="https://{{ cdn }}/favicon.ico"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="https://cdn.statically.io/gh/jackseceng/linkshort@main/app/static/apple-touch-icon.png"
+      href="https://{{ cdn }}/apple-touch-icon.png"
     />
     <link
       rel="manifest"
-      href="https://cdn.statically.io/gh/jackseceng/linkshort@main/app/static/site.webmanifest"
+      href="https://{{ cdn }}/site.webmanifest"
     />
     <meta id="errorreason" value="{{ errormessage }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
   <body>
-    <script src="https://cdn.statically.io/gh/jackseceng/linkshort@main/app/static/qrcode.min.js"></script>
+    <script src="https://{{ cdn }}/qrcode.min.js"></script>
     <div id="notification" class="notification"></div>
     <form method="GET" action="" autocomplete="off" class="form">
       <div class="control">
@@ -114,8 +108,8 @@
         <a href="https://jacksec.engineer" target="_blank"> Made by Jack </a>
       </div>
     </form>
-    <script src="https://cdn.jsdelivr.net/gh/jackseceng/LinkShort@refs/heads/main/app/static/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/jackseceng/LinkShort@refs/heads/main/app/static/linkpage.js"></script>
+    <script src="https://{{ cdn }}/main.js"></script>
+    <script src="https://{{ cdn }}/linkpage.js"></script>
   </body>
 </html>
 <!-- Based on this codepen: https://codepen.io/marko-zub/pen/mzPeOV -->
