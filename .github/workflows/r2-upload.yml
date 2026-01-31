@@ -11,16 +11,10 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Configure credentials
-        uses: aws-actions/configure-aws-credentials@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: shallwefootball/s3-upload-action@v1.3.3
         with:
-          aws-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.R2_ACCOUNT_ID }}
-
-      - name: Upload to R2 using AWS CLI
-        run: |
-          aws s3 sync app/static s3://${{ secrets.R2_BUCKET }} --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com --bucket cubelink-web-assets
+          aws_key_id: ${{ secrets.R2_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.R2_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.R2_BUCKET }}
+          source_dir: 'app/static'
