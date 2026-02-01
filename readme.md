@@ -19,7 +19,11 @@ I am using this repo to learn:
 
 ## Testing locally
 
-- For the database, [sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called `urls` in with the follwing SQL statement:
+Below are instructions for setting up the container locally on your machine for testing and development.
+
+### Database
+
+First, [sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called `urls` in with the follwing SQL statement:
 ```SQL
 CREATE TABLE
   urls (
@@ -31,15 +35,27 @@ CREATE TABLE
 ```
 > To avoid cluttering up your database while testing locally, it is recommended you create 2 databases: One for testing and one for production
 
-For the captcha and content distrubution, [sign up for a free Cloudflare acccount](https://dash.cloudflare.com/sign-up),
+### Captcha & Web Assets Storage
+
+First, [sign up for a free Cloudflare acccount](https://dash.cloudflare.com/sign-up)
 
 Then, setup a turnstile widget for your TLD and localhost domains.
 > More information available in [the Cloudflare Turnstile docs](https://developers.cloudflare.com/turnstile/)
 
 Next setup R2 storage, and link your TLD to the service for production.
+
+Once you have the storage set up, upload your static Javascript and image assets to the route of your bucket, making sure their names match what the HTML files reference in their headers.
 > More information available in [the Cloudflare R2 docs](https://developers.cloudflare.com/r2/)
 
-If you are changing static content like the JS or HTML files, you will need to make sure that the HTML files affected by this change point to either your local version, or point to a hosting service you have set up for testing.
+If you change static web files files, either point your HTML to your locally hosted version, or upload your changed files to an R2 dev bucket manually using the AWS CLI using the sync command from the root of the repository:
+```txt
+aws s3 sync app/static s3://<your-r2-bucket-name> --endpoint-url https://<your-cloudflare-account-id>.eu.r2.cloudflarestorage.com
+```
+Or, if you are outside the EU:
+```txt
+aws s3 sync app/static s3://<your-r2-bucket-name> --endpoint-url https://<your-cloudflare-account-id>.r2.cloudflarestorage.com
+```
+### Setting up local environment
 
 You will need to create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
 ```txt
