@@ -14,9 +14,8 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Upload to S3
         run: |
-          aws s3 sync app/static s3://${{ secrets.R2_BUCKET }} --endpoint-url https://7ea094a5d355605ab7d17bdad98fc1cf.eu.r2.cloudflarestorage.com/cubelink-web-assets
+          aws s3 sync app/static s3://cubelink-web-assets --endpoint-url https://7ea094a5d355605ab7d17bdad98fc1cf.eu.r2.cloudflarestorage.com
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: auto
-
+          aws_access_key_id: ${{ secrets.R2_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          region: auto
