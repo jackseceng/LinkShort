@@ -1,4 +1,4 @@
-name: Upload Static Assets to R2
+name: Static Assets
 
 on:
   push:
@@ -9,6 +9,7 @@ on:
 
 jobs:
   upload:
+    name: Upload to R2
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,4 +21,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           AWS_REGION: auto
         run: |
-          aws s3 sync app/static s3://${{ secrets.R2_BUCKET }} --endpoint-url https://7ea094a5d355605ab7d17bdad98fc1cf.eu.r2.cloudflarestorage.com
+          aws s3 sync app/static s3://${{ secrets.R2_BUCKET }} --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.eu.r2.cloudflarestorage.com
