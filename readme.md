@@ -118,6 +118,7 @@ Code Linting:
 Static & Software Composition Analysis:
 - [x] [CodeQL](https://codeql.github.com/)
 - [x] [Snyk](https://snyk.io)
+- [X] [semgrep](https://semgrep.dev/products/semgrep-code/)
 
 Container Image Scanning:
 - [x] [Grype](https://github.com/anchore/grype/)
