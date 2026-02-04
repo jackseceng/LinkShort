@@ -8,7 +8,7 @@
 #
 # See https://semgrep.dev/docs
 
-name: Semgrep
+name: Code
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
-    name: Scan
+    name: Analyze (semgrep)
     runs-on: ubuntu-latest
     steps:
       # Checkout project source
@@ -36,7 +36,6 @@ jobs:
       - uses: returntocorp/semgrep-action@fcd5ab7459e8d91cb1777481980d1b18b4fc6735
         with:
           publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
-          publishDeployment: ${{ secrets.SEMGREP_DEPLOYMENT_ID }}
           generateSarif: "1"
 
       # Upload SARIF file generated in previous step
