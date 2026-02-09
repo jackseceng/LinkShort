@@ -15,6 +15,6 @@ This is a list of tooling used by this repository to find vulnerabilities & bugs
 | Capability                      | Tool                                                                                                                                              |
 | ----------                      | -------                                                                                                                                           |
 | Automated dependency updates    | [Renovate](https://www.mend.io/renovate/)                                                                                                         |
-| Code Bugs                       | [CodeQL](https://codeql.github.com/)                                                                                                              |
+| Code Bugs                       | [CodeQL](https://codeql.github.com/) [semgrep](https://semgrep.dev/)                                                                              |
 | Dependency Vulnerabilities      | [Snyk](https://snyk.io/product/open-source-security-management/)                                                                                  |
 | Container Vulnerabiltiies       | [Grype](https://github.com/anchore/grype/) [Scout](https://docs.docker.com/scout/) [Trivy](https://trivy.dev/latest/docs/target/container_image/) |
