@@ -1,6 +1,6 @@
 Flask==3.1.2
 bleach==6.3.0
-Gunicorn==25.0.3
+Gunicorn==25.1.0
 libsql==0.1.11
 urllib3==2.6.3
 python-dotenv==1.2.1
