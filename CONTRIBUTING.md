@@ -2,11 +2,9 @@
 
 ## Project Objectives
 
-- This is a Python Flask app that shortens URLs and re-directs users that go to the shortened URLs.
-- It uses Docker to create an image with a web service.
-- It uses [Turso](https://turso.tech) as a database to store URLs.
-- The repository uses automated DevSecOps tooling to detect vulnerabilities and bugs.
-- If there are any patchable, exploitable vulnerabilities, they will be applied if they build and test successfully.
+- A secure, Python Flask app that shortens URLs and re-directs users that go to the shortened URLs.
+- Use modern development and deployment pipelines and technologies.
+- Make use of automated DevSecOps tooling to detect vulnerabilities and bugs.
 - Usage and/or contribution to this project must be done under the terms in the `LICENSE` file.
 
 ## Testing locally
@@ -19,6 +17,7 @@
 
 > Vulnerabilities of medium criticality or higher must be fixed or justified in your PR. The repo uses these tools:
 - [CodeQL](https://codeql.github.com/)
+- [Semgrep](https://semgrep.dev/products/semgrep-code/)
 - [Snyk](https://docs.snyk.io/scan-using-snyk/working-with-snyk-in-your-environment/running-scans#run-tests-manually)
 - [Grype](https://github.com/anchore/grype/?tab=readme-ov-file#getting-started)
 - [Scout](https://docs.docker.com/scout/quickstart/)
