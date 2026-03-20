@@ -1,5 +1,11 @@
 const errorValue = document.getElementById("errorreason").getAttribute("value");
 
+const lastClickElement = document.getElementById('last-click');
+      const lastClickValue = lastClickElement.innerText.replace('Last Click: ', '');
+      if (lastClickValue !== 'Never') {
+        lastClickElement.textContent = `Last Click: ${timeago.format(lastClickValue)}`;
+      }
+
 if (errorValue === "whitespace") {
   showNotification("URLs can't contain whitespace");
 } else if (errorValue === "insecure") {

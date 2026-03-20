@@ -111,6 +111,27 @@ def input_url():
             abort(HTTPStatus.INTERNAL_SERVER_ERROR)
 
 
+@application.route("/<arg>/stats")
+def show_stats(arg):
+    """Display statistics for a given short URL"""
+    requested_path = bleach.clean(str(arg))
+    hashsum = hashlib.sha256(requested_path.encode("utf-8")).hexdigest()
+    clicks, last_click = db.get_stats(hashsum)
+
+    if clicks is not None:
+        return render_template(
+            "stats.html",
+            extension=requested_path,
+            clicks=clicks,
+            last_click=last_click,
+            errormessage="None",
+            tld=tld,
+            cdn=cdn,
+        )
+    else:
+        abort(HTTPStatus.NOT_FOUND)
+
+
 @application.route("/<arg>")
 def redirect_url(arg):
     """Redirect logic for any GET requests to any URI on top of base URL"""
@@ -137,6 +158,7 @@ def redirect_url(arg):
             if url_bytes is False:
                 abort(HTTPStatus.NOT_FOUND)
             else:
+                db.increment_click(hashsum)
                 newlink = urls.decrypt_url(
                     url_bytes, requested_path, salt_bytes
                 ).decode("utf-8")
