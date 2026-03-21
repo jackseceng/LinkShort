@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Link Statistics - cubelink</title>
+    <link
+      rel="stylesheet"
+      href="https://{{ cdn }}/style.css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://{{ cdn }}/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://{{ cdn }}/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://{{ cdn }}/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://{{ cdn }}/apple-touch-icon.png"
+    />
+    <link
+      rel="manifest"
+      href="https://{{ cdn }}/site.webmanifest"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta id="errorreason" value="{{ errormessage }}" />
+  </head>
+
+  <body>
+    <div id="notification" class="notification"></div>
+    <div class="form">
+      <div class="control">
+        <center>
+          <h1>Your Link</h1>
+        </center>
+      </div>
+      <div class="control">
+        <center>
+        <p><a href="/{{ extension }}">{{ tld }}/{{ extension }}</a></p>
+        <center>
+            <h1>Statistics</h1>
+        </center>
+        <div class="stats-container">
+          <p>Latest:<a id="last-click">{{ last_click }}</a></p>
+          <p>Total:<a id="clicks">{{ clicks }}</a></p>
+        </div>
+        <br>
+        <p>
+          <a href="https://{{tld}}" target="_blank"
+            ><span class="text">Share another link&gt;</span></a
+          >
+        </p>
+        </center>
+      </div>
+      <div class="credits">
+        <a
+          href="https://github.com/jackseceng/LinkShort/tree/main"
+          target="_blank"
+        >
+          Source code
+        </a>
+        |
+        <a href="https://jacksec.engineer" target="_blank"> Made by Jack </a>
+      </div>
+    </div>
+    <script src="https://{{ cdn }}/timeago.min.js"></script>
+    <script src="https://{{ cdn }}/statpage.js"></script>
+    <script src="https://{{ cdn }}/main.js"></script>
+  </body>
+</html>

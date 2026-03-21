@@ -46,13 +46,13 @@ Next setup R2 storage, and link your TLD to the service for production.
 Once you have the storage set up, upload your static Javascript and image assets to the route of your bucket, making sure their names match what the HTML files reference in their headers.
 > More information available in [the Cloudflare R2 docs](https://developers.cloudflare.com/r2/)
 
-If you change static web files files, either point your HTML to your locally hosted version, or upload your changed files to an R2 dev bucket manually using the AWS CLI using the sync command from the root of the repository:
+If you change static web files files, either point your HTML to your locally hosted version, or upload your changed files to an R2 dev bucket manually using the AWS CLI docker containers sync command from the root of the repository:
 ```txt
-aws s3 sync app/static s3://<your-r2-bucket-name> --endpoint-url https://<your-cloudflare-account-id>.eu.r2.cloudflarestorage.com
+docker run --rm -ti -v ~/.aws:/root/.aws -v ./app/static:/data amazon/aws-cli s3 sync /data s3://cubelink-web-assets --endpoint-url https://<your-r2-s3-endpoint>.eu.r2.cloudflarestorage.com
 ```
 Or, if you are outside the EU:
 ```txt
-aws s3 sync app/static s3://<your-r2-bucket-name> --endpoint-url https://<your-cloudflare-account-id>.r2.cloudflarestorage.com
+docker run --rm -ti -v ~/.aws:/root/.aws -v ./app/static:/data amazon/aws-cli s3 sync /data s3://cubelink-web-assets --endpoint-url https://<your-r2-s3-endpoint>.r2.cloudflarestorage.com
 ```
 ### Setting up local environment
 

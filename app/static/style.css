@@ -280,3 +280,9 @@ a:hover {
   margin: 50px;
   box-shadow: rgb(255 255 255) 0 0 10px 10px;
 }
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
