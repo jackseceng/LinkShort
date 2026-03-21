@@ -286,18 +286,3 @@ a:hover {
   justify-content: center;
   gap: 20px;
 }
-
-#clicks {
-  animation: roll-in 1s ease-out;
-}
-
-@keyframes roll-in {
-  0% {
-    transform: translateX(-100%) rotate(-360deg);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0) rotate(0deg);
-    opacity: 1;
-  }
-}
