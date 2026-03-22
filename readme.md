@@ -26,10 +26,11 @@ First, [sign up for a free Turso account](https://app.turso.tech/signup), and cr
 ```SQL
 CREATE TABLE
   urls (
-    hashsum VARCHAR(64) PRIMARY KEY,
-    url BLOB,
-    salt BLOB,
-    CONSTRAINT unique_hash UNIQUE (hashsum)
+    HASHSUM NUMERIC PRIMARY KEY NOT NULL,
+    URL BLOB NOT NULL,
+    SALT BLOB NOT NULL,
+    CLICKS INTEGER NOT NULL DEFAULT 0,
+    LASTCLICK TEXT NOT NULL DEFAULT 'YYYY-MM-DDTHH:MM:SS.ffffff'
   );
 ```
 > To avoid cluttering up your database while testing locally, it is recommended you create 2 databases: One for testing and one for production
