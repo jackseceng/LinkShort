@@ -16,8 +16,8 @@ const endValue = parseInt(obj.innerText.trim(), 10) || 0;
 obj.innerHTML = 0; // Set initial value for counting up animation
 animateValue(obj, 0, endValue, 1000);
 
-const lastClickElement = document.getElementById('last-click');
-      const lastClickValue = lastClickElement.innerText.replace('Lastest: ', '');
-      if (lastClickValue !== 'Never') {
-        lastClickElement.textContent = `${timeago.format(lastClickValue)}`;
-      }
+const lastClickElement = document.getElementById("last-click");
+const lastClickValue = lastClickElement.innerText.replace("Lastest: ", "");
+if (lastClickValue !== "Never") {
+  lastClickElement.textContent = `${timeago.format(lastClickValue)}`;
+}
