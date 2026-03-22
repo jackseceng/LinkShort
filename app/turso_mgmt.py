@@ -1,6 +1,7 @@
 """Turso query and connection management module"""
 
 import logging
+from datetime import datetime
 from os import environ
 from re import search
 
@@ -53,9 +54,10 @@ def insert_link(hashsum: str, url: bytes, salt: bytes):
     conn = _create_connection()
     try:
         # Insert entry
+        lastclick = datetime.utcnow().isoformat()
         conn.execute(
-            "INSERT INTO urls(hashsum, url, salt) VALUES (?, ?, ?);",
-            (hashsum, url, salt),
+            "INSERT INTO urls(hashsum, url, salt, clicks, lastclick) VALUES (?, ?, ?, 0, ?);",
+            (hashsum, url, salt, lastclick),
         )
         conn.commit()
         return True, None
@@ -65,6 +67,47 @@ def insert_link(hashsum: str, url: bytes, salt: bytes):
             return False, "non-unique"
         logging.error("Error on insert_link: %s", e)
         return False, str(e)
+    finally:
+        if conn:
+            conn.close()
+
+
+def increment_click(hashsum: str):
+    """Increment the click count and update the last click timestamp for a given link"""
+    conn = _create_connection()
+    try:
+        lastclick = datetime.utcnow().isoformat()
+        conn.execute(
+            "UPDATE urls SET clicks = clicks + 1, lastclick = ? WHERE hashsum = ?",
+            (lastclick, hashsum),
+        )
+        conn.commit()
+        return True, None
+    except Exception as e:
+        logging.error("Error on increment_click: %s", e)
+        return False, str(e)
+    finally:
+        if conn:
+            conn.close()
+
+
+def get_stats(hashsum: str):
+    """Get click count and last click time for a given link"""
+    conn = _create_connection()
+    try:
+        result_set = conn.execute(
+            "SELECT clicks, lastclick FROM urls WHERE hashsum = ?", (hashsum,)
+        )
+        row = result_set.fetchone()
+
+        if row:
+            clicks = row[0]
+            lastclick = row[1]
+            return clicks, lastclick
+        return None, None
+    except Exception as e:
+        logging.error("Error on get_stats: %s", e)
+        return None, None
     finally:
         if conn:
             conn.close()
