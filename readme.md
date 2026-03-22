@@ -108,7 +108,7 @@ docker compose down
 - [x] Static content served through CDN: Served via [Cloudflare R2](https://www.cloudflare.com/en-gb/developer-platform/products/r2/)
 - [x] Demonstration application set up: Hosted on [cloud.run](https://cloud.run)
 - [ ] Custom URLs users enter in the main form
-- [ ] Statistics page for URLs to see how many clicks links have got
+- [x] Statistics page for URLs to see how many clicks links have got (go to `tld/url/stats` to see them)
 
 ## DevSecOps
 
