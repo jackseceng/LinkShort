@@ -26,10 +26,11 @@ First, [sign up for a free Turso account](https://app.turso.tech/signup), and cr
 ```SQL
 CREATE TABLE
   urls (
-    hashsum VARCHAR(64) PRIMARY KEY,
-    url BLOB,
-    salt BLOB,
-    CONSTRAINT unique_hash UNIQUE (hashsum)
+    HASHSUM NUMERIC PRIMARY KEY NOT NULL,
+    URL BLOB NOT NULL,
+    SALT BLOB NOT NULL,
+    CLICKS INTEGER NOT NULL DEFAULT 0,
+    LASTCLICK TEXT NOT NULL DEFAULT 'YYYY-MM-DDTHH:MM:SS.ffffff'
   );
 ```
 > To avoid cluttering up your database while testing locally, it is recommended you create 2 databases: One for testing and one for production
@@ -107,7 +108,7 @@ docker compose down
 - [x] Static content served through CDN: Served via [Cloudflare R2](https://www.cloudflare.com/en-gb/developer-platform/products/r2/)
 - [x] Demonstration application set up: Hosted on [cloud.run](https://cloud.run)
 - [ ] Custom URLs users enter in the main form
-- [ ] Statistics page for URLs to see how many clicks links have got
+- [x] Statistics page for URLs to see how many clicks links have got (go to `tld/url/stats` to see them)
 
 ## DevSecOps
 
