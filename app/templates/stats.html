@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <title>Your short link - cubelink</title>
-    <link
-      rel="stylesheet"
-      href="https://{{ cdn }}/style.css"
-    />
+    <link rel="stylesheet" href="https://{{ cdn }}/style.css" />
     <link
       rel="icon"
       type="image/png"
@@ -17,19 +14,13 @@
       type="image/svg+xml"
       href="https://{{ cdn }}/favicon.svg"
     />
-    <link
-      rel="shortcut icon"
-      href="https://{{ cdn }}/favicon.ico"
-    />
+    <link rel="shortcut icon" href="https://{{ cdn }}/favicon.ico" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
       href="https://{{ cdn }}/apple-touch-icon.png"
     />
-    <link
-      rel="manifest"
-      href="https://{{ cdn }}/site.webmanifest"
-    />
+    <link rel="manifest" href="https://{{ cdn }}/site.webmanifest" />
     <meta id="errorreason" value="{{ errormessage }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
@@ -72,20 +63,20 @@
         <div class="text">Copy link</div>
       </button>
       <center>
-          <h1>Statistics</h1>
-          <div class="stats-container">
-            <p>Last clicked<a id="last-click">{{ last_click }}</a></p>
-          </div>
-          <div class="stats-container">
-            <p>Total clicks<a id="clicks">{{ clicks }}</a></p>
-          </div>
-          <br />
-          <p>
-            <a href="https://{{tld}}" target="_blank"
-              ><span class="text">Share another link&gt;</span></a
-            >
-          </p>
-        </center>
+        <h1>Statistics</h1>
+        <div class="stats-container">
+          <p>Last clicked<a id="last-click">{{ last_click }}</a></p>
+        </div>
+        <div class="stats-container">
+          <p>Total clicks<a id="clicks">{{ clicks }}</a></p>
+        </div>
+        <br />
+        <p>
+          <a href="https://{{tld}}" target="_blank"
+            ><span class="text">Share another link&gt;</span></a
+          >
+        </p>
+      </center>
       <div class="credits">
         <a
           href="https://github.com/jackseceng/LinkShort/tree/main"
@@ -96,6 +87,7 @@
         |
         <a href="https://jacksec.engineer" target="_blank"> Made by Jack </a>
       </div>
+    </form>
     <script src="https://{{ cdn }}/timeago.min.js"></script>
     <script src="https://{{ cdn }}/statpage.js"></script>
     <script src="https://{{ cdn }}/copy.js"></script>
