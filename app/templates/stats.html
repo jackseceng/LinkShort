@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Link Statistics - cubelink</title>
-    <link rel="stylesheet" href="https://{{ cdn }}/style.css" />
+    <title>Your short link - cubelink</title>
+    <link
+      rel="stylesheet"
+      href="https://{{ cdn }}/style.css"
+    />
     <link
       rel="icon"
       type="image/png"
@@ -14,34 +17,67 @@
       type="image/svg+xml"
       href="https://{{ cdn }}/favicon.svg"
     />
-    <link rel="shortcut icon" href="https://{{ cdn }}/favicon.ico" />
+    <link
+      rel="shortcut icon"
+      href="https://{{ cdn }}/favicon.ico"
+    />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
       href="https://{{ cdn }}/apple-touch-icon.png"
     />
-    <link rel="manifest" href="https://{{ cdn }}/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="manifest"
+      href="https://{{ cdn }}/site.webmanifest"
+    />
     <meta id="errorreason" value="{{ errormessage }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
   <body>
+    <script src="https://{{ cdn }}/qrcode.min.js"></script>
     <div id="notification" class="notification"></div>
-    <div class="form">
+    <form method="GET" action="" autocomplete="off" class="form">
       <div class="control">
         <center>
-          <h1 style="color: #00d4ff;">Your Link</h1>
+          <h1>Your link</h1>
         </center>
       </div>
-      <div class="control">
-        <center>
-          <p><a href="/{{ extension }}">{{ tld }}/{{ extension }}</a></p>
-          <h1>Link Stats</h1>
+      <div class="control block-cube block-input">
+        <input id="link" type="text" value="https://{{tld}}/{{extension}}" />
+        <div class="bg-top">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg-right">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg">
+          <div class="bg-inner"></div>
+        </div>
+      </div>
+      <button
+        id="copybtn"
+        type="button"
+        class="btn block-cube block-cube-hover"
+      >
+        <div class="bg-top">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg-right">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="bg">
+          <div class="bg-inner"></div>
+        </div>
+        <div class="text">Copy link</div>
+      </button>
+      <center>
+          <h1>Statistics</h1>
           <div class="stats-container">
-            <p>Latest:<a id="last-click">{{ last_click }}</a></p>
+            <p>Last clicked<a id="last-click">{{ last_click }}</a></p>
           </div>
           <div class="stats-container">
-            <p>Total:<a id="clicks">{{ clicks }}</a></p>
+            <p>Total clicks<a id="clicks">{{ clicks }}</a></p>
           </div>
           <br />
           <p>
@@ -64,6 +100,7 @@
     </div>
     <script src="https://{{ cdn }}/timeago.min.js"></script>
     <script src="https://{{ cdn }}/statpage.js"></script>
+    <script src="https://{{ cdn }}/copy.js"></script>
     <script src="https://{{ cdn }}/main.js"></script>
   </body>
 </html>
