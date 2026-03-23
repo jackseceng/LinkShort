@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <title>Link Statistics - cubelink</title>
-    <link
-      rel="stylesheet"
-      href="https://{{ cdn }}/style.css"
-    />
+    <link rel="stylesheet" href="https://{{ cdn }}/style.css" />
     <link
       rel="icon"
       type="image/png"
@@ -17,19 +14,13 @@
       type="image/svg+xml"
       href="https://{{ cdn }}/favicon.svg"
     />
-    <link
-      rel="shortcut icon"
-      href="https://{{ cdn }}/favicon.ico"
-    />
+    <link rel="shortcut icon" href="https://{{ cdn }}/favicon.ico" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
       href="https://{{ cdn }}/apple-touch-icon.png"
     />
-    <link
-      rel="manifest"
-      href="https://{{ cdn }}/site.webmanifest"
-    />
+    <link rel="manifest" href="https://{{ cdn }}/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta id="errorreason" value="{{ errormessage }}" />
   </head>
@@ -39,25 +30,25 @@
     <div class="form">
       <div class="control">
         <center>
-          <h1>Your Link</h1>
+          <h1 style="color: #00d4ff;">Your Link</h1>
         </center>
       </div>
       <div class="control">
         <center>
-        <p><a href="/{{ extension }}">{{ tld }}/{{ extension }}</a></p>
-        <center>
-            <h1>Statistics</h1>
-        </center>
-        <div class="stats-container">
-          <p>Latest:<a id="last-click">{{ last_click }}</a></p>
-          <p>Total:<a id="clicks">{{ clicks }}</a></p>
-        </div>
-        <br>
-        <p>
-          <a href="https://{{tld}}" target="_blank"
-            ><span class="text">Share another link&gt;</span></a
-          >
-        </p>
+          <p><a href="/{{ extension }}">{{ tld }}/{{ extension }}</a></p>
+          <h1>Link Stats</h1>
+          <div class="stats-container">
+            <p>Latest:<a id="last-click">{{ last_click }}</a></p>
+          </div>
+          <div class="stats-container">
+            <p>Total:<a id="clicks">{{ clicks }}</a></p>
+          </div>
+          <br />
+          <p>
+            <a href="https://{{tld}}" target="_blank"
+              ><span class="text">Share another link&gt;</span></a
+            >
+          </p>
         </center>
       </div>
       <div class="credits">
