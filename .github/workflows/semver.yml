@@ -21,6 +21,7 @@ jobs:
         with:
           token: ${{ github.token }}
           branch: main
+          fallbackTag: v0.0.0
 
       - name: Create Release
         uses: ncipollo/release-action@v1.20.0
