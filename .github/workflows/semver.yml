@@ -1,34 +1,21 @@
-name: Version
-
+# example 1: on push to master
+name: Bump version
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ "main" ]
+    branches:
+      - master
 
 jobs:
-  Release:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v5
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: '0'
 
-      - name: Get Next Version
-        id: semver
-        uses: ietf-tools/semver-action@v1
-        with:
-          token: ${{ github.token }}
-          branch: main
-          fallbackTag: v1.0.0
-
-      - name: Create Release
-        uses: ncipollo/release-action@v1.20.0
-        with:
-          allowUpdates: true
-          draft: false
-          makeLatest: true
-          name: ${{ steps.semver.outputs.next }}
-          body: Changelog Contents
-          token: ${{ github.token }}
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
