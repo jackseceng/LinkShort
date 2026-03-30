@@ -3,7 +3,7 @@ name: Bump version
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -19,3 +19,4 @@ jobs:
       uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+        INITIAL_VERSION: 0.0.1
