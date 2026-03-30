@@ -13,7 +13,7 @@ RUN set -e; \
     build-base=0.5-r3 \
     cmake=3.31.1-r0 \
     coreutils=9.5-r2; \
-    pip install --upgrade 'pip==26.0'; \
+    pip install --no-cache-dir --upgrade 'pip==26.0'; \
     pip install --no-cache-dir -r requirements.txt --target /packages;
 
 
