@@ -11,18 +11,13 @@ This is the Python code, web assets and Docker configuration for a link shorteni
 
 - Download the [DockerHub image](https://hub.docker.com/r/jackseceng/linkshort)
 
-I am using this repo to learn:
-- Docker & Web App Hosting
-- Python Web Development
-- DevSecOps Automation
-
 ## Testing locally
 
 Below are instructions for setting up the container locally on your machine for testing and development.
 
 ### Database
 
-First, [sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called `urls` in with the follwing SQL statement:
+[Sign up for a free Turso account](https://app.turso.tech/signup), and create database with a table called `urls` in with the follwing SQL statement:
 ```SQL
 CREATE TABLE
   urls (
@@ -33,31 +28,32 @@ CREATE TABLE
     LASTCLICK TEXT NOT NULL DEFAULT 'YYYY-MM-DDTHH:MM:SS.ffffff'
   );
 ```
+> [!TIP]
 > To avoid cluttering up your database while testing locally, it is recommended you create 2 databases: One for testing and one for production
 
 ### Captcha & Web Assets Storage
 
 First, [sign up for a free Cloudflare acccount](https://dash.cloudflare.com/sign-up)
 
-Then, setup a turnstile widget for your TLD and localhost domains.
-> More information available in [the Cloudflare Turnstile docs](https://developers.cloudflare.com/turnstile/)
+Then, setup a turnstile widget for your TLD and localhost domains, guides are available in [the Cloudflare Turnstile docs](https://developers.cloudflare.com/turnstile/)
 
-Next setup R2 storage, and link your TLD to the service for production.
+Next, setup R2 storage, and link your TLD to the service for production, guides are available in [the Cloudflare R2 docs](https://developers.cloudflare.com/r2/)
 
 Once you have the storage set up, upload your static Javascript and image assets to the route of your bucket, making sure their names match what the HTML files reference in their headers.
-> More information available in [the Cloudflare R2 docs](https://developers.cloudflare.com/r2/)
 
-If you change static web files files, either point your HTML to your locally hosted version, or upload your changed files to an R2 dev bucket manually using the AWS CLI docker containers sync command from the root of the repository:
-```txt
-docker run --rm -ti -v ~/.aws:/root/.aws -v ./app/static:/data amazon/aws-cli s3 sync /data s3://cubelink-web-assets --endpoint-url https://<your-r2-s3-endpoint>.eu.r2.cloudflarestorage.com
-```
-Or, if you are outside the EU:
-```txt
-docker run --rm -ti -v ~/.aws:/root/.aws -v ./app/static:/data amazon/aws-cli s3 sync /data s3://cubelink-web-assets --endpoint-url https://<your-r2-s3-endpoint>.r2.cloudflarestorage.com
-```
-### Setting up local environment
+> [!TIP]
+> If you want to change the static web files files, either point your HTML to your locally hosted version, or upload your changed files to an R2 dev bucket manually running this AWS CLI docker container sync command from the root of the repository:
+> ```txt
+> docker run --rm -ti -v ~/.aws:/root/.aws -v ./app/static:/data amazon/aws-cli s3 sync /data s3://cubelink-web-assets --endpoint-url https://<your-r2-s3-endpoint>.eu.r2.cloudflarestorage.com
+> ```
+> Or, if you are outside the EU:
+> ```txt
+> docker run --rm -ti -v ~/.aws:/root/.aws -v ./app/static:/data amazon/aws-cli s3 sync /data s3://cubelink-web-assets --endpoint-url https://<your-r2-s3-endpoint>.r2.cloudflarestorage.com
+> ```
 
-You will need to create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
+### Local Environment
+
+Create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
 ```txt
 ENDPOINT="<your-turso-url>"
 TOKEN="<your-turso-token>"
@@ -66,12 +62,12 @@ TLD=localhost
 CDN="<your-dev-r2-url>"
 ```
 
-**! WARNING !**
-
-The `docker-compose.yaml` and `.env` files must reference the same variable names where applicable, also make sure the variable names are not set elsewhere in your testing environment.
+> [!CAUTION]
+> The `docker-compose.yaml` and `.env` files must reference the same variable names where applicable, also make sure the variable names are not set elsewhere in your testing environment.
+> 
 > If you made separate testing and production databases, make sure to use the test database token and endpoint url in your `.env` file, and the production ones in your hosting environment variables.
 
-### Launch local instance
+### Launch Instance
 
 From the root directory of this repository, run:
 ```bash
