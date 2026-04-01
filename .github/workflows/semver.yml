@@ -23,10 +23,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
           INITIAL_VERSION: 0.0.2
-
-      - name: Create Release
-        uses: ghalactic/github-release-from-tag@30770b91acccc8e1e2f14562d813cb30af08f1c6 # v6.1.0
-        with:
-              discussionCategory: Releases
-              useReleaseActionMain: true
-              tag: ${{ github.ref_name }}
