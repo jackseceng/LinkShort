@@ -7,7 +7,7 @@ on:
 
 jobs:
   bump-and-release:
-    name: Bump and Release
+    name: Bump
     runs-on: ubuntu-22.04
     permissions:
       contents: write
