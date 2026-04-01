@@ -55,7 +55,7 @@ Once you have the storage set up, upload your static Javascript and image assets
 
 Create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions
 
-> [!TIP] 
+> [!TIP]
 > If you made separate testing and production databases and R2 buckets, make sure to set the TOKEN, ENDPOINT and CDN values to their endpoints in your `.env` file
 
 ```txt
