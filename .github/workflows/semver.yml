@@ -3,7 +3,7 @@ name: Version
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   bump:
@@ -12,12 +12,12 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: '0'
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: "0"
 
-    - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
-        INITIAL_VERSION: 0.0.2
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+          INITIAL_VERSION: 0.0.2
