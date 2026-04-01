@@ -10,7 +10,6 @@ jobs:
   publish:
     name: Publish
     runs-on: ubuntu-22.04
-    concurrency: release
     permissions:
       contents: write
       discussions: write
