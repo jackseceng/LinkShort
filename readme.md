@@ -53,7 +53,11 @@ Once you have the storage set up, upload your static Javascript and image assets
 
 ### Local Environment
 
-Create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions:
+Create a file in the `/app` directory called `.env`, with the following contents, setting the appropriate values with your own substitutions
+
+> [!TIP] 
+> If you made separate testing and production databases and R2 buckets, make sure to set the TOKEN, ENDPOINT and CDN values to their endpoints in your `.env` file
+
 ```txt
 ENDPOINT="<your-turso-url>"
 TOKEN="<your-turso-token>"
@@ -64,9 +68,6 @@ CDN="<your-dev-r2-url>"
 
 > [!CAUTION]
 > The `docker-compose.yaml` and `.env` files must reference the same variable names where applicable, also make sure the variable names are not set elsewhere in your testing environment.
-
-> [!TIP] 
-> If you made separate testing and production databases, make sure to use the test database token and endpoint url in your `.env` file, and the production ones in your hosting environment variables.
 
 ### Launch Instance
 
