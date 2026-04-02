@@ -116,6 +116,13 @@ def check_url_reputation(url_input):
         return False
 
 
+def validate_custom_extension(ext: str):
+    """Validate custom extension: alphanumeric only, 1-30 chars."""
+    if not ext or not (1 <= len(ext) <= 30):
+        return False
+    return ext.isalnum()
+
+
 def validate_turnstile(token, secret, remoteip=None):
     url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
 

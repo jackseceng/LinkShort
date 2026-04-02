@@ -70,22 +70,52 @@ def input_url():
                     )
                     return resp
 
-                linkpath = urls.generate_path()
-                hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
-                ciphertext, salt = urls.encrypt_url(user_input, linkpath)
+                custom_ext = bleach.clean(
+                    str(received_request.get("custom_extension", ""))
+                ).strip()
+                if custom_ext:
+                    if not urls.validate_custom_extension(custom_ext):
+                        error = "customext"
+                        resp = make_response(
+                            render_template(
+                                "index.html", errormessage=error, tld=tld, cdn=cdn
+                            )
+                        )
+                        return resp
+                    linkpath = custom_ext
+                    hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
+                    ciphertext, salt = urls.encrypt_url(user_input, linkpath)
+                    result, message = db.insert_link(hashsum, ciphertext, salt)
+                    if result is False:
+                        if message == "non-unique":
+                            error = "extclash"
+                        else:
+                            abort(HTTPStatus.INTERNAL_SERVER_ERROR)
+                        resp = make_response(
+                            render_template(
+                                "index.html", errormessage=error, tld=tld, cdn=cdn
+                            )
+                        )
+                        return resp
+                else:
+                    linkpath = urls.generate_path()
+                    hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
+                    ciphertext, salt = urls.encrypt_url(user_input, linkpath)
 
-                result, message = db.insert_link(hashsum, ciphertext, salt)
-                while result is False:
-                    if message == "non-unique":
-                        logging.info("Regenerating link path")
-                        # Non-unique hashsum, regenrate
-                        linkpath = urls.generate_path()
-                        hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
-                        result, message = db.insert_link(hashsum, ciphertext, salt)
+                    result, message = db.insert_link(hashsum, ciphertext, salt)
+                    while result is False:
+                        if message == "non-unique":
+                            logging.info("Regenerating link path")
+                            # Non-unique hashsum, regenrate
+                            linkpath = urls.generate_path()
+                            hashsum = hashlib.sha256(
+                                linkpath.encode("utf-8")
+                            ).hexdigest()
+                            result, message = db.insert_link(hashsum, ciphertext, salt)
 
-                    elif message is not None:
-                        # 500 error returned for database failure
-                        abort(HTTPStatus.INTERNAL_SERVER_ERROR)
+                        elif message is not None:
+                            # 500 error returned for database failure
+                            abort(HTTPStatus.INTERNAL_SERVER_ERROR)
 
                 # Return link page with URL if successful
                 resp = make_response(
