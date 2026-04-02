@@ -19,10 +19,12 @@ function toggleCustomExt() {
   document.getElementById("custom-ext-chevron").classList.toggle("open");
 }
 
-document.getElementById("custom-ext-toggle").addEventListener("click", function(e) {
-  e.preventDefault();
-  toggleCustomExt();
-});
+document
+  .getElementById("custom-ext-toggle")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    toggleCustomExt();
+  });
 
 function showNotification(message) {
   const notification = document.getElementById("notification");

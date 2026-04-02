@@ -70,12 +70,16 @@ def input_url():
                     )
                     return resp
 
-                custom_ext = bleach.clean(str(received_request.get("custom_extension", ""))).strip()
+                custom_ext = bleach.clean(
+                    str(received_request.get("custom_extension", ""))
+                ).strip()
                 if custom_ext:
                     if not urls.validate_custom_extension(custom_ext):
                         error = "customext"
                         resp = make_response(
-                            render_template("index.html", errormessage=error, tld=tld, cdn=cdn)
+                            render_template(
+                                "index.html", errormessage=error, tld=tld, cdn=cdn
+                            )
                         )
                         return resp
                     linkpath = custom_ext
@@ -88,7 +92,9 @@ def input_url():
                         else:
                             abort(HTTPStatus.INTERNAL_SERVER_ERROR)
                         resp = make_response(
-                            render_template("index.html", errormessage=error, tld=tld, cdn=cdn)
+                            render_template(
+                                "index.html", errormessage=error, tld=tld, cdn=cdn
+                            )
                         )
                         return resp
                 else:
@@ -102,7 +108,9 @@ def input_url():
                             logging.info("Regenerating link path")
                             # Non-unique hashsum, regenrate
                             linkpath = urls.generate_path()
-                            hashsum = hashlib.sha256(linkpath.encode("utf-8")).hexdigest()
+                            hashsum = hashlib.sha256(
+                                linkpath.encode("utf-8")
+                            ).hexdigest()
                             result, message = db.insert_link(hashsum, ciphertext, salt)
 
                         elif message is not None:
