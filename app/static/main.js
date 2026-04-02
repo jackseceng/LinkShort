@@ -8,7 +8,21 @@ if (errorValue === "whitespace") {
   showNotification("URL has a bad reputaion");
 } else if (errorValue == "captchafail") {
   showNotification("Captcha failed");
+} else if (errorValue == "customext") {
+  showNotification("Alphanumeric only | max 30 chars");
+} else if (errorValue == "extclash") {
+  showNotification("Extension is already taken");
 }
+
+function toggleCustomExt() {
+  document.getElementById("custom-ext-wrap").classList.toggle("open");
+  document.getElementById("custom-ext-chevron").classList.toggle("open");
+}
+
+document.getElementById("custom-ext-toggle").addEventListener("click", function(e) {
+  e.preventDefault();
+  toggleCustomExt();
+});
 
 function showNotification(message) {
   const notification = document.getElementById("notification");

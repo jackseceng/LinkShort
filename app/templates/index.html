@@ -60,6 +60,35 @@
           <div class="bg-inner"></div>
         </div>
       </div>
+      <a id="custom-ext-toggle" class="custom-ext-toggle" href="#">
+        <span>Custom URL (optional)</span>
+        <span id="custom-ext-chevron" class="custom-ext-chevron">&#9660;</span>
+      </a>
+      <div id="custom-ext-wrap" class="custom-ext-wrap">
+        <div class="control block-cube block-input">
+          <div class="custom-ext-inner">
+            <span class="custom-ext-tld">{{ tld }}/</span>
+            <input
+              name="custom_extension"
+              id="custom_extension"
+              placeholder="mylink"
+              type="text"
+              maxlength="30"
+              pattern="[A-Za-z0-9]*"
+              autocomplete="off"
+            />
+          </div>
+          <div class="bg-top">
+            <div class="bg-inner"></div>
+          </div>
+          <div class="bg-right">
+            <div class="bg-inner"></div>
+          </div>
+          <div class="bg">
+            <div class="bg-inner"></div>
+          </div>
+        </div>
+      </div>
       <center>
       <div
         class="cf-turnstile"

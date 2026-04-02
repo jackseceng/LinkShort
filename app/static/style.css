@@ -176,6 +176,61 @@ h1 {
   background: rgb(255 255 255 / 80%);
 }
 
+.custom-ext-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin: -12px 0 16px;
+  user-select: none;
+  opacity: 0.6;
+}
+
+.custom-ext-chevron {
+  display: inline-block;
+  transition: transform 0.3s ease-in-out;
+  font-size: 0.65rem;
+}
+
+.custom-ext-chevron.open {
+  transform: rotate(180deg);
+}
+
+.custom-ext-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  margin-bottom: 0;
+}
+
+.custom-ext-wrap.open {
+  max-height: 120px;
+  opacity: 1;
+  margin-bottom: 24px;
+}
+
+.custom-ext-inner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  padding: 0 16px;
+}
+
+.custom-ext-tld {
+  color: rgb(255 255 255 / 60%);
+  font-size: 1rem;
+  white-space: nowrap;
+  font-family: monospace, serif;
+  letter-spacing: 0.05em;
+}
+
+.custom-ext-inner input {
+  padding: 14px 0 14px 4px;
+}
+
 .credits {
   position: fixed;
   left: 0;
