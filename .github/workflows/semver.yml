@@ -19,7 +19,7 @@ jobs:
           fetch-depth: "0"
 
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@4ed44965e0db8dab2b466a16da04aec3cc312fd8 # v1.27.0
+        uses: anothrNick/github-tag-action@4ed44965e0db8dab2b466a16da04aec3cc312fd8 # 1.75.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
           INITIAL_VERSION: 0.0.2
