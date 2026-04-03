@@ -15,16 +15,10 @@ Follow the instructions in the `readme` to test locally on your machine, please 
 
 ## Making PRs
 
-Vulnerabilities of medium criticality or higher must be fixed or justified in your PR. The repo uses these tools:
-- [CodeQL](https://codeql.github.com/)
-- [Semgrep](https://semgrep.dev/products/semgrep-code/)
-- [Snyk](https://docs.snyk.io/scan-using-snyk/working-with-snyk-in-your-environment/running-scans#run-tests-manually)
-- [Grype](https://github.com/anchore/grype/?tab=readme-ov-file#getting-started)
-- [Scout](https://docs.docker.com/scout/quickstart/)
-- [Trivy](https://trivy.dev/latest/docs/target/container_image/)
+When raising a pull request to this repository, there are several checks via tooling that must pass for code quality, security and standardisation reasons.
+- Details about this tooling is maintian on [the tooling section of the pipeline automation wiki page](https://github.com/jackseceng/LinkShort/wiki/Pipeline-Automation#tooling)
 
-Your commits must use the [Conventional Commits format](https://www.conventionalcommits.org/en/v1.0.0/)
-- It is recommended that you write your commits with [commitizen](https://commitizen-tools.github.io/commitizen/)
+If all checks pass (or are justified as to why they don't to a `CODEOWNER`), The PR must be merged to the main branch for deployment of static assets and/or the container image.
 
 ## Support Expectations
 
