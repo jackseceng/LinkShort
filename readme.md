@@ -90,44 +90,4 @@ To shut down the service, run this command:
 docker compose down
 ```
 
-## Features
-
-- [x] Shortens URLs with unique extensions
-- [x] Encrypts stored URLs along with random with salts
-- [x] Extensions are stored as hashsums in the DB
-- [x] Sanitisation of input from user for both URLs and extensions on requests
-- [x] Checks on user shared URLs, to ensure they begin with HTTPS
-- [x] Uses minimal scratch image for runtime security
-- [x] Checks submitted URLs against spam lists, rejects known spam domains
-- [x] Generates QR codes for users to download and share
-- [x] A frontend with reactive CSS & HTML
-- [x] 400 and 500 HTTP error handling with pages
-- [x] Captcha on main page: Uses [Cloudflare Turnstile](https://www.cloudflare.com/en-gb/application-services/products/turnstile/)
-- [x] Static content served through CDN: Served via [Cloudflare R2](https://www.cloudflare.com/en-gb/developer-platform/products/r2/)
-- [x] Demonstration application set up: Hosted on [cloud.run](https://cloud.run)
-- [x] Custom URLs users enter in the main form
-- [x] Statistics page for URLs to see how many clicks links have got (go to `tld/url/stats` to see them)
-
-## DevSecOps
-
-Code Linting:
-- [x] [Super Linter](https://github.com/super-linter/super-linter)
-
-Static & Software Composition Analysis:
-- [x] [CodeQL](https://codeql.github.com/)
-- [x] [Snyk](https://snyk.io)
-- [x] [semgrep](https://semgrep.dev/products/semgrep-code/)
-
-Container Image Scanning:
-- [x] [Grype](https://github.com/anchore/grype/)
-- [x] [Docker Scout](https://docs.docker.com/scout/)
-- [x] [Trivy](https://trivy.dev/latest/docs/target/container_image/)
-
-Automated Dependency Upgrades:
-- [x] [Renovate](https://www.mend.io/free-developer-tools/renovate/)
-- [x] [Dependabot](https://github.com/dependabot)
-
-Commit Standardisation:
-- [x] [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
-
 ## Developed by [Jack](https://jacksec.engineer)
