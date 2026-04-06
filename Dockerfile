@@ -14,7 +14,7 @@ RUN set -e; \
     build-base=0.5-r3 \
     cmake=3.31.7-r1 \
     coreutils=9.7-r1 \
-    libffi-dev; \
+    libffi-dev=3.4.8-r0; \
     pip install --no-cache-dir --upgrade 'pip==26.0'; \
     pip install --no-cache-dir -r requirements.txt --target /packages;
 
