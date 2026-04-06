@@ -23,7 +23,7 @@ RUN set -e; \
     tar -xzf Python-3.15.0a6.tgz; \
     cd Python-3.15.0a6; \
     ./configure --prefix=/usr/local --enable-shared --with-ensurepip=install; \
-    make -j$(nproc); \
+    make -j"$(nproc)"; \
     make install; \
     ln -s /usr/local/bin/python3.15 /usr/local/bin/python; \
     cd ..; \
