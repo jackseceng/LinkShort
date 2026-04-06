@@ -19,7 +19,7 @@ RUN set -e; \
     bzip2-dev=1.0.8-r6 \
     xz-dev=5.8.1-r0 \
     wget=1.25.0-r1; \
-    wget https://www.python.org/ftp/python/3.15.0/Python-3.15.0a6.tgz; \
+    wget --progress=dot:giga https://www.python.org/ftp/python/3.15.0/Python-3.15.0a6.tgz; \
     tar -xzf Python-3.15.0a6.tgz; \
     cd Python-3.15.0a6; \
     ./configure --prefix=/usr/local --enable-shared --with-ensurepip=install; \
