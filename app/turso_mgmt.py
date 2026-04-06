@@ -50,7 +50,7 @@ def get_link(hashsum: str):
 
 def insert_link(hashsum: str, url: bytes, salt: bytes):
     """Insert an entry under the specified path, return bool outcome"""
-    unique_error = "UNIQUE constraint failed: urls.hashsum"
+    unique_error = "UNIQUE constraint failed: urls.HASHSUM"
     conn = _create_connection()
     try:
         # Insert entry
