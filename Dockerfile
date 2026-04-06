@@ -1,5 +1,6 @@
 # Stage 1: Build stage environment using alpine python Image
-FROM python:3.14.1-alpine3.21 AS build-env
+FROM python:3.13-alpine3.22 AS build-env 
+# 3.15.0a7-alpine3.22
 
 # Set build directory
 WORKDIR /build
@@ -11,8 +12,9 @@ COPY . .
 RUN set -e; \
     apk add --no-cache \
     build-base=0.5-r3 \
-    cmake=3.31.1-r0 \
-    coreutils=9.5-r2; \
+    cmake=3.31.7-r1 \
+    coreutils=9.7-r1 \
+    libffi-dev=3.4.8-r0; \
     pip install --no-cache-dir --upgrade 'pip==26.0'; \
     pip install --no-cache-dir -r requirements.txt --target /packages;
 
@@ -23,8 +25,8 @@ FROM scratch
 # Copy necessary system libraries and interpreter from build-env
 COPY --from=build-env /lib/ld-musl-x86_64.so.1 /lib/ld-musl-x86_64.so.1
 COPY --from=build-env /lib/libc.musl-x86_64.so.1 /lib/libc.musl-x86_64.so.1
-COPY --from=build-env /usr/local/lib/libpython3.14.so.1.0 /usr/local/lib/libpython3.14.so.1.0
-COPY --from=build-env /usr/local/lib/python3.14 /usr/local/lib/python3.14
+COPY --from=build-env /usr/local/lib/libpython3.13.so.1.0 /usr/local/lib/libpython3.13.so.1.0
+COPY --from=build-env /usr/local/lib/python3.13 /usr/local/lib/python3.13
 COPY --from=build-env /usr/lib/libssl.so.3 /usr/lib/libssl.so.3
 COPY --from=build-env /usr/lib/libcrypto.so.3 /usr/lib/libcrypto.so.3
 COPY --from=build-env /usr/lib/libz.so.1 /usr/lib/libz.so.1
