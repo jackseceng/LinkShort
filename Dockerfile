@@ -7,7 +7,7 @@ WORKDIR /build
 # Copy application files
 COPY . .
 
-# Build Python 3.15.0a6 from source
+# Build Python 3.15.0a6 and apk dependencies from source
 RUN set -e; \
     apk add --no-cache \
     build-base=0.5-r3 \
@@ -21,13 +21,10 @@ RUN set -e; \
     wget=1.25.0-r1; \
     wget --progress=dot:giga https://www.python.org/ftp/python/3.15.0/Python-3.15.0a6.tgz; \
     tar -xzf Python-3.15.0a6.tgz; \
-    cd Python-3.15.0a6; \
-    ./configure --prefix=/usr/local --enable-shared --with-ensurepip=install; \
+    ./Python-3.15.0a6/configure --prefix=/usr/local --enable-shared --with-ensurepip=install; \
     make -j"$(nproc)"; \
     make install; \
-    ln -s /usr/local/bin/python3.15 /usr/local/bin/python; \
-    cd ..; \
-    rm -rf Python-3.15.0a6 Python-3.15.0a6.tgz
+    ln -s /usr/local/bin/python3.15 /usr/local/bin/python;
 
 # Install python dependencies into a target directory
 RUN set -e; \
