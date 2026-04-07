@@ -11,14 +11,14 @@ COPY . .
 RUN set -e; \
     apk add --no-cache \
     build-base=0.5-r3 \
-    cmake=3.31.7-r1 \
-    coreutils=9.7-r1 \
-    libffi-dev=3.4.8-r0 \
+    cmake=4.1.3-r0 \
+    coreutils=9.8-r1 \
+    libffi-dev=3.5.2-r0 \
     openssl-dev=3.5.5-r0 \
-    zlib-dev=1.3.1-r2 \
+    zlib-dev=1.3.2-r0 \
     bzip2-dev=1.0.8-r6 \
-    xz-dev=5.8.1-r0 \
-    wget=1.25.0-r1; \
+    xz-dev=5.8.2-r0 \
+    wget=1.25.0-r2; \
     wget --progress=dot:giga https://www.python.org/ftp/python/3.15.0/Python-3.15.0a6.tgz; \
     tar -xzf Python-3.15.0a6.tgz; \
     ./Python-3.15.0a6/configure --prefix=/usr/local --enable-shared --with-ensurepip=install; \
