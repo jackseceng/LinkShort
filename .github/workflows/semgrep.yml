@@ -10,10 +10,12 @@ on:
 
 jobs:
   semgrep:
-    name: Analyze
+    name: Analyze (semgrep)
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     env:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
     container:
@@ -21,7 +23,7 @@ jobs:
     if: (github.actor != 'dependabot[bot]')
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - run: semgrep ci
+      - run: semgrep ci --sarif --output semgrep.sarif
 
       # Upload SARIF file generated in previous step
       - name: Upload SARIF file
