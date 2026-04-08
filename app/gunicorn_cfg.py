@@ -34,5 +34,6 @@ if __name__ == "__main__":
     options = {
         "bind": "%s:%s" % ("0.0.0.0", "8080"),
         "workers": number_of_workers(),
+        "worker_tmp_dir": "/tmp",
     }
     StandaloneApplication(application, options).run()
