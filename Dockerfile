@@ -29,7 +29,8 @@ RUN set -e; \
 # Install python dependencies into a target directory
 RUN set -e; \
     pip3.15 install --no-cache-dir --upgrade 'pip==26.0'; \
-    PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 pip3.15 install --no-cache-dir -r requirements.txt --target /packages;
+    PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 pip3.15 install --no-cache-dir -r requirements.txt --target /packages; \
+    mkdir -p /tmp && chmod 1777 /tmp && chown 1001:1001 /tmp;
 
 
 # Stage 2: Runtime Stage using scratch Image
@@ -58,11 +59,16 @@ COPY --from=build-env /packages /packages
 # Copy application code
 COPY --from=build-env /build/app /app
 
+# Copy tmp directory (required for Python/gunicorn)
+COPY --from=build-env /tmp /tmp
+
 # Set required environment variables for Python
 ENV PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH=/packages \
-    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    TMPDIR=/tmp \
+    HOME=/tmp
 
 # Set runtime directory
 WORKDIR /app
@@ -73,6 +79,9 @@ EXPOSE 80
 # Set up container healthcheck 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
     CMD ["/usr/local/bin/python", "healthcheck/healthcheck.py"]
+
+# Switch to non-privileged user
+USER 1001:1001
 
 # Define the command to run the application
 CMD ["/usr/local/bin/python", "gunicorn_cfg.py"]
