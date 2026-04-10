@@ -14,7 +14,7 @@ RUN set -e; \
     cmake=4.1.3-r0 \
     coreutils=9.8-r1 \
     libffi-dev=3.5.2-r0 \
-    openssl-dev=3.5.5-r0 \
+    openssl-dev=3.5.6-r0 \
     zlib-dev=1.3.2-r0 \
     bzip2-dev=1.0.8-r6 \
     xz-dev=5.8.2-r0 \
