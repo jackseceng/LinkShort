@@ -141,6 +141,6 @@ for f in app/static/*; do echo "$(basename $f): sha384-$(openssl dgst -sha384 -b
 ```
 
 > [!IMPORTANT]
-> If you upload modified static files to your dev R2 bucket without updating the `integrity` attributes in the HTML templates, the browser will block those resources from loading. After updating the `integrity` attributes in the templates, you must rebuild the container with `docker compose up -d --build` for the changes to take effect.
+> If you upload modified static files to your dev R2 bucket without updating the `integrity` attributes in the HTML templates, the browser will block those resources from loading. After updating the `integrity` attributes in the templates, you must rebuild the container with `docker compose up -d --build` for the changes to take effect. In production, you must also purge the Cloudflare cache for any updated files, otherwise the CDN will continue serving the old version. This can be done in the Cloudflare dashboard under Caching > Configuration > Custom Purge, entering the full URL of each updated file.
 
 ## Developed by [Jack](https://jacksec.engineer)
