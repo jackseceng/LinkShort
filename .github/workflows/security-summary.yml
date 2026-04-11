@@ -1,0 +1,80 @@
+---
+name: Security Summary
+
+on:
+  workflow_run:
+    workflows: ["Container", "Code"]
+    types: [completed]
+    branches-ignore: ["main"]
+
+jobs:
+  comment:
+    if: github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: read
+      pull-requests: write
+      actions: read
+
+    steps:
+      - name: Get PR number
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          REPO: ${{ github.repository }}
+        run: |
+          pr=$(gh api repos/$REPO/actions/runs/$RUN_ID/pull_requests --jq '.[0].number')
+          echo "number=$pr" >> "$GITHUB_OUTPUT"
+          ref=$(gh api repos/$REPO/actions/runs/$RUN_ID/pull_requests --jq '.[0].head.ref')
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch findings and post comment
+        if: steps.pr.outputs.number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ steps.pr.outputs.number }}
+          REF: ${{ steps.pr.outputs.ref }}
+        run: |
+          declare -A tool_counts
+          tools=("Grype" "Trivy" "docker-scout" "Semgrep" "CodeQL")
+          labels=("Grype" "Trivy" "Scout" "Semgrep" "CodeQL")
+
+          page=1
+          while true; do
+            batch=$(gh api "repos/$REPO/code-scanning/alerts?ref=$REF&state=open&per_page=100&page=$page" 2>/dev/null || echo "[]")
+            count=$(echo "$batch" | jq 'length')
+            [[ "$count" -eq 0 ]] && break
+            for tool in "${tools[@]}"; do
+              n=$(echo "$batch" | jq --arg t "$tool" '[.[] | select(.tool.name | ascii_downcase | contains($t | ascii_downcase))] | length')
+              tool_counts[$tool]=$(( ${tool_counts[$tool]:-0} + n ))
+            done
+            [[ "$count" -lt 100 ]] && break
+            (( page++ ))
+          done
+
+          total=0
+          rows=""
+          for i in "${!tools[@]}"; do
+            tool="${tools[$i]}"
+            label="${labels[$i]}"
+            c=${tool_counts[$tool]:-0}
+            total=$(( total + c ))
+            rows+="| $label | $c |"$'\n'
+          done
+
+          body="## 🔒 Security Findings Summary
+
+          | Tool | Open Findings |
+          |------|--------------|
+          ${rows}| **Total** | **$total** |
+
+          > Findings filtered to this PR's branch. View details in the [Security tab](https://github.com/$REPO/security/code-scanning?q=is%3Aopen+pr%3A$PR)."
+
+          # Delete previous summary comment if exists
+          existing=$(gh api "repos/$REPO/issues/$PR/comments" \
+            --jq '.[] | select(.body | startswith("## 🔒 Security Findings Summary")) | .id' | head -1)
+          [[ -n "$existing" ]] && gh api -X DELETE "repos/$REPO/issues/comments/$existing"
+
+          gh pr comment "$PR" --repo "$REPO" --body "$body"
