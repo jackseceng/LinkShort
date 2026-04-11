@@ -2,39 +2,50 @@
 name: Security Summary
 
 on:
-  workflow_run:
-    workflows: ["Container", "Code"]
-    types: [completed]
+  pull_request:
+    branches: ["main"]
+    types: [opened, synchronize, reopened]
 
 jobs:
   comment:
-    if: github.event.workflow_run.event == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       security-events: read
       pull-requests: write
       actions: read
+      checks: read
 
     steps:
-      - name: Get PR number
-        id: pr
+      - name: Wait for security checks
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RUN_ID: ${{ github.event.workflow_run.id }}
           REPO: ${{ github.repository }}
+          SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          pr=$(gh api repos/$REPO/actions/runs/$RUN_ID/pull_requests --jq '.[0].number')
-          echo "number=$pr" >> "$GITHUB_OUTPUT"
-          ref=$(gh api repos/$REPO/actions/runs/$RUN_ID/pull_requests --jq '.[0].head.ref')
-          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+          checks=("Container" "Code")
+          timeout=1800
+          elapsed=0
+          while true; do
+            all_done=true
+            for check in "${checks[@]}"; do
+              statuses=$(gh api "repos/$REPO/commits/$SHA/check-runs" \
+                --jq "[.check_runs[] | select(.name | startswith(\"$check\") or contains(\"$check\"))] | map(.status) | unique | .[]" 2>/dev/null)
+              for s in $statuses; do
+                [[ "$s" != "completed" ]] && all_done=false && break 2
+              done
+            done
+            $all_done && break
+            [[ $elapsed -ge $timeout ]] && echo "Timed out waiting for checks" && exit 1
+            sleep 30
+            elapsed=$(( elapsed + 30 ))
+          done
 
       - name: Fetch findings and post comment
-        if: steps.pr.outputs.number != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          PR: ${{ steps.pr.outputs.number }}
-          REF: ${{ steps.pr.outputs.ref }}
+          PR: ${{ github.event.pull_request.number }}
+          REF: ${{ github.event.pull_request.head.ref }}
         run: |
           declare -A tool_counts
           tools=("Grype" "Trivy" "docker-scout" "Semgrep" "CodeQL")
@@ -65,13 +76,12 @@ jobs:
 
           body="## 🔒 Security Findings Summary
 
-          | Tool | Open Findings |
-          |------|--------------|
-          ${rows}| **Total** | **$total** |
+| Tool | Open Findings |
+|------|--------------|
+${rows}| **Total** | **$total** |
 
-          > Findings filtered to this PR's branch. View details in the [Security tab](https://github.com/$REPO/security/code-scanning?q=is%3Aopen+pr%3A$PR)."
+> View details in the [Security tab](https://github.com/$REPO/security/code-scanning?q=is%3Aopen+pr%3A$PR)."
 
-          # Delete previous summary comment if exists
           existing=$(gh api "repos/$REPO/issues/$PR/comments" \
             --jq '.[] | select(.body | startswith("## 🔒 Security Findings Summary")) | .id' | head -1)
           [[ -n "$existing" ]] && gh api -X DELETE "repos/$REPO/issues/comments/$existing"
