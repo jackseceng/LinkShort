@@ -68,6 +68,8 @@ For your production bucket, use your chosen TLD:
 > [!IMPORTANT]
 > Without this CORS policy, the browser will block all static assets from loading, even if the request returns a 200 status code.
 
+<!-- -->
+
 > [!TIP]
 > If you want to change the static web files files, either point your HTML to your locally hosted version, or upload your changed files to an R2 dev bucket manually running this AWS CLI docker container sync command from the root of the repository:
 > ```txt
