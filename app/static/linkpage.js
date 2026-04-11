@@ -27,7 +27,7 @@ function saveQRCode() {
 
   // Trigger the download
   showNotification("Downloading QR Code");
-  console.log("Triggering download of QR code");
+  console.log("Downloading QR Code");
   document.body.appendChild(downloadLink);
   downloadLink.click();
   document.body.removeChild(downloadLink);

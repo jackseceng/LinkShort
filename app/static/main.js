@@ -19,12 +19,13 @@ function toggleCustomExt() {
   document.getElementById("custom-ext-chevron").classList.toggle("open");
 }
 
-document
-  .getElementById("custom-ext-toggle")
-  .addEventListener("click", function (e) {
+const customExtToggle = document.getElementById("custom-ext-toggle");
+if (customExtToggle) {
+  customExtToggle.addEventListener("click", function (e) {
     e.preventDefault();
     toggleCustomExt();
   });
+}
 
 function showNotification(message) {
   const notification = document.getElementById("notification");
