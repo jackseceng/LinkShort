@@ -22,7 +22,6 @@ permissions:
   checks: read
   pull-requests: read
   statuses: read
-  id-token: read
 
 jobs:
   code:
