@@ -50,10 +50,17 @@ jobs:
             rows+="| $label | $c |"$'\n'
           done
 
+          echo "=== Security Findings ==="
+          for i in "${!tools[@]}"; do
+            echo "${labels[$i]}: ${tool_counts[${tools[$i]}]:-0}"
+          done
+          echo "Total: $total"
+          echo "========================="
+
           header="## 🔒 Security Findings Summary"
           sep=$'\n'
           table="| Tool | Open Findings |${sep}|------|--------------|${sep}${rows}| **Total** | **$total** |"
-          footer="> View details in the [Security tab](https://github.com/$REPO/security/code-scanning?q=is%3Aopen+pr%3A$PR)."
+          footer="> View details in the [Security tab](https://github.com/jackseceng/LinkShort/security/code-scanning?query=is%3Aopen+pr%3A$PR+)."
           body="${header}${sep}${sep}${table}${sep}${sep}${footer}"
 
           existing=$(gh api "repos/$REPO/issues/$PR/comments" \
