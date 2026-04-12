@@ -58,7 +58,7 @@ jobs:
           table="| Tool | Open Findings |${sep}|------|--------------|${sep}${rows}| **Total** | **$total** |"
           findings_table="| File | Tool | Severity | Description |${sep}|------|------|----------|-------------|${sep}${details}"
           dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
-          footer="> View details in the [Security tab](https://github.com/jackseceng/LinkShort/security/code-scanning?query=is%3Aopen+pr%3A$PR+)."
+          footer="> Any findings must be fixed or justified, see [repository PR guidance](https://github.com/jackseceng/LinkShort?tab=contributing-ov-file#making-prs") for details."
           body="${header}${sep}${sep}${table}${sep}${sep}${dropdown}${sep}${sep}${footer}"
 
           existing=$(gh api "repos/$REPO/issues/$PR/comments" \
@@ -68,4 +68,4 @@ jobs:
           echo "$body" > /tmp/comment-body.md
           gh pr comment "$PR" --repo "$REPO" --body-file /tmp/comment-body.md
 
-          [[ "$total" -gt 0 ]] && echo "::error::$total open security finding(s) found. All findings must be fixed or justified before this PR can be merged. See https://github.com/jackseceng/LinkShort?tab=contributing-ov-file#making-prs" && exit 1
+          [[ "$total" -gt 0 ]] && echo "::error::$total open security finding(s) found. Any findings must be fixed or justified, see repository PR guidance for details https://github.com/jackseceng/LinkShort?tab=contributing-ov-file#making-prs" && exit 1
