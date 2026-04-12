@@ -1,0 +1,27 @@
+---
+name: PR Checks
+
+on:
+  pull_request:
+    branches: ["main"]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  code:
+    uses: ./.github/workflows/codeql.yml
+
+  semgrep:
+    uses: ./.github/workflows/semgrep.yml
+    secrets: inherit
+
+  container:
+    uses: ./.github/workflows/container.yml
+    secrets: inherit
+
+  commits:
+    uses: ./.github/workflows/conventional-commits.yml
+    secrets: inherit
+
+  lint:
+    uses: ./.github/workflows/lint.yml
+    secrets: inherit

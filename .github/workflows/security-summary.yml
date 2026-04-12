@@ -3,7 +3,7 @@ name: Security Summary
 
 on:
   workflow_run:
-    workflows: ["Code", "Container"]
+    workflows: ["PR Checks"]
     types: [completed]
 
 jobs:
