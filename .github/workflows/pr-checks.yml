@@ -15,6 +15,7 @@ permissions:
   attestations: read
   deployments: read
   discussions: read
+  id-token: read
   issues: read
   models: read
   pages: read
