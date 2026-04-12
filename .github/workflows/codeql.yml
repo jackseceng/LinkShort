@@ -9,23 +9,17 @@ on:
   workflow_call:
 
 permissions:
-  security-events: write
-  packages: read
-  actions: read
-  contents: read
-  artifact-metadata: read
-  attestations: read
-  deployments: read
-  discussions: read
-  issues: read
-  models: read
-  pages: read
-  repository-projects: read
+  read-all
 
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-24.04' }}
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
 
     strategy:
       fail-fast: false

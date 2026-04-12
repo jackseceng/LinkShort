@@ -7,14 +7,18 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
-  contents: read
-  actions: read
-  checks: read
-  packages: write
   security-events: write
-  pull-requests: write
-  statuses: write
-  id-token: write
+  packages: read
+  actions: read
+  contents: read
+  artifact-metadata: read
+  attestations: read
+  deployments: read
+  discussions: read
+  issues: read
+  models: read
+  pages: read
+  repository-projects: read
 
 jobs:
   code:
