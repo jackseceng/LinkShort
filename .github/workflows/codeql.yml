@@ -20,6 +20,14 @@ jobs:
       packages: read
       actions: read
       contents: read
+      artifact-metadata: read
+      attestations: read
+      deployments: read
+      discussions: read
+      issues: read
+      models: read
+      pages: read
+      repository-projects: read
 
     strategy:
       fail-fast: false
