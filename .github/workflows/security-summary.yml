@@ -29,7 +29,7 @@ jobs:
 
           page=1
           while true; do
-            batch=$(gh api "repos/$REPO/code-scanning/alerts?ref=$REF&state=open&per_page=100&page=$page" 2>/dev/null || echo "[]")
+            batch=$(gh api "repos/$REPO/code-scanning/alerts?ref=refs/heads/$REF&state=open&per_page=100&page=$page" 2>/dev/null || echo "[]")
             count=$(echo "$batch" | jq 'length')
             [[ "$count" -eq 0 ]] && break
             for tool in "${tools[@]}"; do
