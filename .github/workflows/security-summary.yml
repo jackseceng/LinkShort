@@ -31,6 +31,11 @@ jobs:
           gh api "repos/$REPO/code-scanning/alerts?state=open&per_page=10" 2>/dev/null | jq '[.[] | {tool: .tool.name, ref: .most_recent_instance.ref, state: .state}]'
           echo "==================================="
 
+          echo "=== Querying ref: refs/heads/$REF ==="
+          echo "=== Full first page response ==="
+          gh api "repos/$REPO/code-scanning/alerts?ref=refs/heads/$REF&state=open&per_page=100&page=1" 2>&1 | jq '.'
+          echo "================================"
+
           page=1
           while true; do
             batch=$(gh api "repos/$REPO/code-scanning/alerts?ref=refs/heads/$REF&state=open&per_page=100&page=$page" 2>/dev/null || echo "[]")
