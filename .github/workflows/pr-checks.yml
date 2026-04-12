@@ -6,6 +6,16 @@ on:
     branches: ["main"]
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+  actions: read
+  checks: read
+  packages: write
+  security-events: write
+  pull-requests: write
+  statuses: write
+  id-token: write
+
 jobs:
   code:
     uses: ./.github/workflows/codeql.yml
