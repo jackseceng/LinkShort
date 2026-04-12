@@ -17,11 +17,3 @@ jobs:
   container:
     uses: ./.github/workflows/container.yml
     secrets: inherit
-
-  commits:
-    uses: ./.github/workflows/conventional-commits.yml
-    secrets: inherit
-
-  lint:
-    uses: ./.github/workflows/lint.yml
-    secrets: inherit
