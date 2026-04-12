@@ -58,7 +58,7 @@ jobs:
           table="| Tool | Open Findings |${sep}|------|--------------|${sep}${rows}| **Total** | **$total** |"
           findings_table="| File | Tool | Severity | Description |${sep}|------|------|----------|-------------|${sep}${details}"
           dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
-          footer="> Any findings must be fixed or justified, see [repository PR guidance](https://github.com/jackseceng/LinkShort?tab=contributing-ov-file#making-prs") for details."
+          footer="> Any findings must be fixed or justified, see [repository PR guidance](https://github.com/jackseceng/LinkShort?tab=contributing-ov-file#making-prs) for details."
           body="${header}${sep}${sep}${table}${sep}${sep}${dropdown}${sep}${sep}${footer}"
 
           existing=$(gh api "repos/$REPO/issues/$PR/comments" \
