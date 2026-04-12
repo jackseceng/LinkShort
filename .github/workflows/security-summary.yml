@@ -63,9 +63,16 @@ jobs:
             done
           done < <(echo "$all_alerts" | jq -r '.[] | (.rule.security_severity_level // .rule.severity)')
 
+          case "$highest" in
+            critical) alert_type="CAUTION" ;;
+            high|error) alert_type="WARNING" ;;
+            medium) alert_type="IMPORTANT" ;;
+            *) alert_type="NOTE" ;;
+          esac
+
           sep=$'\n'
           header="## 🔒 Security Findings Summary"
-          summary="**Total findings:** $total | **Highest severity:** $highest"
+          summary="> [!${alert_type}]${sep}> **Total findings:** $total | **Highest severity:** $highest"
           findings_table="| File | CVE / Rule | Description | Severity | Tool |${sep}|------|-----------|-------------|----------|------|${sep}${details}"
           dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
           dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
