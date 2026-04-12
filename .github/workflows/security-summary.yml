@@ -24,7 +24,6 @@ jobs:
         run: |
           declare -A tool_counts
           tools=("Grype" "Trivy" "Docker Scout" "Semgrep PRO" "CodeQL")
-          labels=("Grype" "Trivy" "Scout" "Semgrep" "CodeQL")
 
           all_alerts="[]"
           page=1
@@ -42,24 +41,36 @@ jobs:
           done
 
           total=0
-          rows=""
           for i in "${!tools[@]}"; do
             tool="${tools[$i]}"
-            label="${labels[$i]}"
             c=${tool_counts[$tool]:-0}
             total=$(( total + c ))
-            rows+="| $label | $c |"$'\n'
           done
 
-          details=$(echo "$all_alerts" | jq -r '.[] | "| [\(.rule.id)](\(.html_url)) | \(.tool.name) | \(.rule.security_severity_level) | \(.rule.description) |"')
+          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path | ltrimstr("linkshort/") | gsub("//"; "/")):\(.most_recent_instance.location.start_line) | [\(.rule.id)](\(.html_url)) | \(.rule.description) | \(.rule.security_severity_level // .rule.severity) | \(.tool.name) |"' | grep -v '^$')
+
+          severity_order=("critical" "high" "error" "medium" "warning" "low" "note")
+          highest="none"
+          while IFS= read -r sev; do
+            for s in "${severity_order[@]}"; do
+              if [[ "${sev,,}" == "$s" ]]; then
+                for ranked in "${severity_order[@]}"; do
+                  [[ "$ranked" == "$highest" ]] && break
+                  [[ "$ranked" == "$s" ]] && highest="$s" && break
+                done
+                break
+              fi
+            done
+          done < <(echo "$all_alerts" | jq -r '.[] | (.rule.security_severity_level // .rule.severity)')
 
           sep=$'\n'
           header="## 🔒 Security Findings Summary"
-          table="| Tool | Open Findings |${sep}|------|--------------|${sep}${rows}| **Total** | **$total** |"
-          findings_table="| CVE / Rule | Tool | Severity | Description |${sep}|-----------|------|----------|-------------|${sep}${details}"
+          summary="**Total findings:** $total | **Highest severity:** $highest"
+          findings_table="| File | CVE / Rule | Description | Severity | Tool |${sep}|------|-----------|-------------|----------|------|${sep}${details}"
+          dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
           dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
           footer="> Any findings must be fixed or justified, see [repository PR guidance](https://github.com/jackseceng/LinkShort?tab=contributing-ov-file#making-prs) for details."
-          body="${header}${sep}${sep}${table}${sep}${sep}${dropdown}${sep}${sep}${footer}"
+          body="${header}${sep}${sep}${summary}${sep}${sep}${dropdown}${sep}${sep}${footer}"
 
           existing=$(gh api "repos/$REPO/issues/$PR/comments" \
             --jq '.[] | select(.body | startswith("## 🔒 Security Findings Summary")) | .id' | head -1)
