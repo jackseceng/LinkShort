@@ -2,9 +2,9 @@
 name: Security Summary
 
 on:
-  pull_request:
-    branches: ["main"]
-    types: [opened, synchronize, reopened]
+  workflow_run:
+    workflows: ["Code", "Container"]
+    types: [completed]
 
 jobs:
   comment:
@@ -16,36 +16,12 @@ jobs:
       checks: read
 
     steps:
-      - name: Wait for security checks
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-          SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          checks=("Container" "Code")
-          timeout=1800
-          elapsed=0
-          while true; do
-            all_done=true
-            for check in "${checks[@]}"; do
-              statuses=$(gh api "repos/$REPO/commits/$SHA/check-runs" \
-                --jq "[.check_runs[] | select(.name | startswith(\"$check\") or contains(\"$check\"))] | map(.status) | unique | .[]" 2>/dev/null)
-              for s in $statuses; do
-                [[ "$s" != "completed" ]] && all_done=false && break 2
-              done
-            done
-            $all_done && break
-            [[ $elapsed -ge $timeout ]] && echo "Timed out waiting for checks" && exit 1
-            sleep 30
-            elapsed=$(( elapsed + 30 ))
-          done
-
       - name: Fetch findings and post comment
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          PR: ${{ github.event.pull_request.number }}
-          REF: ${{ github.event.pull_request.head.ref }}
+          PR: ${{ github.event.workflow_run.pull_requests[0].number }}
+          REF: ${{ github.event.workflow_run.head_branch }}
         run: |
           declare -A tool_counts
           tools=("Grype" "Trivy" "docker-scout" "Semgrep" "CodeQL")
