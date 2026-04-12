@@ -23,7 +23,7 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
         run: |
           declare -A tool_counts
-          tools=("Grype" "Trivy" "docker-scout" "Semgrep PRO" "CodeQL")
+          tools=("Grype" "Trivy" "Docker Scout" "Semgrep PRO" "CodeQL")
           labels=("Grype" "Trivy" "Scout" "Semgrep" "CodeQL")
 
           all_alerts="[]"

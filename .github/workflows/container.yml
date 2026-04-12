@@ -101,7 +101,7 @@ jobs:
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.get_tag.outputs.tag }}'
           scan-type: 'image'
-          ignore-unfixed: true
+          ignore-unfixed: false
           severity: 'CRITICAL,HIGH,MEDIUM'
           format: 'sarif'
           output: 'results.sarif'
