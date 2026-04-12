@@ -72,7 +72,7 @@ jobs:
 
           sep=$'\n'
           header="## 🔒 Security Findings Summary"
-          summary="> [!${alert_type}]${sep}> **Total findings:** $total | **Highest severity:** $highest"
+          summary="> [!${alert_type}]${sep}> **Total findings:** $total which are at most $highest severity." 
           findings_table="| File | CVE / Rule | Description | Severity | Tool |${sep}|------|-----------|-------------|----------|------|${sep}${details}"
           dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
           dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
