@@ -74,13 +74,11 @@ jobs:
             rows+="| $label | $c |"$'\n'
           done
 
-          body="## 🔒 Security Findings Summary
-
-| Tool | Open Findings |
-|------|--------------|
-${rows}| **Total** | **$total** |
-
-> View details in the [Security tab](https://github.com/$REPO/security/code-scanning?q=is%3Aopen+pr%3A$PR)."
+          header="## 🔒 Security Findings Summary"
+          sep=$'\n'
+          table="| Tool | Open Findings |${sep}|------|--------------|${sep}${rows}| **Total** | **$total** |"
+          footer="> View details in the [Security tab](https://github.com/$REPO/security/code-scanning?q=is%3Aopen+pr%3A$PR)."
+          body="${header}${sep}${sep}${table}${sep}${sep}${footer}"
 
           existing=$(gh api "repos/$REPO/issues/$PR/comments" \
             --jq '.[] | select(.body | startswith("## 🔒 Security Findings Summary")) | .id' | head -1)
