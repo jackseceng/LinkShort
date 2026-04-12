@@ -51,7 +51,7 @@ jobs:
             rows+="| $label | $c |"$'\n'
           done
 
-          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path):\(.most_recent_instance.location.start_line) | \(.tool.name) | \(.rule.severity) | \(.most_recent_instance.message.text | .[0:150]) |"')
+          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path | ltrimstr("linkshort/") | gsub("//"; "/")):\(.most_recent_instance.location.start_line) | \(.tool.name) | \(.rule.severity) | \(.most_recent_instance.message.text | gsub("\n"; " ") | gsub("\\s+"; " ") | .[0:150]) |"')
 
           sep=$'\n'
           header="## 🔒 Security Findings Summary"
