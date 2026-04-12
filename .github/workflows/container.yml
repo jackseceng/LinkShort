@@ -4,8 +4,20 @@ name: Container
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'Dockerfile'
+      - 'docker-compose.yaml'
+      - '.dockerignore'
+      - 'app/**'
+      - '!app/static/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'Dockerfile'
+      - 'docker-compose.yaml'
+      - '.dockerignore'
+      - 'app/**'
+      - '!app/static/**'
   workflow_call:
 
 env:
