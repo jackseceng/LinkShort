@@ -21,26 +21,14 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
           PR: ${{ github.event.pull_request.number }}
-          REF: ${{ github.event.pull_request.head.ref }}
         run: |
           declare -A tool_counts
-          tools=("Grype" "Trivy" "docker-scout" "Semgrep" "CodeQL")
+          tools=("Grype" "Trivy" "docker-scout" "Semgrep PRO" "CodeQL")
           labels=("Grype" "Trivy" "Scout" "Semgrep" "CodeQL")
-
-          echo "=== Raw alerts (no ref filter) ==="
-          gh api "repos/$REPO/code-scanning/alerts?state=open&per_page=10" 2>/dev/null | jq '[.[] | {tool: .tool.name, ref: .most_recent_instance.ref, state: .state}]'
-          echo "==================================="
-
-          echo "=== Querying ref: refs/heads/$REF ==="
-          echo "=== Full first page response ==="
-          gh api "repos/$REPO/code-scanning/alerts?ref=refs/heads/$REF&state=open&per_page=100&page=1" 2>&1 | jq '.'
-          echo "================================"
 
           page=1
           while true; do
-            batch=$(gh api "repos/$REPO/code-scanning/alerts?ref=refs/heads/$REF&state=open&per_page=100&page=$page" 2>&1 || echo "[]")
-            echo "=== Page $page: $count alerts, batch sample ==="
-            echo "$batch" | jq '[.[] | {tool: .tool.name, ref: .most_recent_instance.ref}] | .[0:3]' 2>/dev/null || echo "$batch"
+            batch=$(gh api "repos/$REPO/code-scanning/alerts?pr=$PR&state=open&per_page=100&page=$page" 2>/dev/null || echo "[]")
             count=$(echo "$batch" | jq 'length')
             [[ "$count" -eq 0 ]] && break
             for tool in "${tools[@]}"; do
