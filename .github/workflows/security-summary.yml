@@ -47,7 +47,7 @@ jobs:
             total=$(( total + c ))
           done
 
-          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path | ltrimstr("linkshort/") | gsub("//"; "/")):\(.most_recent_instance.location.start_line) | \(.rule.description) | \(.rule.security_severity_level // .rule.severity) | [\(.rule.id)](\(.html_url)) | \(.tool.name) |"' | grep -v '^$')
+          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path | ltrimstr("linkshort/") | gsub("//"; "/")):\(.most_recent_instance.location.start_line) | \(.rule.description) | \(.rule.security_severity_level // .rule.severity) | \(.rule.id) | \(.tool.name) |"' | grep -v '^$')
 
           severity_order=("critical" "high" "error" "medium" "warning" "low" "note")
           highest="none"
