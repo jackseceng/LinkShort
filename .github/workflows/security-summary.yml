@@ -47,7 +47,7 @@ jobs:
             total=$(( total + c ))
           done
 
-          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path | ltrimstr("linkshort/") | gsub("//"; "/")):\(.most_recent_instance.location.start_line) | [\(.rule.id)](\(.html_url)) | \(.rule.description) | \(.rule.security_severity_level // .rule.severity) | \(.tool.name) |"' | grep -v '^$')
+          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path | ltrimstr("linkshort/") | gsub("//"; "/")):\(.most_recent_instance.location.start_line) | \(.rule.description) | \(.rule.security_severity_level // .rule.severity) | [\(.rule.id)](\(.html_url)) | \(.tool.name) |"' | grep -v '^$')
 
           severity_order=("critical" "high" "error" "medium" "warning" "low" "note")
           highest="none"
@@ -73,7 +73,7 @@ jobs:
           sep=$'\n'
           header="## 🔒 Security Findings Summary"
           summary="> [!${alert_type}]${sep}> **$total** findings, some of which are **$highest** severity." 
-          findings_table="| File | CVE / Rule | Description | Severity | Tool |${sep}|------|-----------|-------------|----------|------|${sep}${details}"
+          findings_table="| File | Description | Severity | CVE / Rule | Tool |${sep}|------|-------------|----------|-----------|------|${sep}${details}"
           dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
           dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
           footer="> Any findings must be fixed or justified, see [repository PR guidance](https://github.com/jackseceng/LinkShort?tab=contributing-ov-file#making-prs) for details."
