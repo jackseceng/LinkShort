@@ -2,9 +2,9 @@
 name: Security Summary
 
 on:
-  workflow_run:
-    workflows: ["PR Checks"]
-    types: [completed]
+  pull_request:
+    branches: ["main"]
+    types: [ready_for_review]
 
 jobs:
   comment:
@@ -20,8 +20,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          PR: ${{ github.event.workflow_run.pull_requests[0].number }}
-          REF: ${{ github.event.workflow_run.head_branch }}
+          PR: ${{ github.event.pull_request.number }}
+          REF: ${{ github.event.pull_request.head.ref }}
         run: |
           declare -A tool_counts
           tools=("Grype" "Trivy" "docker-scout" "Semgrep" "CodeQL")
