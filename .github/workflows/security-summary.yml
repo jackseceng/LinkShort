@@ -26,11 +26,13 @@ jobs:
           tools=("Grype" "Trivy" "docker-scout" "Semgrep PRO" "CodeQL")
           labels=("Grype" "Trivy" "Scout" "Semgrep" "CodeQL")
 
+          all_alerts="[]"
           page=1
           while true; do
             batch=$(gh api "repos/$REPO/code-scanning/alerts?pr=$PR&state=open&per_page=100&page=$page" 2>/dev/null || echo "[]")
             count=$(echo "$batch" | jq 'length')
             [[ "$count" -eq 0 ]] && break
+            all_alerts=$(echo "$all_alerts $batch" | jq -s 'add')
             for tool in "${tools[@]}"; do
               n=$(echo "$batch" | jq --arg t "$tool" '[.[] | select(.tool.name | ascii_downcase | contains($t | ascii_downcase))] | length')
               tool_counts[$tool]=$(( ${tool_counts[$tool]:-0} + n ))
@@ -49,18 +51,15 @@ jobs:
             rows+="| $label | $c |"$'\n'
           done
 
-          echo "=== Security Findings ==="
-          for i in "${!tools[@]}"; do
-            echo "${labels[$i]}: ${tool_counts[${tools[$i]}]:-0}"
-          done
-          echo "Total: $total"
-          echo "========================="
+          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path):\(.most_recent_instance.location.start_line) | \(.tool.name) | \(.rule.severity) | \(.most_recent_instance.message.text) |"')
 
-          header="## 🔒 Security Findings Summary"
           sep=$'\n'
+          header="## 🔒 Security Findings Summary"
           table="| Tool | Open Findings |${sep}|------|--------------|${sep}${rows}| **Total** | **$total** |"
+          findings_table="| File | Tool | Severity | Description |${sep}|------|------|----------|-------------|${sep}${details}"
+          dropdown="<details><summary>View all findings</summary>${sep}${sep}${findings_table}${sep}${sep}</details>"
           footer="> View details in the [Security tab](https://github.com/jackseceng/LinkShort/security/code-scanning?query=is%3Aopen+pr%3A$PR+)."
-          body="${header}${sep}${sep}${table}${sep}${sep}${footer}"
+          body="${header}${sep}${sep}${table}${sep}${sep}${dropdown}${sep}${sep}${footer}"
 
           existing=$(gh api "repos/$REPO/issues/$PR/comments" \
             --jq '.[] | select(.body | startswith("## 🔒 Security Findings Summary")) | .id' | head -1)
