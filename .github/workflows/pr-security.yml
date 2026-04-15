@@ -1,12 +1,11 @@
 ---
-name: PR Security
+name: Security
 
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-    types: [ready_for_review]
 
 env:
   REGISTRY: docker.io
@@ -180,6 +179,7 @@ jobs:
         run: |
           declare -A tool_counts
           tools=("Grype" "Trivy" "Docker Scout" "Semgrep PRO" "CodeQL")
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
 
           all_alerts="[]"
           page=1
@@ -187,6 +187,7 @@ jobs:
             batch=$(gh api "repos/$REPO/code-scanning/alerts?pr=$PR&state=open&per_page=100&page=$page" 2>/dev/null || echo "[]")
             count=$(echo "$batch" | jq 'length')
             [[ "$count" -eq 0 ]] && break
+            batch=$(echo "$batch" | jq --arg sha "$HEAD_SHA" '[.[] | select(.most_recent_instance.commit_sha == $sha)]')
             all_alerts=$(echo "$all_alerts $batch" | jq -s 'add')
             for tool in "${tools[@]}"; do
               n=$(echo "$batch" | jq --arg t "$tool" '[.[] | select(.tool.name | ascii_downcase | contains($t | ascii_downcase))] | length')
