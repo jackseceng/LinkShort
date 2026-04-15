@@ -194,7 +194,7 @@ jobs:
               tool_counts[$tool]=$(( ${tool_counts[$tool]:-0} + n ))
             done
             [[ "$count" -lt 100 ]] && break
-            (( page++ ))
+            (( page++ )) || true
           done
 
           total=0
@@ -204,7 +204,7 @@ jobs:
             total=$(( total + c ))
           done
 
-          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path | ltrimstr("linkshort/") | gsub("//"; "/")):\(.most_recent_instance.location.start_line) | \(.rule.description) | \(.rule.security_severity_level // .rule.severity) | \(.tool.name) |"' | grep -v '^$')
+          details=$(echo "$all_alerts" | jq -r '.[] | "| \(.most_recent_instance.location.path | ltrimstr("linkshort/") | gsub("//"; "/")):\(.most_recent_instance.location.start_line) | \(.rule.description) | \(.rule.security_severity_level // .rule.severity) | \(.tool.name) |"' | grep -v '^$' || true)
 
           severity_order=("critical" "high" "error" "medium" "warning" "low" "note")
           highest="none"
