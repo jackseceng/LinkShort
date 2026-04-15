@@ -221,8 +221,9 @@ jobs:
             count=$(echo "$batch" | jq 'length')
             [[ "$count" -eq 0 ]] && break
             all_alerts=$(echo "$all_alerts $batch" | jq -s 'add')
+            head_batch=$(echo "$batch" | jq --arg sha "$HEAD_SHA" '[.[] | select(.most_recent_instance.commit_sha == $sha)]')
             for tool in "${tools[@]}"; do
-              n=$(echo "$batch" | jq --arg t "$tool" '[.[] | select(.tool.name | ascii_downcase | contains($t | ascii_downcase))] | length')
+              n=$(echo "$head_batch" | jq --arg t "$tool" '[.[] | select(.tool.name | ascii_downcase | contains($t | ascii_downcase))] | length')
               tool_counts[$tool]=$(( ${tool_counts[$tool]:-0} + n ))
             done
             [[ "$count" -lt 100 ]] && break
