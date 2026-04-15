@@ -22,6 +22,7 @@ jobs:
     outputs:
       code: ${{ steps.filter.outputs.code }}
       container: ${{ steps.filter.outputs.container }}
+      scans_ran: ${{ steps.filter.outputs.code == 'true' || steps.filter.outputs.container == 'true' }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
@@ -194,7 +195,7 @@ jobs:
           sarif_file: results.sarif
 
   comment:
-    needs: [semgrep, codeql, container-scan]
+    needs: [changes, semgrep, codeql, container-scan]
     if: github.event_name == 'pull_request' && always()
     runs-on: ubuntu-24.04
     permissions:
@@ -219,7 +220,6 @@ jobs:
             batch=$(gh api "repos/$REPO/code-scanning/alerts?pr=$PR&state=open&per_page=100&page=$page" 2>/dev/null || echo "[]")
             count=$(echo "$batch" | jq 'length')
             [[ "$count" -eq 0 ]] && break
-            batch=$(echo "$batch" | jq --arg sha "$HEAD_SHA" '[.[] | select(.most_recent_instance.commit_sha == $sha)]')
             all_alerts=$(echo "$all_alerts $batch" | jq -s 'add')
             for tool in "${tools[@]}"; do
               n=$(echo "$batch" | jq --arg t "$tool" '[.[] | select(.tool.name | ascii_downcase | contains($t | ascii_downcase))] | length')
@@ -274,4 +274,5 @@ jobs:
           echo "$body" > /tmp/comment-body.md
           gh pr comment "$PR" --repo "$REPO" --body-file /tmp/comment-body.md || true
 
-          [[ "$total" -gt 0 ]] && echo "::error::$total open security finding(s) found. Any findings must be fixed or justified, see repository PR guidance for details https://github.com/jackseceng/LinkShort?tab=contributing-ov-file#making-prs" && exit 1
+          scans_ran="${{ needs.changes.outputs.scans_ran }}"
+          [[ "$scans_ran" == "true" && "$total" -gt 0 ]] && echo "::error::$total open security finding(s) found. Any findings must be fixed or justified, see repository PR guidance for details https://github.com/jackseceng/LinkShort?tab=contributing-ov-file#making-prs" && exit 1
