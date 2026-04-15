@@ -13,7 +13,34 @@ env:
   IMAGE_NAME: linkshort
 
 jobs:
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      code: ${{ steps.filter.outputs.code }}
+      container: ${{ steps.filter.outputs.container }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        id: filter
+        with:
+          filters: |
+            code:
+              - 'app/**'
+              - 'requirements.txt'
+              - '.github/workflows/security.yml'
+            container:
+              - 'Dockerfile'
+              - 'docker-compose.yaml'
+              - '.dockerignore'
+              - 'requirements.txt'
+              - '.github/workflows/security.yml'
+
   semgrep:
+    needs: changes
     name: Analyze (semgrep)
     runs-on: ubuntu-latest
     permissions:
@@ -24,7 +51,7 @@ jobs:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
     container:
       image: semgrep/semgrep
-    if: github.actor != 'dependabot[bot]'
+    if: github.actor != 'dependabot[bot]' && needs.changes.outputs.code == 'true'
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - run: semgrep ci --sarif --output semgrep.sarif
@@ -35,8 +62,10 @@ jobs:
         if: always()
 
   codeql:
+    needs: changes
     name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-24.04
+    if: needs.changes.outputs.code == 'true'
     permissions:
       security-events: write
       packages: read
@@ -64,8 +93,10 @@ jobs:
           category: "/language:${{matrix.language}}"
 
   container:
+    needs: changes
     name: Build and Push
     runs-on: ubuntu-24.04
+    if: needs.changes.outputs.container == 'true'
     permissions:
       contents: read
       packages: write
@@ -93,7 +124,8 @@ jobs:
           sbom: true
 
   container-scan:
-    needs: container
+    needs: [changes, container]
+    if: needs.changes.outputs.container == 'true'
     name: ${{ matrix.scanner.name }} Scan
     runs-on: ubuntu-latest
     strategy:
@@ -163,7 +195,7 @@ jobs:
 
   comment:
     needs: [semgrep, codeql, container-scan]
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && always()
     runs-on: ubuntu-24.04
     permissions:
       security-events: read
