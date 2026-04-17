@@ -145,7 +145,7 @@ for f in app/static/*; do echo "$(basename $f): sha384-$(openssl dgst -sha384 -b
 > In production, you must also purge the Cloudflare cache for any updated files, otherwise the CDN will continue serving the old version.
 > This can be done in the Cloudflare dashboard under Caching > Configuration > Custom Purge, entering the full URL of each updated file.
 
-> [!NOTE]
-> CI/CD pipelines in this project run on [Blacksmith](https://blacksmith.sh) runners.
+### CI Runners
+CI/CD pipelines in this project run on [Blacksmith](https://blacksmith.sh) runners.
 
 ## Developed by [Jack](https://jacksec.engineer)
