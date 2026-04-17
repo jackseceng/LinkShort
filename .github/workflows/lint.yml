@@ -32,7 +32,7 @@ jobs:
       - name: Lint GitHub Actions
         uses: raven-actions/actionlint@01fce4f43a270a612932cb1c64d40505a029f821 # v2.0.0
         with:
-          flags: "-config .github/actionlint.yml"
+          flags: "-config-file .github/actionlint.yml"
 
       - name: Lint Codebase
         uses: super-linter/super-linter/slim@9e863354e3ff62e0727d37183162c4a88873df41 # v8.6.0
