@@ -147,3 +147,5 @@ for f in app/static/*; do echo "$(basename $f): sha384-$(openssl dgst -sha384 -b
 > This can be done in the Cloudflare dashboard under Caching > Configuration > Custom Purge, entering the full URL of each updated file.
 
 ## Developed by [Jack](https://jacksec.engineer)
+
+CI/CD pipelines in this project run on [Blacksmith](https://blacksmith.sh) runners.
