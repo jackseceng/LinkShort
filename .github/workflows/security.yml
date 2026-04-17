@@ -113,9 +113,9 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
       - name: Setup Blacksmith Builder
-        uses: useblacksmith/setup-docker-builder@ac083cc84672d01c60d5e8561d0a939b697de542 v1.7.0
+        uses: useblacksmith/setup-docker-builder@ac083cc84672d01c60d5e8561d0a939b697de542 # v1.7.0
       - name: Build and Push
-        uses: useblacksmith/build-push-action@v2
+        uses: useblacksmith/build-push-action@cbd1f60d194a98cb3be5523b15134501eaf0fbf3 # v2.1.0
         with:
           context: .
           push: true
@@ -187,7 +187,6 @@ jobs:
           only-severities: critical,high,medium
           only-fixed: true
           sarif-file: results.sarif
-          write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload SARIF results
         uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
