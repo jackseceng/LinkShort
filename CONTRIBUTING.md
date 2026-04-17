@@ -17,7 +17,7 @@ Follow the instructions in the `readme` to test locally on your machine, please 
 
 When raising a pull request to this repository, there are several checks that must pass for code quality, security and standardisation reasons.
 
-The checks will need to run their tools, and any findings must be resolved in order for your PR to be acceptable, you can trigger them by changing your PR status to `Ready for Review`.
+The checks will need to run their tools, and any findings must be resolved in order for your PR to be acceptable, they will run automatically when a PR is raised.
 > [!NOTE]
 > Details about this process are on [the PR guidance section of the pipeline automation wiki page](https://github.com/jackseceng/LinkShort/wiki/Pipeline-Automation#checking-prs)
 
