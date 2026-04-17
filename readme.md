@@ -1,7 +1,6 @@
 # LinkShort
 
-[![SAST](https://github.com/jackseceng/LinkShort/actions/workflows/codeql.yml/badge.svg)](https://codeql.github.com/)
-[![Image Scans](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml)
+[![Security Scans](https://github.com/jackseceng/LinkShort/actions/workflows/security.yml/badge.svg)](https://github.com/jackseceng/LinkShort/actions/workflows/container.yml)
 ![Image Size](https://img.shields.io/docker/image-size/jackseceng/linkshort/latest)
 ![Codebase Size](https://img.shields.io/github/languages/code-size/jackseceng/LinkShort)
 
@@ -146,6 +145,7 @@ for f in app/static/*; do echo "$(basename $f): sha384-$(openssl dgst -sha384 -b
 > In production, you must also purge the Cloudflare cache for any updated files, otherwise the CDN will continue serving the old version.
 > This can be done in the Cloudflare dashboard under Caching > Configuration > Custom Purge, entering the full URL of each updated file.
 
-## Developed by [Jack](https://jacksec.engineer)
+> [!NOTE]
+> CI/CD pipelines in this project run on [Blacksmith](https://blacksmith.sh) runners.
 
-CI/CD pipelines in this project run on [Blacksmith](https://blacksmith.sh) runners.
+## Developed by [Jack](https://jacksec.engineer)
