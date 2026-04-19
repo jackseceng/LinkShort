@@ -96,22 +96,12 @@ jobs:
   container:
     needs: changes
     name: Build and Push
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     if: needs.changes.outputs.container == 'true'
     permissions:
       contents: read
       packages: write
       id-token: write
-    strategy:
-      matrix:
-        platform: [amd64, arm64]
-        include:
-          - platform: amd64
-            runner: blacksmith-4vcpu-ubuntu-2404
-            docker_platform: linux/amd64
-          - platform: arm64
-            runner: blacksmith-4vcpu-ubuntu-2404-arm
-            docker_platform: linux/arm64
-    runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -127,8 +117,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event_name == 'pull_request' && github.event.number || 'latest' }}-${{ matrix.platform }}
-          platforms: ${{ matrix.docker_platform }}
+          tags: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event_name == 'pull_request' && github.event.number || 'latest' }}
+          platforms: linux/amd64
           provenance: true
           sbom: true
 
