@@ -96,26 +96,39 @@ jobs:
   container:
     needs: changes
     name: Build and Push
-    runs-on: blacksmith-4vcpu-ubuntu-2404
     if: needs.changes.outputs.container == 'true'
     permissions:
       contents: read
       packages: write
       id-token: write
+    strategy:
+      matrix:
+        platform: [amd64, arm64]
+        include:
+          - platform: amd64
+            runner: blacksmith-4vcpu-ubuntu-2404
+            docker_platform: linux/amd64
+          - platform: arm64
+            runner: blacksmith-4vcpu-ubuntu-2404-arm
+            docker_platform: linux/arm64
+    runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Setup Blacksmith Builder
         uses: useblacksmith/setup-docker-builder@ac083cc84672d01c60d5e8561d0a939b697de542 # v1.7.0
-      - name: Build and Push
-        uses: useblacksmith/build-push-action@cbd1f60d194a98cb3be5523b15134501eaf0fbf3 # v2.1.0
+      - name: Login to Docker Hub
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and Push
+        uses: useblacksmith/build-push-action@cbd1f60d194a98cb3be5523b15134501eaf0fbf3 # v2.1.0
+        with:
           context: .
           push: true
-          tags: |
-            ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event_name == 'pull_request' && github.event.number || 'latest' }}
+          tags: ${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.event_name == 'pull_request' && github.event.number || 'latest' }}-${{ matrix.platform }}
+          platforms: ${{ matrix.docker_platform }}
           provenance: true
           sbom: true
 
