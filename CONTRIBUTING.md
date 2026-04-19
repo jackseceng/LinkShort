@@ -17,9 +17,9 @@ Follow the instructions in the `readme` to test locally on your machine, please 
 
 When raising a pull request to this repository, there are several checks that must pass for code quality, security and standardisation reasons.
 
-The checks will need to run their tools, and any findings must be resolved in order for your PR to be acceptable, they will run automatically when a PR is raised.
+The checks will need to run their tools, and any findings must be resolved in order for your PR to be acceptable, they will run automatically when a Pull Request is raised.
 > [!NOTE]
-> Details about this process are on [the PR guidance section of the pipeline automation wiki page](https://github.com/jackseceng/LinkShort/wiki/Pipeline-Automation#checking-prs)
+> Details about this process are on [the pipeline automation wiki page](https://github.com/jacksec-engineer/LinkShort/wiki/Pipeline-Automation#checking-pull-requests)
 
 If all checks pass (or are justified as to why they don't to a `CODEOWNER`), The PR must be merged to the main branch for deployment of static assets and/or the container image.
 
