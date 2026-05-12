@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Super Linter Pre-Commit Check",
+  "description": "Runs Super Linter via Docker before any shell command that looks like a git commit, and blocks the commit if linting errors are found. Fixes any errors before proceeding.",
+  "version": "1",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": [
+      "shell"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A shell command is about to be executed. If it is a `git commit` command, you MUST first run Super Linter using this exact Docker command from the repo root before allowing the commit to proceed:\n\n```\ndocker run --rm -e DEFAULT_BRANCH=origin/main -e VALIDATE_ALL_CODEBASE=true -e VALIDATE_CSS=true -e VALIDATE_DOCKERFILE_HADOLINT=true -e VALIDATE_GITLEAKS=true -e VALIDATE_GITHUB_ACTIONS=true -e VALIDATE_HTML=true -e VALIDATE_MARKDOWN=true -e VALIDATE_PYTHON_BLACK=true -e VALIDATE_PYTHON_ISORT=true -e VALIDATE_YAML=true -e VALIDATE_JAVASCRIPT_PRETTIER=true -e FILTER_REGEX_EXCLUDE='.app/static/qrcode.min.js' -e RUN_LOCAL=true -v /home/jack/Repos/LinkShort:/tmp/lint ghcr.io/super-linter/super-linter:slim-v8.6.0\n```\n\nIf Super Linter reports any ERRORS (not warnings), you MUST fix all errors in the relevant files before allowing the commit. Do not proceed with the commit until Super Linter reports \"All files and directories linted successfully\". If the command is not a git commit, allow it to proceed immediately without running Super Linter."
+  }
+}
