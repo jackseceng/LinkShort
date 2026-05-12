@@ -4,15 +4,14 @@ FROM alpine:3.23 AS build-env
 # Set build directory
 WORKDIR /build
 
-# Copy application files
-COPY . .
+# Copy only what's needed for the build
+COPY requirements.txt .
+COPY app/ ./app/
 
 # Build Python 3.15.0a6 and apk dependencies from source
 RUN set -e; \
     apk add --no-cache \
     build-base=0.5-r3 \
-    cmake=4.1.3-r0 \
-    coreutils=9.8-r1 \
     libffi-dev=3.5.2-r0 \
     openssl-dev=3.5.6-r0 \
     zlib-dev=1.3.2-r0 \
@@ -29,8 +28,7 @@ RUN set -e; \
 # Install python dependencies into a target directory
 RUN set -e; \
     pip3.15 install --no-cache-dir --upgrade 'pip==26.0'; \
-    PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 pip3.15 install --no-cache-dir -r requirements.txt --target /packages; \
-    mkdir -p /tmp && chmod 1777 /tmp && chown 1001:1001 /tmp;
+    PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 pip3.15 install --no-cache-dir -r requirements.txt --target /packages;
 
 
 # Stage 2: Runtime Stage using scratch Image
@@ -47,20 +45,15 @@ COPY --from=build-env /usr/lib/libz.so.1 /usr/lib/libz.so.1
 COPY --from=build-env /usr/lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
 COPY --from=build-env /usr/lib/libffi.so.8 /usr/lib/libffi.so.8
 
-# Copy Python installation
+# Copy Python binary
 COPY --from=build-env /usr/local/bin/python /usr/local/bin/python
 
 # Copy CA certificates needed for SSL verification
 COPY --from=build-env /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
-# Copy installed packages
+# Copy installed packages and application code
 COPY --from=build-env /packages /packages
-
-# Copy application code
 COPY --from=build-env /build/app /app
-
-# Copy tmp directory (required for Python/gunicorn)
-COPY --from=build-env /tmp /tmp
 
 # Set required environment variables for Python
 ENV PYTHONUNBUFFERED=1 \
@@ -76,7 +69,7 @@ WORKDIR /app
 # Expose the application port
 EXPOSE 80
 
-# Set up container healthcheck 
+# Set up container healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
     CMD ["/usr/local/bin/python", "healthcheck/healthcheck.py"]
 
