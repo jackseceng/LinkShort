@@ -105,10 +105,44 @@ After updating templates, rebuild the container. In production, also purge the C
 - Use `http.HTTPStatus` constants instead of raw integer status codes
 - New database operations go in `turso_mgmt.py`; URL logic goes in `url_mgmt.py`; routing stays in `app.py`
 
+## Linting
+Before committing, run the Super Linter task to validate code style and formatting locally.
+
+In the IDE: open the Command Palette, select **Tasks: Run Task**, then choose **Super Linter**.
+
+This runs the following validators inside Docker against the full codebase:
+- Python: `black`, `isort`
+- CSS, HTML, Markdown, YAML, JavaScript (Prettier)
+- Dockerfile: `hadolint`
+- GitHub Actions
+- Secret scanning: `gitleaks`
+
+The task requires Docker to be running. Output appears in a new terminal panel. Fix any reported issues before committing.
+
+## Commit Format
+All commits must follow the [Conventional Commits](https://www.conventionalcommits.org/) format. This is enforced by CI on every PR to `main`.
+
+Format:
+```
+<type>(<optional scope>): <description>
+```
+
+Allowed types: `feat`, `fix`, `chore`, `docs`, `refactor`, `build`, `ci`, `style`, `perf`, `test`
+
+Examples:
+```
+feat: add custom URL extension support
+fix: handle null response from turso on get_link
+chore: pin cryptography to 47.0.0
+docs: update SRI hash regeneration instructions
+refactor: extract turnstile validation into url_mgmt
+ci: add super-linter workflow
+```
+
 ## CI/CD
 Pipelines run on [Blacksmith](https://blacksmith.sh) runners via GitHub Actions:
 - `lint.yml` — linting
 - `security.yml` — security scans
 - `semver.yml` — semantic versioning
 - `r2-upload.yml` — static asset upload to R2
-- `conventional-commits.yml` — commit message enforcement
+- `conventional-commits.yml` — commit message enforcement (conventional commits required on all PRs to `main`)
