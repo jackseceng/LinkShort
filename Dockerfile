@@ -25,10 +25,14 @@ RUN set -e; \
     make install; \
     ln -s /usr/local/bin/python3.15 /usr/local/bin/python;
 
-# Install python dependencies into a target directory
+# Install python dependencies into a target directory, then remove pip so it
+# is not present in the runtime image (avoids shipping pip CVEs at runtime)
 RUN set -e; \
     pip3.15 install --no-cache-dir --upgrade 'pip==26.0'; \
-    PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 pip3.15 install --no-cache-dir -r requirements.txt --target /packages;
+    PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 pip3.15 install --no-cache-dir -r requirements.txt --target /packages; \
+    pip3.15 uninstall -y pip setuptools wheel 2>/dev/null || true; \
+    find /usr/local/lib/python3.15 -type d -name 'pip*' -exec rm -rf {} + 2>/dev/null || true; \
+    find /usr/local/lib/python3.15 -type d -name 'setuptools*' -exec rm -rf {} + 2>/dev/null || true;
 
 
 # Stage 2: Runtime Stage using scratch Image
