@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "SRI Hash Check on Static Asset Change",
+  "description": "When a file in app/static/ is saved, reminds to regenerate SRI hashes and update the integrity attributes in all HTML templates before committing.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "app/static/*"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A file in app/static/ was just edited. Per project conventions, any change to a static asset requires regenerating its SRI hash and updating the matching `integrity` attribute in all referencing HTML templates under app/templates/.\n\n1. Run the following command to get the updated hashes:\n```\nfor f in app/static/*; do\n  echo \"$(basename $f): sha384-$(openssl dgst -sha384 -binary $f | openssl base64 -A)\"\ndone\n```\n2. Update the `integrity` attribute in any `app/templates/*.html` file that references the changed static file(s).\n3. Remind the user to rebuild the container after updating templates, and to purge the Cloudflare cache for changed files in production.\n\nSurface this as a reminder so it is not forgotten before the next commit."
+  }
+}

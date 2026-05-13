@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Conventional Commit Format Check",
+  "description": "Before a git commit shell command is executed, validates that the commit message follows the Conventional Commits format required by CI. Blocks the commit if the message is invalid.",
+  "version": "1",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": [
+      "shell"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A shell command is about to be executed. If it is a `git commit` command, extract the commit message from the `-m` flag (or commit message file if `-F` is used) and validate it against the Conventional Commits format BEFORE allowing the commit to proceed.\n\nRequired format:\n```\n<type>(<optional scope>): <description>\n```\n\nAllowed types: `feat`, `fix`, `chore`, `docs`, `refactor`, `build`, `ci`, `style`, `perf`, `test`\n\nValid examples:\n- `feat: add custom URL extension support`\n- `fix: handle null response from turso on get_link`\n- `chore(deps): pin cryptography to 47.0.0`\n- `docs: update SRI hash regeneration instructions`\n\nIf the commit message does NOT match this format, block the commit and tell the user exactly what is wrong and how to fix it. Do not proceed until the message is valid.\n\nIf the command is not a `git commit`, allow it to proceed immediately without any checks."
+  }
+}
