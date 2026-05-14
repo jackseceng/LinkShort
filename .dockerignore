@@ -1,6 +1,5 @@
 .github/*
 .gitignore
-app/.env
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 docker-compose.yaml
