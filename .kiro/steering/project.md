@@ -162,7 +162,7 @@ ci: add super-linter workflow
 
 ## CI/CD
 
-Pipelines run on [Blacksmith](https://blacksmith.sh) runners via GitHub Actions:
+Pipeline runners via GitHub Actions:
 
 - `lint.yml` — linting
 - `security.yml` — security scans
