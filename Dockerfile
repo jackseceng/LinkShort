@@ -16,7 +16,7 @@ RUN set -e; \
     openssl-dev=3.5.8-r0 \
     zlib-dev=1.3.2-r0 \
     bzip2-dev=1.0.8-r6 \
-    xz-dev=5.8.3-r0 \
+    xz-dev=5.8.4-r0 \
     wget=1.25.0-r3; \
     wget --progress=dot:giga https://www.python.org/ftp/python/3.15.0/Python-3.15.0b2.tgz; \
     tar -xzf Python-3.15.0b2.tgz; \
